@@ -7,7 +7,7 @@ export const config = {
   matcher: ['/admin/:path*'],
 };
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Allow the login page and its API through
