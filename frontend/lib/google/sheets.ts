@@ -58,3 +58,24 @@ export async function updateSheetRow(
     requestBody: { values },
   });
 }
+
+// Deletes a single sheet row by 0-based row index (0 = header row, 1 = first data row)
+export async function deleteSheetRow(sheetId: string, sheetTabId: number, rowIndex: number) {
+  const auth = getAuth();
+  const sheets = google.sheets({ version: 'v4', auth });
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId: sheetId,
+    requestBody: {
+      requests: [{
+        deleteDimension: {
+          range: {
+            sheetId: sheetTabId,
+            dimension: 'ROWS',
+            startIndex: rowIndex,
+            endIndex: rowIndex + 1,
+          },
+        },
+      }],
+    },
+  });
+}

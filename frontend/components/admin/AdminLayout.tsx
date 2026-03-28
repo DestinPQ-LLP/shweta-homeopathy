@@ -4,12 +4,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import styles from './AdminLayout.module.css';
 
 const NAV = [
-  { href: '/admin/dashboard', icon: '🏠', label: 'Dashboard' },
-  { href: '/admin/blog',      icon: '📝', label: 'Blog Posts' },
-  { href: '/admin/media',     icon: '🖼️', label: 'Media Library' },
-  { href: '/admin/leads',     icon: '📋', label: 'Leads' },
-  { href: '/admin/notes',     icon: '🗒️', label: 'Session Notes' },
-  { href: '/admin/settings',  icon: '⚙️', label: 'Settings' },
+  { href: '/admin/dashboard',     icon: '🏠', label: 'Dashboard' },
+  { href: '/admin/blog',          icon: '📝', label: 'Blog Posts' },
+  { href: '/admin/media',         icon: '🖼️', label: 'Media Library' },
+  { href: '/admin/leads',         icon: '📋', label: 'Leads' },
+  { href: '/admin/testimonials',  icon: '⭐', label: 'Testimonials' },
+  { href: '/admin/notes',         icon: '🗒️', label: 'Session Notes' },
+  { href: '/admin/settings',      icon: '⚙️', label: 'Settings' },
 ];
 
 export default function AdminLayout({ children, title }: { children: React.ReactNode; title?: string }) {

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { testimonials } from '@/lib/content';
+import { getPublishedTestimonials, type Testimonial } from '@/lib/testimonials';
+import { testimonials as fallback } from '@/lib/content';
 import { buildMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = buildMetadata({
@@ -8,12 +9,28 @@ export const metadata: Metadata = buildMetadata({
   description: "Read real patient stories and testimonials from Dr. Shweta Goyal's homeopathy clinic. Treating chronic illness, skin diseases, joint problems, and more.",
   path: '/testimonials',
 });
-export const revalidate = 3600;
+export const revalidate = 1800;
 
-export default function TestimonialsPage() {
+export default async function TestimonialsPage() {
+  let testimonials: Testimonial[] = [];
+  try {
+    testimonials = await getPublishedTestimonials();
+  } catch {
+    testimonials = fallback.map(t => ({ ...t, location: t.location ?? '', status: 'published' as const, createdAt: '' }));
+  }
+  if (testimonials.length === 0) {
+    testimonials = fallback.map(t => ({ ...t, location: t.location ?? '', status: 'published' as const, createdAt: '' }));
+  }
+
   return (
     <>
-      <section style={{ background: 'linear-gradient(160deg, hsl(152,42%,14%), hsl(152,30%,28%))', padding: 'var(--space-16) 0' }}>
+      {/* Hero — negative margin pulls it up behind the transparent header */}
+      <section style={{
+        background: 'linear-gradient(160deg, hsl(152,42%,14%), hsl(152,30%,28%))',
+        padding: 'var(--space-16) 0',
+        marginTop: 'calc(-1 * var(--header-h))',
+        paddingTop: 'calc(var(--header-h) + var(--space-16))',
+      }}>
         <div className="container">
           <span className="section-label" style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)' }}>Real Stories</span>
           <h1 style={{ color: 'var(--clr-white)', marginTop: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>Patient Testimonials</h1>
