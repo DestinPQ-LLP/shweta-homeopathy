@@ -26,7 +26,7 @@ async function test() {
   
   const sheets = google.sheets({ version: 'v4', auth });
   const res = await sheets.spreadsheets.get({ spreadsheetId: process.env.GOOGLE_SHEETS_CONDITIONS_ID });
-  console.log("Target Sheet Title:", res.data.properties.title);
+  console.log("Target Sheet Title:", res.data.properties?.title);
 }
 
 test().catch(e => {

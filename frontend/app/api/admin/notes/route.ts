@@ -56,7 +56,13 @@ export async function POST(req: NextRequest) {
     const id   = randomUUID();
     const docTitle = `Note — ${patientName} — ${date}`;
     const htmlContent = `<h1>${docTitle}</h1><pre style="font-family:inherit;white-space:pre-wrap">${cleanedNote}</pre>`;
-    const { docId, url: docUrl } = await createBlogDoc({ title: docTitle, htmlContent });
+    let docId = '', docUrl = '';
+    try {
+      const doc = await createBlogDoc({ title: docTitle, htmlContent });
+      docId = doc.docId; docUrl = doc.url;
+    } catch (e) {
+      console.warn('createBlogDoc failed (SA quota?), saving note without doc link:', (e as Error).message);
+    }
     const preview = cleanedNote.slice(0, 120).replace(/\n/g, ' ');
     const row = [id, patientName, date, caseId, driveFileId, driveFileName, docId, docUrl, 'saved', preview];
     await appendToSheet(BOOKINGS_ID(), RANGE_NOTES, [row]);

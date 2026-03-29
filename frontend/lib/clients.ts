@@ -87,8 +87,14 @@ export async function createClient(data: Omit<Client, 'id'|'docId'|'docUrl'|'dri
   // Create a Drive subfolder for this client
   const driveFolderId = await createDriveFolder(id, FOLDER_ID());
 
-  // Create client Google Doc in their subfolder
-  const { docId, url: docUrl } = await createClientDoc({ clientId: id, clientName: data.name, folderId: driveFolderId });
+  // Create client Google Doc in their subfolder (optional — fails gracefully if SA has no Drive quota)
+  let docId = '', docUrl = '';
+  try {
+    const doc = await createClientDoc({ clientId: id, clientName: data.name, folderId: driveFolderId });
+    docId = doc.docId; docUrl = doc.url;
+  } catch (e) {
+    console.warn('createClientDoc failed (SA quota?), continuing without doc link:', (e as Error).message);
+  }
 
   const client: Client = { ...data, id, docId, docUrl, driveFolderId, createdAt };
   await appendToSheet(SHEET_ID(), RANGE, [clientToRow(client)]);

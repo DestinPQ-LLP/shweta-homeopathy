@@ -81,7 +81,13 @@ export async function createBlog(data: {
   metaDescription: string; htmlContent: string;
 }): Promise<BlogPost> {
   await initBlogSheet();
-  const { docId, url: docUrl } = await createBlogDoc({ title: data.title, htmlContent: data.htmlContent });
+  let docId = '', docUrl = '';
+  try {
+    const doc = await createBlogDoc({ title: data.title, htmlContent: data.htmlContent });
+    docId = doc.docId; docUrl = doc.url;
+  } catch (e) {
+    console.warn('createBlogDoc failed (SA quota?), continuing without doc link:', (e as Error).message);
+  }
   const now = new Date().toISOString().split('T')[0];
   const post: BlogPost = {
     id: randomUUID(), title: data.title, slug: data.slug, excerpt: data.excerpt,

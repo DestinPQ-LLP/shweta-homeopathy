@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { Video } from 'lucide-react';
 import styles from './VideoSection.module.css';
 
 interface Props {
