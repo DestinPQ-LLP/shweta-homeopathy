@@ -23,10 +23,13 @@ export default function SettingsPage() {
   const gmailFrom   = process.env.GMAIL_FROM;
   const adminEmail  = process.env.ADMIN_EMAIL;
 
+  const landingSheetId = process.env.GOOGLE_SHEETS_LANDING_ID;
+
   const rows: { label: string; value: string | undefined; href?: string | null; sensitive?: boolean }[] = [
-    { label: 'Bookings Sheet ID',   value: bookingsId,    href: sheetLink(bookingsId) },
-    { label: 'Blog Sheet ID',       value: blogId,        href: sheetLink(blogId) },
-    { label: 'Drive Folder ID',     value: driveFolderId, href: driveLink(driveFolderId) },
+    { label: 'Bookings Sheet ID',   value: bookingsId,      href: sheetLink(bookingsId) },
+    { label: 'Blog Sheet ID',       value: blogId,          href: sheetLink(blogId) },
+    { label: 'Landing Sheet ID',    value: landingSheetId,  href: sheetLink(landingSheetId) },
+    { label: 'Drive Folder ID',     value: driveFolderId,   href: driveLink(driveFolderId) },
     { label: 'Gmail Sender',        value: gmailFrom },
     { label: 'Admin Email',         value: adminEmail },
     { label: 'Admin Password',      value: process.env.ADMIN_PASSWORD,  sensitive: true },

@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import ScrollProgressRail from '@/components/public/ScrollProgressRail';
-import ContextualStickyBar from '@/components/public/ContextualStickyBar';
+import TrackingScripts from '@/components/public/TrackingScripts';
+import { getTrackingConfig } from '@/lib/landing';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -23,7 +21,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const tracking = await getTrackingConfig().catch(() => ({ meta_pixel_id: '', google_ads_id: '', google_ads_label: '' }));
+
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
@@ -35,13 +35,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <ScrollProgressRail />
-        <Header />
-        <main style={{ paddingTop: 'var(--header-h)' }}>
-          {children}
-        </main>
-        <Footer />
-        <ContextualStickyBar />
+        <TrackingScripts
+          metaPixelId={tracking.meta_pixel_id}
+          googleAdsId={tracking.google_ads_id}
+          googleAdsLabel={tracking.google_ads_label}
+        />
+        {children}
       </body>
     </html>
   );

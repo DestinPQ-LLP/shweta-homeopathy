@@ -5,6 +5,7 @@ import styles from './AdminLayout.module.css';
 
 const NAV = [
   { href: '/admin/dashboard',     icon: '🏠', label: 'Dashboard' },
+  { href: '/admin/landing',       icon: '📣', label: 'Landing Page' },
   { href: '/admin/blog',          icon: '📝', label: 'Blog Posts' },
   { href: '/admin/media',         icon: '🖼️', label: 'Media Library' },
   { href: '/admin/leads',         icon: '📋', label: 'Leads' },

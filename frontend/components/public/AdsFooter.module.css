@@ -1,0 +1,111 @@
+.footer {
+  background: linear-gradient(160deg, hsl(152, 42%, 11%), hsl(152, 30%, 20%));
+  padding: var(--space-16) var(--space-6) var(--space-10);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.container {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+/* CTA block */
+.ctaBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.logoMark {
+  font-size: 2.5rem;
+  color: var(--clr-gold);
+}
+
+.ctaTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+  color: var(--clr-white);
+  font-weight: 700;
+}
+
+.ctaSub {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: var(--text-lg);
+  max-width: 480px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: #25d366;
+  color: #fff;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(37, 211, 102, 0.55);
+}
+
+/* Contact row */
+.contactRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-6);
+  font-size: var(--text-sm);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.contactItem:hover { color: var(--clr-white); }
+
+/* Bottom bar */
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+  color: rgba(255, 255, 255, 0.4);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: var(--space-6);
+  width: 100%;
+}
+
+.links {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.links a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.links a:hover { color: rgba(255, 255, 255, 0.8); }
