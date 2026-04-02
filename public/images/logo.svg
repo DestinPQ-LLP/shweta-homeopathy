@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Teal S monogram circle -->
+  <circle cx="60" cy="60" r="56" fill="hsl(198, 44%, 36%)" opacity="0.12"/>
+  <circle cx="60" cy="60" r="56" stroke="hsl(198, 44%, 36%)" stroke-width="1.5" fill="none" opacity="0.3"/>
+  
+  <!-- Stylized S -->
+  <path d="M72 38c0-8-6-14-14-14s-14 6-14 14c0 10 28 8 28 22 0 8-6 14-14 14s-14-6-14-14" 
+        stroke="hsl(198, 44%, 36%)" stroke-width="8" stroke-linecap="round" fill="none"/>
+  
+  <!-- Rod of Asclepius (simplified) -->
+  <line x1="40" y1="28" x2="40" y2="92" stroke="hsl(200, 14%, 14%)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M40 40c4-4 8-2 8 2s-4 6-8 6c4 0 8 2 8 6s-4 6-8 2" 
+        stroke="hsl(200, 14%, 14%)" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <circle cx="40" cy="26" r="4" fill="hsl(200, 14%, 14%)"/>
+</svg>

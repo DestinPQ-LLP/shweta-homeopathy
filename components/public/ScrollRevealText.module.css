@@ -1,0 +1,13 @@
+.wrapper {
+  display: inline;
+}
+
+.word {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.highlight {
+  color: var(--clr-gold);
+  font-style: italic;
+}

@@ -1,0 +1,39 @@
+.whyGrid {
+  margin-top: var(--space-10);
+}
+
+.whyCard {
+  text-align: center;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top gradient accent line animated on hover */
+.whyCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--clr-sage), var(--clr-gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.whyCard:hover::before {
+  transform: scaleX(1);
+}
+
+.whyIcon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  background: var(--clr-sage-pale);
+  color: var(--clr-sage);
+  margin-inline: auto;
+  margin-bottom: var(--space-4);
+}
