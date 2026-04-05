@@ -87,9 +87,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {bodyHtml ? (
             <div className={styles.body} dangerouslySetInnerHTML={{ __html: bodyHtml }} />
+          ) : post.excerpt ? (
+            <div className={styles.body}>
+              <p style={{ fontSize: '1.15rem', lineHeight: '1.8', color: 'var(--clr-text-muted)' }}>
+                {post.excerpt}
+              </p>
+              <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'var(--clr-sage-pale)', borderRadius: '12px', borderLeft: '4px solid var(--clr-primary)' }}>
+                <p style={{ margin: 0, fontStyle: 'italic', color: 'var(--clr-text-muted)' }}>
+                  📌 Full article content will be available shortly. Book a consultation to discuss this topic with Dr. Shweta directly.
+                </p>
+              </div>
+            </div>
           ) : (
             <div className={styles.body}><p>Content loading…</p></div>
           )}
+
 
           <div className={styles.disclaimer}>
             <strong>Medical Disclaimer:</strong> This article is for educational purposes only and does not constitute medical advice. Please consult Dr. Shweta Goyal or a qualified homeopathic practitioner for personalised treatment.

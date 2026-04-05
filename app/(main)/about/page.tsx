@@ -76,7 +76,7 @@ export default function AboutPage() {
             {/* REPLACE with candid warm-lit photo when client provides */}
             <div className={styles.heroPhotoFrame}>
               <Image
-                src="/Clinic Pictures/IMG-20240615-WA0085.jpg"
+                src="/photos/17677_aboutdoctor.jpg"
                 alt="Dr. Shweta Goyal"
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -101,7 +101,7 @@ export default function AboutPage() {
             <div className={styles.stickyCol}>
               <div className={styles.photoWrap}>
                 <Image
-                  src="/Clinic Pictures/IMG-20240615-WA0219.jpg"
+                  src="/photos/17795_Dr__Shweta_in_Clinic.jpg"
                   alt="Dr. Shweta Goyal at clinic"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}

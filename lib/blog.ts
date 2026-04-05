@@ -7,6 +7,7 @@ const SHEET_ID = () => process.env.GOOGLE_SHEETS_BLOG_ID || '';
 const RANGE_POSTS = 'Blogs!A:N';
 const HEADERS = ['id','title','slug','excerpt','coverImageUrl','category','tags','author','publishedDate','updatedDate','status','metaDescription','docId','docUrl'];
 
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -113,7 +114,8 @@ export async function updateBlog(id: string, data: Partial<BlogPost & { htmlCont
   if (data.htmlContent && existing.docId) await updateBlogDoc(existing.docId, data.htmlContent);
 
   const updated: BlogPost = { ...existing, ...data, updatedDate: new Date().toISOString().split('T')[0] };
-  const range = `Posts!A${rowIndex + 1}:N${rowIndex + 1}`;
+  const range = `Blogs!A${rowIndex + 1}:N${rowIndex + 1}`;
+
   await updateSheetRow(SHEET_ID(), range, [[
     updated.id, updated.title, updated.slug, updated.excerpt, updated.coverImageUrl,
     updated.category, updated.tags, updated.author, updated.publishedDate, updated.updatedDate,
@@ -129,7 +131,8 @@ export async function deleteBlog(id: string): Promise<boolean> {
   if (rowIndex < 0) return false;
   // Mark as deleted by clearing the row (soft delete: status = 'deleted')
   const existing = rowToPost(rows[rowIndex]);
-  const range = `Posts!K${rowIndex + 1}`;
+  const range = `Blogs!K${rowIndex + 1}`;
   await updateSheetRow(SHEET_ID(), range, [['deleted']]);
   return !!existing.id;
 }
+

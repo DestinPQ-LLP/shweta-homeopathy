@@ -262,9 +262,9 @@ export default function HomeHero({ stats }: Props) {
 
   const { rX, rY, onMove, onLeave } = useMagneticTilt();
 
-  // Scramble headline lines
-  const line1 = useScramble('Where Science', 0.3);
-  const line2 = useScramble('Meets Nature.', 0.9);
+  // Static headline (no scramble animation)
+  const line1 = 'Where Science';
+  const line2 = 'Meets Nature.';
 
   return (
     <section className={styles.hero} ref={sectionRef}>
@@ -393,7 +393,7 @@ export default function HomeHero({ stats }: Props) {
 
             <div className={styles.photoFrame}>
               <Image
-                src="/Clinic Pictures/IMG-20240615-WA0219.jpg"
+                src="/photos/17650_drshweta.jpg"
                 alt="Dr. Shweta Goyal — Classical Homeopath"
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -413,7 +413,7 @@ export default function HomeHero({ stats }: Props) {
             >
               <div className={styles.nameStripAvatar}>
                 <Image
-                  src="/Clinic Pictures/IMG-20240615-WA0219.jpg"
+                  src="/photos/17650_drshweta.jpg"
                   alt="" width={40} height={40}
                   style={{ objectFit: 'cover', objectPosition: 'center top', borderRadius: '50%', width: '40px', height: '40px', maxWidth: 'none' }}
                 />

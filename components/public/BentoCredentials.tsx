@@ -124,7 +124,7 @@ export default function BentoCredentials() {
           >
             <div className={styles.photoWrap}>
               <Image
-                src="/Clinic Pictures/IMG-20240615-WA0219.jpg"
+                src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
                 alt="Dr. Shweta Goyal"
                 fill
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}

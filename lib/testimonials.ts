@@ -2,9 +2,11 @@ import { readSheet, appendToSheet, updateSheetRow, deleteSheetRow } from './goog
 
 const SHEET_ID = () => process.env.GOOGLE_SHEETS_TESTIMONIALS_ID || '';
 const TAB = 'Testimonials';
-// Sheet columns: id | name | location | condition | rating | text | status | createdAt
-const RANGE = `${TAB}!A:H`;
-const HEADERS = ['id', 'name', 'location', 'condition', 'rating', 'text', 'status', 'createdAt'];
+// Old cols: id|name|location|condition|rating|text|status|createdAt|imageUrl (A:I)
+// New cols from Google reviews: id|name|text|rating|condition|location|imageUrl|source|clinic|status (A:J)
+// We extend range to A:J to capture all columns
+const RANGE = `${TAB}!A:J`;
+const HEADERS = ['id', 'name', 'location', 'condition', 'rating', 'text', 'status', 'createdAt', 'imageUrl', 'source'];
 
 export interface Testimonial {
   id: string;
@@ -15,9 +17,36 @@ export interface Testimonial {
   text: string;
   status: 'published' | 'draft';
   createdAt: string;
+  imageUrl?: string;
+  source?: string;  // 'Google' | 'WordPress' | undefined
+  clinic?: string;  // 'Zirakpur' | 'Budhlada' | undefined
 }
 
 function rowToTestimonial(row: string[]): Testimonial {
+  // Detect layout: Google reviews have text in col[2], old layout has location in col[2]
+  // Google layout: id|name|text|rating|condition|location|imageUrl|source|clinic|status
+  // Old layout:    id|name|location|condition|rating|text|status|createdAt|imageUrl
+  const isGoogleLayout = row[7] === 'Google' || row[7] === 'WordPress' && row[3] && !isNaN(Number(row[3]));
+  // Actually detect by checking if col[3] is numeric (rating in Google layout)
+  const looksLikeGoogleLayout = !isNaN(Number(row[3])) && row.length >= 9;
+
+  if (looksLikeGoogleLayout) {
+    // Google layout: id|name|text|rating|condition|location|imageUrl|source|clinic|status
+    return {
+      id:        row[0] ?? '',
+      name:      row[1] ?? '',
+      text:      row[2] ?? '',
+      rating:    parseInt(row[3] ?? '5', 10) || 5,
+      condition: row[4] ?? '',
+      location:  row[5] ?? '',
+      imageUrl:  row[6] ?? '',
+      source:    row[7] ?? '',
+      clinic:    row[8] ?? '',
+      status:    (row[9] === 'published' ? 'published' : 'draft'),
+      createdAt: '',
+    };
+  }
+  // Old layout: id|name|location|condition|rating|text|status|createdAt|imageUrl
   return {
     id:        row[0] ?? '',
     name:      row[1] ?? '',
@@ -27,6 +56,9 @@ function rowToTestimonial(row: string[]): Testimonial {
     text:      row[5] ?? '',
     status:    (row[6] === 'published' ? 'published' : 'draft'),
     createdAt: row[7] ?? '',
+    imageUrl:  row[8] ?? '',
+    source:    '',
+    clinic:    '',
   };
 }
 
@@ -40,6 +72,7 @@ function testimonialToRow(t: Omit<Testimonial, 'createdAt'> & { createdAt?: stri
     t.text,
     t.status,
     t.createdAt ?? new Date().toISOString(),
+    t.imageUrl ?? '',
   ];
 }
 

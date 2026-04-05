@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import type { Testimonial } from '@/lib/testimonials';
 import styles from './TestimonialGrid.module.css';
 
@@ -90,7 +91,19 @@ export default function TestimonialGrid({ testimonials }: Props) {
                 </div>
                 <p className={styles.quote}>&ldquo;{t.text}&rdquo;</p>
                 <div className={styles.cardFooter}>
-                  <div className={styles.avatar}>{t.name[0].toUpperCase()}</div>
+                  <div className={styles.avatar}>
+                    {t.imageUrl ? (
+                      <Image
+                        src={t.imageUrl}
+                        alt={t.name}
+                        width={40}
+                        height={40}
+                        style={{ borderRadius: '50%', objectFit: 'cover', width: '40px', height: '40px' }}
+                      />
+                    ) : (
+                      <span>{t.name[0].toUpperCase()}</span>
+                    )}
+                  </div>
                   <div className={styles.authorInfo}>
                     <p className={styles.authorName}>{t.name}</p>
                     {t.location && <p className={styles.authorLoc}>📍 {t.location}</p>}

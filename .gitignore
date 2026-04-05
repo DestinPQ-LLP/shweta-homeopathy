@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# WordPress data exports (not needed in repo — data lives in Google Sheets)
+/public/*.csv
+
+# WordPress-dumped media (large raw assets, not needed — only key photos kept)
+/public/photos/*
+!/public/photos/17650_drshweta.jpg
+!/public/photos/17677_aboutdoctor.jpg
+!/public/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg
+!/public/photos/17795_Dr__Shweta_in_Clinic.jpg
+
+# Scratch/migration scripts output
+/tmp/

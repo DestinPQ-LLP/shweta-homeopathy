@@ -3,6 +3,7 @@
 import { Star } from 'lucide-react';
 import { useEffect, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import styles from './TestimonialCarousel.module.css';
 
 interface Testimonial {
@@ -12,6 +13,7 @@ interface Testimonial {
   rating: number;
   condition: string;
   location?: string;
+  imageUrl?: string;
 }
 
 interface Props {
@@ -76,7 +78,19 @@ export default function TestimonialCarousel({ testimonials }: Props) {
           </div>
           <blockquote className={styles.quote}>{current.text}</blockquote>
           <div className={styles.author}>
-            <div className={styles.avatar}>{current.name[0]}</div>
+            <div className={styles.avatar}>
+              {current.imageUrl ? (
+                <Image
+                  src={current.imageUrl}
+                  alt={current.name}
+                  width={44}
+                  height={44}
+                  style={{ borderRadius: '50%', objectFit: 'cover', width: '44px', height: '44px' }}
+                />
+              ) : (
+                <span>{current.name[0]}</span>
+              )}
+            </div>
             <div>
               <p className={styles.authorName}>{current.name}</p>
               <p className={styles.authorMeta}>
@@ -106,3 +120,4 @@ export default function TestimonialCarousel({ testimonials }: Props) {
     </div>
   );
 }
+
