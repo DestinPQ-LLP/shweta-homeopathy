@@ -6,6 +6,7 @@ function getAuth() {
   const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
   if (!raw) throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY is not set');
   const credentials = JSON.parse(raw);
+  if (credentials.private_key) credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
   return new google.auth.GoogleAuth({
     credentials,
     scopes: ['https://www.googleapis.com/auth/drive'],

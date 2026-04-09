@@ -10,7 +10,7 @@ interface Props {
   error?: string;
 }
 
-const APPT_COLS  = ['timestamp','name','email','phone','preferredDate','preferredTime','concern','source','status'];
+const APPT_COLS  = ['timestamp','name','email','phone','age','concern','preferredTime','consultationType','status'];
 const CTACT_COLS = ['timestamp','name','email','phone','subject','message'];
 const STATUSES   = ['New', 'Contacted', 'Confirmed', 'Cancelled', 'Completed'];
 

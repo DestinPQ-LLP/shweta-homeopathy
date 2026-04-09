@@ -20,8 +20,8 @@ export default function SettingsPage() {
   const bookingsId  = process.env.GOOGLE_SHEETS_BOOKINGS_ID;
   const blogId      = process.env.GOOGLE_SHEETS_BLOG_ID;
   const driveFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
-  const gmailFrom   = process.env.GMAIL_FROM;
-  const adminEmail  = process.env.ADMIN_EMAIL;
+  const gmailFrom   = process.env.GOOGLE_GMAIL_FROM;
+  const adminEmail  = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
 
   const landingSheetId = process.env.GOOGLE_SHEETS_LANDING_ID;
 
@@ -31,12 +31,12 @@ export default function SettingsPage() {
     { label: 'Landing Sheet ID',    value: landingSheetId,  href: sheetLink(landingSheetId) },
     { label: 'Drive Folder ID',     value: driveFolderId,   href: driveLink(driveFolderId) },
     { label: 'Gmail Sender',        value: gmailFrom },
-    { label: 'Admin Email',         value: adminEmail },
+    { label: 'Service Account Email', value: adminEmail },
     { label: 'Admin Password',      value: process.env.ADMIN_PASSWORD,  sensitive: true },
     { label: 'JWT Secret',          value: process.env.JWT_SECRET,       sensitive: true },
     { label: 'OpenAI Key',          value: process.env.OPENAI_API_KEY,  sensitive: true },
     { label: 'TinyMCE Key',         value: process.env.NEXT_PUBLIC_TINY_MCE_API_KEY, sensitive: true },
-    { label: 'Service Account',     value: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL },
+    { label: 'SA Key Set',           value: process.env.GOOGLE_SERVICE_ACCOUNT_KEY ? 'yes (hidden)' : '(not set)' },
   ];
 
   return (

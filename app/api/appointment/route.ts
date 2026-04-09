@@ -17,11 +17,13 @@ export async function POST(req: NextRequest) {
 
     const timestamp = new Date().toISOString();
 
-    // Save to Google Sheets
+    // Save to Google Sheets — 10 columns (A:J)
+    // Col I = status (initial 'New'), Col J = message
+    // PATCH /api/admin/leads/[rowIndex] updates Col I only
     if (SHEET_ID) {
-      await appendToSheet(SHEET_ID, 'Leads!A:I', [[
+      await appendToSheet(SHEET_ID, 'Leads!A:J', [[
         timestamp, name, email, phone, age || '',
-        concern, preferredTime || '', consultationType, message || '',
+        concern, preferredTime || '', consultationType, 'New', message || '',
       ]]);
     }
 
