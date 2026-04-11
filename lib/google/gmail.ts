@@ -1,34 +1,14 @@
-// Gmail API utility for sending transactional emails
-import { google } from 'googleapis';
+import nodemailer from 'nodemailer';
 
-function getAuth() {
-  const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-  if (!raw) throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY is not set');
-  const credentials = JSON.parse(raw);
-  return new google.auth.GoogleAuth({
-    credentials,
-    scopes: ['https://www.googleapis.com/auth/gmail.send'],
-    clientOptions: { subject: process.env.GOOGLE_GMAIL_FROM },
-  });
-}
-
-function buildMimeMessage(opts: {
-  to: string;
-  from: string;
-  subject: string;
-  html: string;
-}): string {
-  const msg = [
-    `From: ${opts.from}`,
-    `To: ${opts.to}`,
-    `Subject: ${opts.subject}`,
-    'MIME-Version: 1.0',
-    'Content-Type: text/html; charset=utf-8',
-    '',
-    opts.html,
-  ].join('\r\n');
-  return Buffer.from(msg).toString('base64url');
-}
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST || 'smtp.gmail.com',
+  port: Number(process.env.SMTP_PORT || 587),
+  secure: false,
+  auth: {
+    user: process.env.SMTP_USER || process.env.GOOGLE_GMAIL_FROM,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 export async function sendEmail(opts: {
   to: string;
@@ -36,13 +16,12 @@ export async function sendEmail(opts: {
   html: string;
 }) {
   const from = process.env.GOOGLE_GMAIL_FROM;
-  if (!from) throw new Error('GOOGLE_GMAIL_FROM is not set');
-  const auth = getAuth();
-  const gmail = google.gmail({ version: 'v1', auth });
-  const raw = buildMimeMessage({ ...opts, from });
-  await gmail.users.messages.send({
-    userId: 'me',
-    requestBody: { raw },
+  if (!from || !process.env.SMTP_PASS) throw new Error('SMTP credentials not configured');
+  await transporter.sendMail({
+    from: `"Dr. Shweta's Homoeopathy" <${from}>`,
+    to: opts.to,
+    subject: opts.subject,
+    html: opts.html,
   });
 }
 
