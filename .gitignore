@@ -50,5 +50,9 @@ next-env.d.ts
 !/public/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg
 !/public/photos/17795_Dr__Shweta_in_Clinic.jpg
 
+# Large data files (WordPress dumps, export archives)
+data.sql
+exports.zip
+
 # Scratch/migration scripts output
 /tmp/

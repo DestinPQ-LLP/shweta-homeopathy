@@ -1,5 +1,5 @@
 'use client';
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './AppointmentForm.module.css';
 
@@ -37,8 +37,14 @@ const INITIAL: FormData = {
 export default function AppointmentForm() {
   const [form, setForm] = useState<FormData>(INITIAL);
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const errorRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (submitError) errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, [submitError]);
 
   function validate(): boolean {
     const e: Partial<FormData> = {};
@@ -54,11 +60,13 @@ export default function AppointmentForm() {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: undefined }));
+    if (submitError) setSubmitError(null);
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
+    setSubmitError(null);
     startTransition(async () => {
       try {
         const res = await fetch('/api/appointment', {
@@ -66,10 +74,22 @@ export default function AppointmentForm() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(form),
         });
-        if (!res.ok) throw new Error('Failed');
+        if (!res.ok) {
+          const body = await res.json().catch(() => null);
+          if (res.status === 400 && body?.error) {
+            setSubmitError(body.error);
+          } else {
+            setSubmitError(
+              "We couldn't submit your request right now. Please try again in a moment, or reach us directly at +91 62844 11753.",
+            );
+          }
+          return;
+        }
         router.push('/thank-you');
       } catch {
-        alert('Something went wrong. Please try again or call us directly at +91 62844 11753.');
+        setSubmitError(
+          "We couldn't submit your request right now. Please try again in a moment, or reach us directly at +91 62844 11753.",
+        );
       }
     });
   }
@@ -153,6 +173,13 @@ export default function AppointmentForm() {
       >
         {isPending ? 'Submitting...' : '📅 Request Appointment'}
       </button>
+
+      {submitError && (
+        <div ref={errorRef} className={styles.submitError} role="alert">
+          <span className={styles.submitErrorIcon}>⚠</span>
+          <p>{submitError}</p>
+        </div>
+      )}
 
       <p style={{ textAlign: 'center', fontSize: 'var(--text-xs)', color: 'var(--clr-text-lt)', marginTop: 'var(--space-3)' }}>
         We will contact you within 24 hours to confirm your slot. Your information is kept confidential.
