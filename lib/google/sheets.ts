@@ -34,7 +34,7 @@ function getSheetsClient(): sheets_v4.Sheets {
 // Custom error with classification
 // ---------------------------------------------------------------------------
 
-export type SheetsErrorKind = 'transient' | 'permission' | 'not_found' | 'config' | 'unknown';
+export type SheetsErrorKind = 'transient' | 'quota' | 'permission' | 'not_found' | 'config' | 'unknown';
 
 export class SheetsError extends Error {
   kind: SheetsErrorKind;
@@ -52,25 +52,60 @@ function classifyError(err: unknown): SheetsErrorKind {
   if (err && typeof err === 'object') {
     const status = (err as { code?: number; status?: number }).code
       ?? (err as { code?: number; status?: number }).status;
-    if (status === 429 || status === 503 || status === 500) return 'transient';
+    const msg = String((err as Error).message ?? '');
+
+    if (/quota|rate.*limit/i.test(msg) || status === 429) return 'quota';
+    if (status === 503 || status === 500) return 'transient';
     if (status === 403 || status === 401) return 'permission';
     if (status === 404) return 'not_found';
-
-    const msg = String((err as Error).message ?? '');
     if (/ECONNRESET|ETIMEDOUT|ENOTFOUND|socket hang up/i.test(msg)) return 'transient';
-    if (/quota|rate/i.test(msg)) return 'transient';
   }
   return 'unknown';
 }
 
 // ---------------------------------------------------------------------------
-// Retry wrapper — only retries transient / unknown errors
+// Concurrency limiter — prevents thundering herd during SSG build
+// Google Sheets free tier: 60 reads/min/user, 300 reads/min/project
 // ---------------------------------------------------------------------------
 
-const MAX_RETRIES = 3;
+const MAX_CONCURRENT = 3;
+let _inFlight = 0;
+const _queue: Array<() => void> = [];
+
+function acquireSlot(): Promise<void> {
+  if (_inFlight < MAX_CONCURRENT) {
+    _inFlight++;
+    return Promise.resolve();
+  }
+  return new Promise<void>(resolve => {
+    _queue.push(() => { _inFlight++; resolve(); });
+  });
+}
+
+function releaseSlot() {
+  _inFlight--;
+  const next = _queue.shift();
+  if (next) next();
+}
+
+// ---------------------------------------------------------------------------
+// Retry wrapper — quota errors get much longer backoff
+// ---------------------------------------------------------------------------
+
+const MAX_RETRIES = 4;
 const BASE_DELAY_MS = 500;
+const QUOTA_DELAY_MS = 5_000;
 
 async function withRetry<T>(label: string, fn: () => Promise<T>): Promise<T> {
+  await acquireSlot();
+  try {
+    return await _withRetryInner(label, fn);
+  } finally {
+    releaseSlot();
+  }
+}
+
+async function _withRetryInner<T>(label: string, fn: () => Promise<T>): Promise<T> {
   let lastErr: unknown;
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
@@ -80,13 +115,15 @@ async function withRetry<T>(label: string, fn: () => Promise<T>): Promise<T> {
       const kind = classifyError(err);
       const status = (err as { code?: number }).code;
 
-      if (kind !== 'transient' && kind !== 'unknown') {
+      if (kind !== 'transient' && kind !== 'quota' && kind !== 'unknown') {
         console.error(`[sheets] ${label} failed (${kind}, status=${status}):`, (err as Error).message);
         throw new SheetsError((err as Error).message ?? String(err), kind, status);
       }
 
       if (attempt < MAX_RETRIES) {
-        const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
+        const delay = kind === 'quota'
+          ? QUOTA_DELAY_MS * attempt
+          : BASE_DELAY_MS * Math.pow(2, attempt - 1);
         console.warn(`[sheets] ${label} attempt ${attempt}/${MAX_RETRIES} failed (${kind}), retrying in ${delay}ms…`);
         await new Promise(r => setTimeout(r, delay));
       }
