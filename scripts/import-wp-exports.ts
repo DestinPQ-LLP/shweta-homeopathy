@@ -54,7 +54,7 @@ function extractZip() {
   console.log('[extract] Unzipped exports.zip');
 }
 
-function readCSV<T extends Record<string, string>>(filename: string): T[] {
+function readCSV<T>(filename: string): T[] {
   const csvPath = path.join(EXPORT_DIR, filename);
   if (!fs.existsSync(csvPath)) { console.warn(`[csv] ${filename} not found, skipping`); return []; }
   const content = fs.readFileSync(csvPath, 'utf-8');
