@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { Award, Microscope, Globe } from 'lucide-react';
 import styles from './BentoCredentials.module.css';
 import ScrollRevealText from './ScrollRevealText';
@@ -95,6 +96,8 @@ const cellVariants = {
 export default function BentoCredentials() {
   const containerRef = useRef<HTMLDivElement>(null);
   const inView = useInView(containerRef as React.RefObject<Element>, { once: true, margin: '-60px' });
+  const pathname = usePathname();
+  const isAboutPage = pathname === '/about';
 
   return (
     <section className={styles.section}>
@@ -232,9 +235,11 @@ export default function BentoCredentials() {
           </motion.div>
         </motion.div>
 
-        <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
-          <Link href="/about" className="btn btn-outline">Read Full Profile →</Link>
-        </div>
+        {!isAboutPage && (
+          <div style={{ textAlign: 'center', marginTop: 'var(--space-8)' }}>
+            <Link href="/about" className="btn btn-outline">Read Full Profile →</Link>
+          </div>
+        )}
       </div>
     </section>
   );

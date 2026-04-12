@@ -148,6 +148,14 @@
   transform: translateY(0);
 }
 
+.revealTitle {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--clr-white);
+  line-height: 1.25;
+  margin: 0;
+}
+
 .revealSymptoms {
   display: flex;
   flex-wrap: wrap;

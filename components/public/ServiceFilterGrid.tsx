@@ -3,8 +3,17 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  Activity, Leaf, Heart, Baby, Brain, Stethoscope, Flower, Bone,
+  Droplets, Sparkles, Sprout, TreePine,
+} from 'lucide-react';
 import type { ConditionCategory } from '@/lib/conditions';
 import styles from './ServiceFilterGrid.module.css';
+
+const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
+  Activity, Leaf, Heart, Baby, Brain, Stethoscope, Flower, Bone,
+  Droplets, Sparkles, Sprout, TreePine,
+};
 
 type Filter = 'All' | ConditionCategory;
 
@@ -77,7 +86,9 @@ export default function ServiceFilterGrid({ conditions }: Props) {
             >
               <Link href={`/conditions/${c.slug}`} className={styles.cardInner}>
                 <div className={styles.cardTop}>
-                  <span className={styles.cardIcon}>{c.icon}</span>
+                  <span className={styles.cardIcon}>
+                    {(() => { const Icon = ICON_MAP[c.icon] || Activity; return <Icon size={28} />; })()}
+                  </span>
                   {c.category && (
                     <span className={styles.cardCategory}>{c.category}</span>
                   )}
@@ -87,8 +98,9 @@ export default function ServiceFilterGrid({ conditions }: Props) {
 
                 {/* Hover reveal layer */}
                 <div className={styles.reveal}>
+                  <h3 className={styles.revealTitle}>{c.name}</h3>
                   <div className={styles.revealSymptoms}>
-                    {c.symptoms.slice(0, 3).map((s) => (
+                    {c.symptoms.slice(0, 4).map((s) => (
                       <span key={s} className={styles.symptomPill}>{s}</span>
                     ))}
                   </div>
