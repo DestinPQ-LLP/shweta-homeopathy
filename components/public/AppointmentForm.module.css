@@ -65,7 +65,16 @@
   font-size: var(--text-sm);
 }
 
-.consultIcon { font-size: 32px; }
+.consultIcon {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--clr-sage);
+  background: var(--clr-sage-pale);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+}
 
 .consultLabel {
   font-size: var(--text-sm);
@@ -94,8 +103,18 @@
 
 .submitErrorIcon {
   flex-shrink: 0;
-  font-size: var(--text-base);
-  margin-top: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: hsl(0, 55%, 48%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 2px;
 }
 
 @keyframes slideIn {

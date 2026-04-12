@@ -131,7 +131,7 @@ export default function AppointmentForm() {
           {(['in-clinic', 'online'] as const).map((type) => (
             <label key={type} className={`${styles.consultType} ${form.consultationType === type ? styles.selected : ''}`}>
               <input type="radio" name="consultationType" value={type} checked={form.consultationType === type} onChange={handleChange} style={{ position: 'absolute', opacity: 0 }} />
-              <span className={styles.consultIcon}>{type === 'in-clinic' ? '🏥' : '💻'}</span>
+              <span className={styles.consultIcon}>{type === 'in-clinic' ? 'In-Person' : 'Video'}</span>
               <span className={styles.consultLabel}>{type === 'in-clinic' ? 'In-Clinic Visit' : 'Online Consultation'}</span>
               <span className={styles.consultSub}>{type === 'in-clinic' ? 'Zirakpur or Budhlada' : 'Worldwide via video call'}</span>
             </label>
@@ -171,12 +171,12 @@ export default function AppointmentForm() {
         disabled={isPending}
         style={{ width: '100%', justifyContent: 'center', opacity: isPending ? 0.7 : 1 }}
       >
-        {isPending ? 'Submitting...' : '📅 Request Appointment'}
+        {isPending ? 'Submitting...' : 'Request Appointment'}
       </button>
 
       {submitError && (
         <div ref={errorRef} className={styles.submitError} role="alert">
-          <span className={styles.submitErrorIcon}>⚠</span>
+          <span className={styles.submitErrorIcon}>!</span>
           <p>{submitError}</p>
         </div>
       )}
