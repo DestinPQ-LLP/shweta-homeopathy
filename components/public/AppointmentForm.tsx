@@ -1,6 +1,7 @@
 'use client';
 import { useState, useTransition, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import styles from './AppointmentForm.module.css';
 
 const TIME_SLOTS = [
@@ -131,7 +132,12 @@ export default function AppointmentForm() {
           {(['in-clinic', 'online'] as const).map((type) => (
             <label key={type} className={`${styles.consultType} ${form.consultationType === type ? styles.selected : ''}`}>
               <input type="radio" name="consultationType" value={type} checked={form.consultationType === type} onChange={handleChange} style={{ position: 'absolute', opacity: 0 }} />
-              <span className={styles.consultIcon}>{type === 'in-clinic' ? 'In-Person' : 'Video'}</span>
+              <Image
+                src={type === 'in-clinic' ? '/images/clinic-visit.png' : '/images/online-consult.png'}
+                alt={type === 'in-clinic' ? 'In-clinic visit' : 'Online consultation'}
+                width={80} height={80}
+                className={styles.consultImg}
+              />
               <span className={styles.consultLabel}>{type === 'in-clinic' ? 'In-Clinic Visit' : 'Online Consultation'}</span>
               <span className={styles.consultSub}>{type === 'in-clinic' ? 'Zirakpur or Budhlada' : 'Worldwide via video call'}</span>
             </label>

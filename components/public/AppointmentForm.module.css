@@ -65,15 +65,9 @@
   font-size: var(--text-sm);
 }
 
-.consultIcon {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--clr-sage);
-  background: var(--clr-sage-pale);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
+.consultImg {
+  border-radius: var(--radius-md);
+  object-fit: cover;
 }
 
 .consultLabel {
