@@ -100,7 +100,7 @@ export default function ServiceFilterGrid({ conditions }: Props) {
                 <div className={styles.reveal}>
                   <h3 className={styles.revealTitle}>{c.name}</h3>
                   <div className={styles.revealSymptoms}>
-                    {c.symptoms.slice(0, 4).map((s) => (
+                    {c.symptoms.slice(0, 4).filter(Boolean).map((s) => (
                       <span key={s} className={styles.symptomPill}>{s}</span>
                     ))}
                   </div>

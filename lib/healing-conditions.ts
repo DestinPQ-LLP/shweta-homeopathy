@@ -20,15 +20,19 @@ export interface HealingCondition {
   category?: ConditionCategory;
 }
 
+function clean(s: string): string {
+  return s.replace(/\\t/g, ' ').replace(/\t/g, ' ').replace(/\s{2,}/g, ' ').trim();
+}
+
 function rowToCondition(row: string[]): HealingCondition {
   return {
-    slug:               row[0] ?? '',
-    name:               row[1] ?? '',
-    shortDesc:          row[2] ?? '',
-    intro:              row[3] ?? '',
-    symptoms:           (row[4] ?? '').split('|').map(s => s.trim()).filter(Boolean),
-    howHomeopathyHelps: row[5] ?? '',
-    icon:               row[6] ?? '',
+    slug:               (row[0] ?? '').trim(),
+    name:               clean(row[1] ?? ''),
+    shortDesc:          clean(row[2] ?? ''),
+    intro:              clean(row[3] ?? ''),
+    symptoms:           (row[4] ?? '').split('|').map(s => clean(s)).filter(Boolean),
+    howHomeopathyHelps: clean(row[5] ?? ''),
+    icon:               (row[6] ?? '').trim(),
     status:             row[7] === 'draft' ? 'draft' : 'published',
     category:           (row[8] as ConditionCategory) || undefined,
   };
