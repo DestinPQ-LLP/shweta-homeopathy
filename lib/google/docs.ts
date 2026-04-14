@@ -22,6 +22,7 @@ export async function createSessionNoteDoc(opts: {
   const stream = Readable.from(Buffer.from(opts.content, 'utf8'));
 
   const res = await drive.files.create({
+    supportsAllDrives: true,
     requestBody: {
       name: opts.title,
       mimeType: 'application/vnd.google-apps.document',
@@ -42,6 +43,7 @@ export async function updateSessionNoteDoc(docId: string, content: string) {
   const stream = Readable.from(Buffer.from(content, 'utf8'));
 
   await drive.files.update({
+    supportsAllDrives: true,
     fileId: docId,
     media: { mimeType: 'text/plain', body: stream },
   });
@@ -66,6 +68,7 @@ export async function createBlogDoc(opts: {
   const stream = Readable.from(Buffer.from(opts.htmlContent, 'utf8'));
 
   const res = await drive.files.create({
+    supportsAllDrives: true,
     requestBody: {
       name: opts.title,
       mimeType: 'application/vnd.google-apps.document',
@@ -89,6 +92,7 @@ export async function updateBlogDoc(docId: string, htmlContent: string): Promise
   const stream = Readable.from(Buffer.from(htmlContent, 'utf8'));
 
   await drive.files.update({
+    supportsAllDrives: true,
     fileId: docId,
     media: { mimeType: 'text/html', body: stream },
   });
@@ -128,6 +132,7 @@ export async function createClientDoc(opts: {
   const stream = Readable.from(Buffer.from(header, 'utf8'));
 
   const res = await drive.files.create({
+    supportsAllDrives: true,
     requestBody: {
       name: title,
       mimeType: 'application/vnd.google-apps.document',
@@ -162,6 +167,7 @@ export async function appendToClientDoc(docId: string, text: string, sessionDate
   const { Readable } = await import('stream');
   const stream = Readable.from(Buffer.from(updated, 'utf8'));
   await drive.files.update({
+    supportsAllDrives: true,
     fileId: docId,
     media: { mimeType: 'text/plain', body: stream },
   });
