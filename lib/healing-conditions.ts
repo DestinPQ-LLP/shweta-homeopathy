@@ -46,8 +46,12 @@ function conditionToRow(c: HealingCondition): string[] {
 }
 
 async function ensureHeaders() {
-  const rows = await readSheet(SHEET_ID(), RANGE);
-  if (!rows || rows.length === 0) await appendToSheet(SHEET_ID(), RANGE, [HEADERS]);
+  try {
+    const rows = await readSheet(SHEET_ID(), RANGE);
+    if (!rows || rows.length === 0) await appendToSheet(SHEET_ID(), RANGE, [HEADERS]);
+  } catch {
+    await appendToSheet(SHEET_ID(), RANGE, [HEADERS]);
+  }
 }
 
 let _conditionRowsCache: { data: string[][]; ts: number } | null = null;

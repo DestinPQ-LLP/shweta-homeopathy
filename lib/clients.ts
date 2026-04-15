@@ -60,8 +60,13 @@ function clientToRow(c: Client): (string | null)[] {
 }
 
 async function ensureHeaders() {
-  const rows = await readSheet(SHEET_ID(), RANGE);
-  if (!rows || rows.length === 0) await appendToSheet(SHEET_ID(), RANGE, [HEADERS]);
+  try {
+    const rows = await readSheet(SHEET_ID(), RANGE);
+    if (!rows || rows.length === 0) await appendToSheet(SHEET_ID(), RANGE, [HEADERS]);
+  } catch {
+    // Tab doesn't exist yet — appendToSheet will create it
+    await appendToSheet(SHEET_ID(), RANGE, [HEADERS]);
+  }
 }
 
 export async function getAllClients(): Promise<Client[]> {
