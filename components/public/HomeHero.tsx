@@ -303,15 +303,15 @@ export default function HomeHero({ stats }: Props) {
             Accepting New Patients · Est. 2009
           </motion.div>
 
-          {/* Scramble headline */}
-          <div className={styles.headlineWrap} aria-label="Where Science Meets Nature.">
-            <div className={styles.line1}>
+          {/* Headline — wrapped in a real h1 for SEO */}
+          <h1 className={styles.headlineWrap}>
+            <span className={styles.line1}>
               <span className={styles.h1}>{line1}</span>
-            </div>
-            <div className={styles.line2}>
+            </span>
+            <span className={styles.line2}>
               <span className={`${styles.h1} ${styles.h1Gold}`}>{line2}</span>
-            </div>
-          </div>
+            </span>
+          </h1>
 
           {/* Descriptor */}
           <motion.p
@@ -414,7 +414,7 @@ export default function HomeHero({ stats }: Props) {
               <div className={styles.nameStripAvatar}>
                 <Image
                   src="/photos/17650_drshweta.jpg"
-                  alt="" width={40} height={40}
+                  alt="Dr. Shweta Goyal" width={40} height={40}
                   style={{ objectFit: 'cover', objectPosition: 'center top', borderRadius: '50%', width: '40px', height: '40px', maxWidth: 'none' }}
                 />
               </div>

@@ -20,9 +20,9 @@ import WhyChooseGrid from '@/components/public/WhyChooseGrid';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: "Dr. Shweta's Homoeopathy — Best Homeopath Zirakpur & Budhlada",
+  title: "Best Homeopath in Zirakpur & Budhlada — Dr. Shweta Goyal",
   description:
-    "Expert classical homeopathic treatment by Dr. Shweta Goyal — BHMS Gold Medalist, MD Hom, PG IACH Greece. Treating chronic illness, women's health, skin diseases, joint problems & more in Zirakpur, Punjab.",
+    "Dr. Shweta Goyal, BHMS Gold Medalist & MD Homeopathy, offers classical homeopathic treatment in Zirakpur and Budhlada, Punjab. Chronic illness, women's health, skin, joints & online consultations worldwide.",
 };
 
 const whyChoose = [

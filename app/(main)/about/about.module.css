@@ -260,6 +260,66 @@
   line-height: 1.5;
 }
 
+/* ─── Recognition Gallery ────────────────────────────────────  */
+.recognitionSection {
+  padding-block: var(--space-20);
+  background: var(--clr-sage-pale);
+}
+
+.recognitionHeader {
+  text-align: center;
+  max-width: 640px;
+  margin-inline: auto;
+  margin-bottom: var(--space-12);
+}
+
+.recognitionDesc {
+  color: var(--clr-text-mid);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  margin-top: var(--space-4);
+}
+
+.recognitionGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
+.recognitionCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--clr-white);
+  box-shadow: var(--shadow-md);
+}
+
+.recognitionImgWrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+
+.recognitionCaption {
+  font-size: var(--text-sm);
+  color: var(--clr-text-mid);
+  text-align: center;
+  padding: 0 var(--space-4) var(--space-4);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .recognitionGrid { grid-template-columns: 1fr; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .recognitionGrid { grid-template-columns: repeat(2, 1fr); }
+  .recognitionGrid .recognitionCard:last-child { grid-column: 1 / -1; max-width: 480px; margin-inline: auto; }
+}
+
 /* ─── CTA strip ──────────────────────────────────────────────  */
 .ctaStrip {
   background: var(--clr-sage-pale);

@@ -182,6 +182,59 @@ export default function AboutPage() {
       {/* ── Consultation Reel ── */}
       <ConsultationReel />
 
+      {/* ── Recognition & Talks ── */}
+      <section className={styles.recognitionSection}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">Recognition &amp; Speaking</span>
+            <h2>Featured at Grihshobha EmpowerHer</h2>
+            <p className={styles.recognitionDesc}>
+              Dr. Shweta was invited as the homoeopathy expert at the Grihshobha EmpowerHer conference —
+              a national platform celebrating women&apos;s health, beauty, and financial freedom — where she
+              spoke on <em>Homoeopathy for Menopause Wellness</em> and received formal recognition.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/images/dr-1.jpeg"
+                  alt="Dr. Shweta Goyal presenting on Homoeopathy for Menopause at Grihshobha EmpowerHer conference"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Speaking on Homoeopathy for Menopause Wellness</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/images/dr-2.jpeg"
+                  alt="Dr. Shweta Goyal receiving recognition on stage at Grihshobha EmpowerHer 2024"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Recognised as Homoeopathy Partner at EmpowerHer 2024</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/images/dr-3.jpeg"
+                  alt="Dr. Shweta Goyal receiving award at Grihshobha EmpowerHer 2024"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Awarded at the Grihshobha EmpowerHer Ceremony</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className={styles.ctaStrip}>
         <div className="container">

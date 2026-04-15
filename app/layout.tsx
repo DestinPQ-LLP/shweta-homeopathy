@@ -40,6 +40,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://drshwetahomoeopathy.com'),
   icons: {
     icon: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   openGraph: {
     siteName: "Dr. Shweta's Homoeopathy",

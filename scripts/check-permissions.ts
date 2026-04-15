@@ -19,7 +19,7 @@ async function verifyPermissions() {
   const { google } = require('googleapis');
   const path = require('path');
   
-  const keyPath = path.join(process.cwd(), 'hyderabad-police-9073df532ddb.json');
+  const keyPath = path.join(process.cwd(), 'data', 'hyderabad-police-9073df532ddb.json');
   console.log("Testing Service Account:", keyPath);
   
   const auth = new google.auth.GoogleAuth({

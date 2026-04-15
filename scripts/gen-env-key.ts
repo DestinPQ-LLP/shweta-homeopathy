@@ -8,7 +8,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
-const keyPath = path.join(__dirname, '..', 'hyderabad-police-9073df532ddb.json');
+const keyPath = path.join(__dirname, '..', 'data', 'hyderabad-police-9073df532ddb.json');
 if (!fs.existsSync(keyPath)) {
   console.error('❌  Service account JSON not found at:', keyPath);
   process.exit(1);
