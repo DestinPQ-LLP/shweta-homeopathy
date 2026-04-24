@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://drshwetahomoeopathy.com';
 const SITE_NAME = "Dr. Shweta's Homoeopathy";
-const DEFAULT_DESC = 'Expert homeopathic care for chronic illness, women\'s health, skin, joint, respiratory, and pediatric conditions. B.H.M.S Gold Medalist, MD (Hom), PG IACH Greece. Clinics in Zirakpur & Budhlada.';
+const DEFAULT_DESC = 'Expert homeopathic care for chronic illness, women\'s health, skin, joint, respiratory, and pediatric conditions. B.H.M.S Gold Medalist, MD (Hom), PG IACH Greece. Clinics in Zirakpur & Budhlada — 15,000+ patients treated.';
 
 export interface SeoConfig {
   title: string;

@@ -5,8 +5,8 @@ import styles from './ConsultationReel.module.css';
 const steps = [
   {
     num: '01',
-    title: 'Arrival & Welcome',
-    body: 'You step in — or connect online — to a calm, unhurried space. Tea is offered. The pace slows down before anything medical begins.',
+    title: 'Initial Assessment & Vital Check',
+    body: 'Before your consultation begins, our team records essential vitals and a brief medical history to ensure a complete and informed understanding of your health.',
   },
   {
     num: '02',

@@ -9,7 +9,6 @@ import {
   CalendarClock, PackageCheck, ArrowLeft,
 } from 'lucide-react';
 import StickyConditionNav from '@/components/public/StickyConditionNav';
-import RedFlagDrawer from '@/components/public/RedFlagDrawer';
 import styles from './condition.module.css';
 
 export async function generateStaticParams() {
@@ -39,12 +38,35 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export const revalidate = 3600;
 
 /* ── Expectation timeline ─────────────────────────────── */
-const EXPECTATIONS = [
-  { phase: 'Week 1–2', title: 'Aggravation & Adjustment', body: 'Symptoms may briefly intensify as the remedy begins working. This is a positive sign.' },
+const DEFAULT_EXPECTATIONS = [
+  { phase: 'Week 1–2', title: 'Early Response', body: 'The remedy begins acting at the energetic level. Many patients notice improved sleep, calmer mood, and a sense of well-being even before the main complaint shifts.' },
   { phase: 'Week 3–4', title: 'First Shifts', body: 'Energy improves, sleep may deepen. Skin or mood changes often appear before the main complaint resolves.' },
   { phase: 'Month 2–3', title: 'Core Healing', body: 'The primary condition begins to reduce. Frequency and intensity of symptoms decrease measurably.' },
   { phase: 'Month 4+', title: 'Consolidation', body: 'Remedy doses are tapered. The goal is the longest possible gap between doses without relapse.' },
 ];
+
+const WOMENS_HEALTH_EXPECTATIONS = [
+  { phase: 'Week 1–2', title: 'Period Cycles Start to Improve', body: 'Better flow. Regular periods. Pains and mood improve during periods.' },
+  { phase: 'Week 3–4', title: 'First Shifts', body: 'Energy improves, sleep deepens, and PMS symptoms ease. Hormonal balance begins to settle.' },
+  { phase: 'Month 2–3', title: 'Core Healing', body: 'Cycle regularity and flow stabilize. Cramps, bloating, and mood swings reduce measurably.' },
+  { phase: 'Month 4+', title: 'Consolidation', body: 'Remedy doses are tapered. The goal is sustained hormonal balance and the longest possible gap between doses without relapse.' },
+];
+
+const WOMENS_HEALTH_SLUGS = new Set([
+  'womens-health',
+  'women-health',
+  'menstrual-disorders',
+  'pcos-pcod',
+  'pcos',
+  'pcod',
+  'endometriosis',
+  'menopause',
+  'infertility',
+]);
+
+function getExpectations(slug: string) {
+  return WOMENS_HEALTH_SLUGS.has(slug) ? WOMENS_HEALTH_EXPECTATIONS : DEFAULT_EXPECTATIONS;
+}
 
 /* ── What to bring ────────────────────────────────────── */
 const BRING_ITEMS = [
@@ -142,11 +164,11 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
           <section id="expectations" className={styles.section}>
             <h2 className={styles.sectionHeading}>What to Expect</h2>
             <div className={styles.timeline}>
-              {EXPECTATIONS.map((e, i) => (
+              {getExpectations(slug).map((e, i, arr) => (
                 <div key={e.phase} className={styles.timelineItem}>
                   <div className={styles.timelineMarker}>
                     <span className={styles.timelineNum}>{i + 1}</span>
-                    {i < EXPECTATIONS.length - 1 && <span className={styles.timelineLine} />}
+                    {i < arr.length - 1 && <span className={styles.timelineLine} />}
                   </div>
                   <div className={styles.timelineBody}>
                     <span className={styles.timelinePhase}>{e.phase}</span>
@@ -177,10 +199,7 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
             </div>
           </section>
 
-          {/* 6. Red Flag Safety Drawer */}
-          <section className={styles.section}>
-            <RedFlagDrawer />
-          </section>
+          {/* 6. (Removed: Safety First red drawer) */}
 
           {/* QoL Story Cards */}
           <section className={styles.section}>
@@ -222,7 +241,7 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
           {/* Credentials */}
           <div className="card">
             <h4 style={{ marginBottom: 'var(--space-3)' }}>Dr. Shweta&apos;s Credentials</h4>
-            {['BHMS — Gold Medalist, Panjab University', 'MD (Homoeopathy)', 'PG — IACH, Greece', '15+ Years Clinical Experience'].map((c) => (
+            {['BHMS — Gold Medalist, Panjab University', 'MD (Homoeopathy)', 'PG — IACH, Greece', '6+ Years Clinical Experience'].map((c) => (
               <div key={c} className={styles.credItem}>
                 <CheckCircle2 size={13} className={styles.credIcon} />
                 {c}

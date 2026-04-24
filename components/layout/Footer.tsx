@@ -51,7 +51,7 @@ export default function Footer() {
               <span className={styles.dockSub}>Online or In-Clinic</span>
             </Link>
             <a
-              href="https://maps.google.com/?q=Patiala+Road+Zirakpur+140603"
+              href="https://maps.app.goo.gl/Dr9n9oduRfBhsK9E7"
               target="_blank"
               rel="noopener noreferrer"
               className={`${styles.dockTile} glass-dark`}
@@ -81,9 +81,30 @@ export default function Footer() {
               <a href="mailto:drshwetahmc@gmail.com" className={styles.contactItem}>
                 <span>✉️</span> drshwetahmc@gmail.com
               </a>
-              <p className={styles.contactItem}>
-                <span>📍</span> Patiala Road, Zirakpur-140603, Punjab
-              </p>
+              <div className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
+                <span>📍</span>
+                <div>
+                  <strong>Zirakpur Clinic</strong><br />
+                  Patiala Road, Above Vintage Properties, Zirakpur, Punjab – 140603<br />
+                  +91 62844–11753 · Mon–Sun 9:30 am–6:30 pm
+                </div>
+              </div>
+              <div className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
+                <span>📍</span>
+                <div>
+                  <strong>Budhlada Clinic</strong><br />
+                  Patel Marg, Near Railway Station, Budhlada, Mansa, Punjab – 151502<br />
+                  +91 90564–62817 · Mon–Sun 9:00 am–6:00 pm
+                </div>
+              </div>
+              <div className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
+                <span>💻</span>
+                <div>
+                  <strong>Online Consultations</strong><br />
+                  Anywhere in the world — via WhatsApp, Zoom or Google Meet<br />
+                  +91 62844–11753 · Flexible scheduling
+                </div>
+              </div>
             </div>
           </div>
 

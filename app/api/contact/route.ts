@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { appendToSheet } from '@/lib/google/sheets';
+import { appendToSheet, ensureSheetTab } from '@/lib/google/sheets';
 import { sendEmail, adminNotificationEmail } from '@/lib/google/gmail';
 
 const SHEET_ID = process.env.GOOGLE_SHEETS_BOOKINGS_ID || '';
@@ -13,10 +13,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
     const timestamp = new Date().toISOString();
+    // Save to Google Sheets — best-effort, don't let Sheets issues block the response
     if (SHEET_ID) {
-      await appendToSheet(SHEET_ID, 'Contacts!A:F', [
-        [timestamp, name, email, phone || '', subject || '', message],
-      ]);
+      try {
+        await ensureSheetTab(SHEET_ID, 'Contacts', [
+          'Timestamp', 'Name', 'Email', 'Phone', 'Subject', 'Message',
+        ]);
+        await appendToSheet(SHEET_ID, 'Contacts!A:F', [
+          [timestamp, name, email, phone || '', subject || '', message],
+        ]);
+      } catch (sheetErr) {
+        console.error('[contact API] Sheets write failed (contact still processed):', (sheetErr as Error).message);
+      }
     }
     if (ADMIN_EMAIL) {
       try {

@@ -66,8 +66,8 @@ export default function AdsHero({ config }: Props) {
 
         {/* Trust badges */}
         <div className={styles.badges}>
-          <span className={styles.badge}>✅ 10,000+ Patients Treated</span>
-          <span className={styles.badge}>✅ 15+ Years Experience</span>
+          <span className={styles.badge}>✅ 15,000+ Patients Treated</span>
+          <span className={styles.badge}>✅ 6+ Years Experience</span>
           <span className={styles.badge}>✅ Zero Side Effects</span>
         </div>
       </div>

@@ -131,17 +131,21 @@
 .reveal {
   position: absolute;
   inset: 0;
+  width: 100%;
+  box-sizing: border-box;
   background: linear-gradient(160deg, hsl(198, 50%, 16%) 0%, hsl(198, 44%, 22%) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: var(--space-3);
-  padding: var(--space-5);
+  padding: var(--space-4) var(--space-5);
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.28s ease, transform 0.28s ease;
   border-radius: var(--radius-lg);
   color: var(--clr-white);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
 }
 
 .card:hover .reveal {
@@ -179,9 +183,18 @@
   line-height: 1.55;
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.symptomPill {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
 }
 
 .revealCta {

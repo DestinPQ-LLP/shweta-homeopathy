@@ -68,7 +68,7 @@ function Sparkline() {
 function ExperienceBar({ years }: { years: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref as React.RefObject<Element>, { once: true });
-  const pct = Math.min((years / 20) * 100, 100);
+  const pct = Math.min((years / 10) * 100, 100);
   return (
     <div ref={ref} className={styles.expBarWrap}>
       <div className={styles.expBarTrack}>
@@ -104,10 +104,10 @@ export default function BentoCredentials() {
       <div className="container">
         <div className={styles.sectionHeader}>
           <span className="section-label">About the Doctor</span>
-          <h2>A Luminary in Classical Homeopathy</h2>
+          <h2>An Expert in Classical Homeopathy</h2>
           <div className="divider" style={{ marginInline: 'auto' }} />
           <p>
-            Combining academic excellence, international training, and 15+ years of clinical practice
+            Combining academic excellence, international training, and 6+ years of clinical practice
             to deliver deep, lasting healing through classical homeopathy.
           </p>
         </div>
@@ -164,7 +164,7 @@ export default function BentoCredentials() {
             <p className={styles.credSub}>Advanced Specialization in Homoeopathy</p>
           </motion.div>
 
-          {/* Cell 4: 15+ Years counter with progress bar */}
+          {/* Cell 4: 6+ Years counter with progress bar */}
           <motion.div
             className={`${styles.cell} ${styles.cellCounter} ${styles.cellSage}`}
             variants={cellVariants}
@@ -172,13 +172,13 @@ export default function BentoCredentials() {
             whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
           >
             <span className={styles.counterNum}>
-              <AnimatedCounter to={15} suffix="+" />
+              <AnimatedCounter to={6} suffix="+" />
             </span>
             <span className={styles.counterLabel}>Years of Experience</span>
-            <ExperienceBar years={15} />
+            <ExperienceBar years={6} />
           </motion.div>
 
-          {/* Cell 5: 10,000+ patients counter with sparkline */}
+          {/* Cell 5: 15,000+ patients counter with sparkline */}
           <motion.div
             className={`${styles.cell} ${styles.cellCounter} ${styles.cellForest}`}
             variants={cellVariants}
@@ -186,7 +186,7 @@ export default function BentoCredentials() {
             whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
           >
             <span className={styles.counterNum}>
-              <AnimatedCounter to={10000} suffix="+" />
+              <AnimatedCounter to={15000} suffix="+" />
             </span>
             <span className={styles.counterLabel}>Patients Treated</span>
             <Sparkline />

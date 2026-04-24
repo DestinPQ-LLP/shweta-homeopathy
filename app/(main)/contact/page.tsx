@@ -12,8 +12,24 @@ export const metadata: Metadata = buildMetadata({
 const info = [
   { icon: '📞', label: 'Phone', value: '+91 62844 11753', href: 'tel:+916284411753' },
   { icon: '✉️', label: 'Email', value: 'drshwetahmc@gmail.com', href: 'mailto:drshwetahmc@gmail.com' },
-  { icon: '📍', label: 'Zirakpur Clinic', value: 'Patiala Road, Zirakpur-140603, Punjab', href: undefined },
-  { icon: '📍', label: 'Budhlada Clinic', value: 'Budhlada, Punjab', href: undefined },
+  {
+    icon: '📍',
+    label: 'Zirakpur Clinic',
+    value: 'Patiala Road, Above Vintage Properties, Zirakpur, Punjab – 140603 · +91 62844–11753 · Mon–Sun 9:30 am–6:30 pm',
+    href: 'https://maps.app.goo.gl/Dr9n9oduRfBhsK9E7',
+  },
+  {
+    icon: '📍',
+    label: 'Budhlada Clinic',
+    value: 'Patel Marg, Near Railway Station, Budhlada, Mansa, Punjab – 151502 · +91 90564–62817 · Mon–Sun 9:00 am–6:00 pm',
+    href: undefined,
+  },
+  {
+    icon: '💻',
+    label: 'Online Consultation',
+    value: 'Anywhere in the world — video consultations via WhatsApp, Zoom or Google Meet · +91 62844–11753 · Flexible scheduling',
+    href: undefined,
+  },
 ];
 
 export default function ContactPage() {

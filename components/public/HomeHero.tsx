@@ -300,7 +300,7 @@ export default function HomeHero({ stats }: Props) {
             transition={{ duration: 0.6, ease: EASE }}
           >
             <span className={styles.badgeDot} />
-            Accepting New Patients · Est. 2009
+            Accepting New Patients · Est. 2020
           </motion.div>
 
           {/* Headline — wrapped in a real h1 for SEO */}
@@ -321,7 +321,7 @@ export default function HomeHero({ stats }: Props) {
             transition={{ duration: 0.7, delay: 1.4, ease: EASE }}
           >
             Expert homeopathic care for chronic & complex conditions —
-            rooted in classical principles, backed by 15+ years of practice.
+            rooted in classical principles, backed by 6+ years of practice and thousands of successful outcomes.
           </motion.p>
 
           {/* Pill credentials */}
@@ -360,8 +360,8 @@ export default function HomeHero({ stats }: Props) {
             transition={{ duration: 0.8, delay: 2.0 }}
           >
             {[
-              { to: 10000, suffix: '+', label: 'Patients Healed' },
-              { to: 15,    suffix: '+', label: 'Years Experience' },
+              { to: 15000, suffix: '+', label: 'Patients Healed' },
+              { to: 6,     suffix: '+', label: 'Years Experience' },
               { to: 98,    suffix: '%', label: 'Patient Satisfaction' },
             ].map((s, i) => (
               <div key={s.label} className={styles.statCell}>
@@ -440,7 +440,7 @@ export default function HomeHero({ stats }: Props) {
           >
             <CheckCircle size={20} className={styles.panelIcon} />
             <div>
-              <p className={styles.panelBig}>10,000+</p>
+              <p className={styles.panelBig}>15,000+</p>
               <p className={styles.panelSub}>Patients Healed</p>
             </div>
           </motion.div>
@@ -485,7 +485,7 @@ export default function HomeHero({ stats }: Props) {
           >
             <HeartPulse size={20} className={styles.panelIcon} />
             <div>
-              <p className={styles.panelBig}>15+ Yrs</p>
+              <p className={styles.panelBig}>6+ Yrs</p>
               <p className={styles.panelSub}>Clinical Practice</p>
             </div>
           </motion.div>

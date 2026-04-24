@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/admin/gmb-sync",
+      "schedule": "30 21 * * *"
+    }
+  ]
+}

@@ -36,8 +36,8 @@ export default async function ServicesPage() {
           <div className={styles.heroStats}>
             {[
               { num: '100+', label: 'Conditions treated' },
-              { num: '10 000+', label: 'Patients healed' },
-              { num: '15+', label: 'Years experience' },
+              { num: '15,000+', label: 'Patients healed' },
+              { num: '6+', label: 'Years experience' },
             ].map((s) => (
               <div key={s.label} className={styles.heroStat}>
                 <span className={styles.heroStatNum}>{s.num}</span>

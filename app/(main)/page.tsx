@@ -48,8 +48,8 @@ export default async function HomePage() {
 
       {/* ── Split-screen Hero ── */}
       <HomeHero stats={[
-        { number: '15+', label: 'Years Experience' },
-        { number: '10,000+', label: 'Patients Treated' },
+        { number: '6+', label: 'Years Experience' },
+        { number: '15,000+', label: 'Patients Treated' },
         { number: '12+', label: 'Specialities' },
         { number: '98%', label: 'Patient Satisfaction' },
       ]} />
