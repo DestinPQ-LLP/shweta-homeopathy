@@ -34,13 +34,28 @@ export async function initBlogSheet(): Promise<void> {
   }
 }
 
+/** Normalize cover image URLs to absolute public paths.
+ *  - External URLs (http/https) → unchanged
+ *  - Already absolute (/...) → unchanged
+ *  - WP-style path (2025/11/file.jpg) → extract filename → /photos/blog/file.jpg
+ *  - Bare filename (file.jpg) → /photos/blog/file.jpg
+ */
+function normalizeCoverImageUrl(url: string): string {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  if (url.startsWith('/')) return url;
+  // Strip any directory components (WP uploads style: YYYY/MM/filename.ext)
+  const filename = url.split('/').pop() || url;
+  return `/photos/blog/${filename}`;
+}
+
 function rowToPost(row: string[]): BlogPost {
   return {
     id:             row[0] || '',
     title:          row[1] || '',
     slug:           row[2] || '',
     excerpt:        row[3] || '',
-    coverImageUrl:  row[4] || '',
+    coverImageUrl:  normalizeCoverImageUrl(row[4] || ''),
     category:       row[5] || '',
     tags:           row[6] || '',
     author:         row[7] || 'Dr. Shweta Goyal',

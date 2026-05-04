@@ -49,6 +49,8 @@ next-env.d.ts
 !/public/photos/17677_aboutdoctor.jpg
 !/public/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg
 !/public/photos/17795_Dr__Shweta_in_Clinic.jpg
+!/public/photos/blog/
+!/public/photos/blog/**
 
 # Large data files (WordPress dumps, export archives)
 data.sql
