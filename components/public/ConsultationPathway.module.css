@@ -16,6 +16,7 @@
 
 /* ─── Scroll-driven progress line ─────────────────────────────── */
 .progressLineWrap {
+  position: relative;
   display: none;
 }
 

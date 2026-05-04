@@ -177,7 +177,7 @@
   font-size: clamp(3.4rem, 6vw, 5.4rem);
   font-weight: 800;
   letter-spacing: -0.035em;
-  color: var(--clr-forest);
+  color: #ffffff;
   line-height: 1.04;
   /* Monospace feel for scramble effect */
   font-variant-numeric: tabular-nums;
@@ -199,7 +199,7 @@
 .desc {
   font-size: var(--text-lg);
   line-height: 1.72;
-  color: var(--clr-text-mid);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 44ch;
 }
 
@@ -308,12 +308,12 @@
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1;
-  color: var(--clr-forest);
+  color: #ffffff;
 }
 .statLabel {
   font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--clr-text-mid);
+  color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }

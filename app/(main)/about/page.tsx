@@ -80,6 +80,7 @@ export default function AboutPage() {
                 src="/photos/17677_aboutdoctor.jpg"
                 alt="Dr. Shweta Goyal"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}
                 priority
               />
@@ -165,8 +166,8 @@ export default function AboutPage() {
                 <div className={styles.timelineWrap}>
                   <div className={styles.timelineLine} />
                   <div className={styles.timelineItems}>
-                    {timeline.map((t) => (
-                      <div key={t.year} className={styles.timelineItem}>
+                    {timeline.map((t, i) => (
+                      <div key={`${t.year}-${i}`} className={styles.timelineItem}>
                         <div className={styles.timelineDot} />
                         <span className={styles.timelineYear}>{t.year}</span>
                         <p className={styles.timelineEvent}>{t.event}</p>

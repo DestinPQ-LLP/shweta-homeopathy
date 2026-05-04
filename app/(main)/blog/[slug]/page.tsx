@@ -38,12 +38,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     .filter(p => p.status === 'published' && p.slug !== post.slug && p.category && p.category === post.category)
     .slice(0, 3);
 
-  let bodyHtml = '';
-  if (post.docId) {
-    bodyHtml = await getBlogDocHtml(post.docId).catch(() => '');
-    // Strip Google Doc wrapper — keep only body content
-    const bodyMatch = bodyHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-    if (bodyMatch) bodyHtml = bodyMatch[1];
+  // Prefer inline content stored in sheet; fall back to Google Doc export
+  let bodyHtml = post.content || '';
+  if (!bodyHtml && post.docId) {
+    const docHtml = await getBlogDocHtml(post.docId).catch(() => '');
+    const bodyMatch = docHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+    bodyHtml = bodyMatch ? bodyMatch[1] : docHtml;
   }
 
   const formattedDate = post.publishedDate

@@ -4,8 +4,8 @@ import { createBlogDoc, updateBlogDoc } from '@/lib/google/docs';
 import { randomUUID } from 'crypto';
 
 const SHEET_ID = () => process.env.GOOGLE_SHEETS_BLOG_ID || '';
-const RANGE_POSTS = 'Blogs!A:N';
-const HEADERS = ['id','title','slug','excerpt','coverImageUrl','category','tags','author','publishedDate','updatedDate','status','metaDescription','docId','docUrl'];
+const RANGE_POSTS = 'Blogs!A:O';
+const HEADERS = ['id','title','slug','excerpt','coverImageUrl','category','tags','author','publishedDate','updatedDate','status','metaDescription','docId','docUrl','content'];
 
 
 export interface BlogPost {
@@ -23,6 +23,7 @@ export interface BlogPost {
   metaDescription: string;
   docId: string;
   docUrl: string;
+  content: string;
 }
 
 // Ensure the Posts sheet has a header row (idempotent: only appends if sheet is empty)
@@ -49,6 +50,7 @@ function rowToPost(row: string[]): BlogPost {
     metaDescription: row[11] || '',
     docId:          row[12] || '',
     docUrl:         row[13] || '',
+    content:        row[14] || '',
   };
 }
 
@@ -101,11 +103,12 @@ export async function createBlog(data: {
     coverImageUrl: data.coverImageUrl, category: data.category, tags: data.tags,
     author: data.author || 'Dr. Shweta Goyal', publishedDate: now, updatedDate: now,
     status: data.status, metaDescription: data.metaDescription, docId, docUrl,
+    content: data.htmlContent,
   };
   await appendToSheet(SHEET_ID(), RANGE_POSTS, [[
     post.id, post.title, post.slug, post.excerpt, post.coverImageUrl, post.category,
     post.tags, post.author, post.publishedDate, post.updatedDate, post.status,
-    post.metaDescription, post.docId, post.docUrl,
+    post.metaDescription, post.docId, post.docUrl, post.content,
   ]]);
   _blogsCache = null;
   return post;
@@ -118,15 +121,19 @@ export async function updateBlog(id: string, data: Partial<BlogPost & { htmlCont
   if (rowIndex < 0) return null;
 
   const existing = rowToPost(rows[rowIndex]);
-  if (data.htmlContent && existing.docId) await updateBlogDoc(existing.docId, data.htmlContent);
+  if (data.htmlContent && existing.docId) await updateBlogDoc(existing.docId, data.htmlContent).catch(() => {});
 
-  const updated: BlogPost = { ...existing, ...data, updatedDate: new Date().toISOString().split('T')[0] };
-  const range = `Blogs!A${rowIndex + 1}:N${rowIndex + 1}`;
+  const updated: BlogPost = {
+    ...existing, ...data,
+    content: data.htmlContent ?? existing.content,
+    updatedDate: new Date().toISOString().split('T')[0],
+  };
+  const range = `Blogs!A${rowIndex + 1}:O${rowIndex + 1}`;
 
   await updateSheetRow(SHEET_ID(), range, [[
     updated.id, updated.title, updated.slug, updated.excerpt, updated.coverImageUrl,
     updated.category, updated.tags, updated.author, updated.publishedDate, updated.updatedDate,
-    updated.status, updated.metaDescription, updated.docId, updated.docUrl,
+    updated.status, updated.metaDescription, updated.docId, updated.docUrl, updated.content,
   ]]);
   _blogsCache = null;
   return updated;
