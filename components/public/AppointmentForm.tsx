@@ -51,7 +51,8 @@ export default function AppointmentForm() {
     const e: Partial<FormData> = {};
     if (!form.name.trim()) e.name = 'Name is required';
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = 'Valid email required';
-    if (!form.phone.match(/^[6-9]\d{9}$/)) e.phone = 'Valid 10-digit Indian mobile number required';
+    const digitsOnly = form.phone.replace(/[\s\-().+]/g, '').replace(/^91/, '');
+    if (!digitsOnly.match(/^[6-9]\d{9}$/)) e.phone = 'Valid 10-digit Indian mobile number required';
     if (!form.concern) e.concern = 'Please select a concern';
     setErrors(e);
     return Object.keys(e).length === 0;

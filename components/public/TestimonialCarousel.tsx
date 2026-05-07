@@ -71,11 +71,6 @@ export default function TestimonialCarousel({ testimonials }: Props) {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className={styles.card}
         >
-          <div className={styles.stars}>
-            {Array.from({ length: current.rating }).map((_, i) => (
-              <span key={i} className={styles.star}><Star size={14} fill="var(--clr-gold)" color="var(--clr-gold)" /></span>
-            ))}
-          </div>
           <blockquote className={styles.quote}>{current.text}</blockquote>
           <div className={styles.author}>
             <div className={styles.avatar}>
@@ -92,6 +87,11 @@ export default function TestimonialCarousel({ testimonials }: Props) {
               )}
             </div>
             <div>
+              <div className={styles.stars}>
+                {Array.from({ length: current.rating }).map((_, i) => (
+                  <span key={i} className={styles.star}><Star size={14} fill="var(--clr-gold)" color="var(--clr-gold)" /></span>
+                ))}
+              </div>
               <p className={styles.authorName}>{current.name}</p>
               <p className={styles.authorMeta}>
                 {current.condition}

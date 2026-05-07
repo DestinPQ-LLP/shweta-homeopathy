@@ -11,21 +11,21 @@ import styles from './about.module.css';
 export const metadata: Metadata = buildMetadata({
   title: 'About Dr. Shweta Goyal',
   description:
-    'Learn about Dr. Shweta Goyal — BHMS Gold Medalist, MD (Hom), PG IACH Greece — an expert in classical homeopathy with 6+ years of experience and 15,000+ patients treated for chronic and complex conditions.',
+    'Learn about Dr. Shweta Goyal — BHMS Gold Medalist, MD (Hom), PG IACH Greece — an expert in classical homeopathy with 15+ years of experience and 15,000+ patients treated for chronic and complex conditions.',
   path: '/about',
 });
 
 export const revalidate = 3600;
 
 const timeline = [
-  { year: '2020', event: 'BHMS' },
-  { year: '2020', event: 'Set up Zirakpur in clinic in March' },
-  { year: '2020', event: 'Budhlada clinic in june' },
-  { year: '2021', event: 'DNHE' },
-  { year: '2021', event: 'Online consultations' },
-  { year: '2023', event: 'MD' },
-  { year: '2024', event: 'PG Greece' },
-  { year: '2025', event: '20000+ patients' },
+  { year: '2020', event: 'BHMS (Gold Medalist) — Panjab University, Chandigarh' },
+  { year: '2020', event: 'Set up Zirakpur Clinic in March' },
+  { year: '2020', event: 'Set up Budhlada Clinic in June' },
+  { year: '2021', event: 'DNHE — New Delhi (Nutrition)' },
+  { year: '2021', event: 'Online Consultations' },
+  { year: '2023', event: 'MD (Hom) — Materia Medica' },
+  { year: '2024', event: 'PG Levels of Health — IACH, Greece' },
+  { year: '2025', event: '20,000+ Patients' },
 ];
 
 const philosophy = [
@@ -65,7 +65,7 @@ export default function AboutPage() {
             <div className={styles.heroBadge}><Leaf size={16} style={{ marginRight: '6px' }} /> About the Doctor</div>
             <h1 className={styles.heroTitle}>Dr. Shweta Goyal</h1>
             <p className={styles.heroSub}>
-              Classical Homeopath with 6+ years of practice across Zirakpur, Budhlada, and online — treating patients worldwide.
+              Classical Homeopath with 15+ years of practice across Zirakpur, Budhlada, and online — treating patients worldwide.
             </p>
             <div className={styles.heroCreds}>
               {['BHMS Gold Medalist', 'MD (Hom)', 'PG · IACH Greece', 'DNHE Delhi'].map((c) => (
@@ -135,7 +135,7 @@ export default function AboutPage() {
                   foremost institutions for classical homeopathic training, founded by Dr. George Vithoulkas.
                 </p>
                 <p style={{ marginTop: 'var(--space-4)' }}>
-                  Today, with 6+ years of clinical practice and more than 15,000 patients treated, Dr. Shweta runs
+                  Today, with 15+ years of clinical practice and more than 15,000 patients treated, Dr. Shweta runs
                   clinics in Zirakpur and Budhlada, Punjab, and conducts online consultations for patients across India and internationally.
                 </p>
               </div>
@@ -232,6 +232,165 @@ export default function AboutPage() {
                 />
               </div>
               <p className={styles.recognitionCaption}>Awarded at the Grihshobha EmpowerHer Ceremony</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Recognition 2: Dr. Malati Allen Noble Award 2019 ── */}
+      <section className={styles.recognitionSection} style={{ background: 'var(--clr-white)' }}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">National Award</span>
+            <h2>Dr. Malati Allen Noble Award 2019</h2>
+            <p className={styles.recognitionDesc}>
+              Dr. Shweta was honoured at the 8th Dr. Malati Allen Noble Award Ceremony — recognised as the
+              World&apos;s Largest Award Ceremony in the field of Homoeopathy — where she received the winner&apos;s
+              award for outstanding contribution to homoeopathic practice.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/18397_award-pic1.jpg"
+                  alt="Dr. Shweta Goyal receiving the Dr. Malati Allen Noble Award 2019 on stage"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Receiving the Winner&apos;s Award &amp; Cheque on Stage</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/18396_award.jpg"
+                  alt="Dr. Shweta Goyal as Awardee at the Dr. Malati Allen Noble Award Ceremony 2019"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Felicitated as Awardee by the Organising Committee</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/18427_draward.jpg"
+                  alt="Dr. Shweta Goyal with senior homoeopaths at the Dr. Malati Allen Charitable Trust event"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>With Senior Homoeopaths — Dr. Malati Allen Charitable Trust</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Recognition 3: IACH Greece PG Training 2024 ── */}
+      <section className={styles.recognitionSection}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">International Training</span>
+            <h2>PG Levels of Health — IACH, Greece 2024</h2>
+            <p className={styles.recognitionDesc}>
+              Dr. Shweta completed an advanced post-graduate programme in the internationally acclaimed
+              Levels of Health methodology at the International Academy of Classical Homoeopathy (IACH) in
+              Greece — deepening her expertise in constitutional prescribing and case management.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  alt="Dr. Shweta Goyal — IACH Greece PG Programme"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Advanced PG Programme — IACH, Greece</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  alt="Dr. Shweta Goyal — International Classical Homeopathy Training"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>International Classical Homeopathy Certification</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  alt="Dr. Shweta Goyal — Levels of Health Methodology"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Levels of Health — Constitutional Prescribing</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Recognition 4: MD (Hom) 2023 ── */}
+      <section className={styles.recognitionSection} style={{ background: 'var(--clr-white)' }}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">Academic Excellence</span>
+            <h2>MD (Hom) — Materia Medica 2023</h2>
+            <p className={styles.recognitionDesc}>
+              Dr. Shweta earned her MD in Homoeopathy with specialisation in Materia Medica — a rigorous
+              post-graduate academic distinction that deepened her mastery of homoeopathic medicines, their
+              sources, and their clinical applications in complex chronic cases.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  alt="Dr. Shweta Goyal — MD Homoeopathy Materia Medica"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>MD (Hom) — Specialisation in Materia Medica</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  alt="Dr. Shweta Goyal — Post-Graduate Homoeopathy"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Post-Graduate Academic Achievement in Homeopathy</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  alt="Dr. Shweta Goyal — Clinical Excellence"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Clinical Excellence &amp; Advanced Case Management</p>
             </div>
           </div>
         </div>

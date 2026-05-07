@@ -30,7 +30,7 @@ export default function GoogleReviewWidget({
   placeId,   // ← REPLACE with actual Place ID when client provides it
   reviewCount = 200,
   rating = 4.9,
-  reviewsUrl = 'https://search.google.com/local/writereview?placeid=PLACE_ID', // ← REPLACE with actual Google review URL
+  reviewsUrl = 'https://maps.app.goo.gl/Dr9n9oduRfBhsK9E7',
 }: Props) {
   return (
     <aside className={styles.wrapper}>

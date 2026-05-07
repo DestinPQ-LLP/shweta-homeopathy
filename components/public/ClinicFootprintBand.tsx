@@ -9,14 +9,14 @@ const locations = [
     subtitle: 'Main Clinic',
     address: 'Patiala Road, Above Vintage Properties, Zirakpur, Punjab -140603',
     phone: '+91 62844-11753',
-    hours: 'Mon- Sun 9:30 am-6:30 pm',
+    hours: 'Mon–Sun · 9:30 am–6:30 pm',
   },
   {
     city: 'Budhlada',
     subtitle: 'Branch Clinic',
-    address: 'Patel Marg, Near Railway Station, Budhlada, Mansa, Punjab -151502',
+    address: 'Patel Marg, Near Railway Station, Budhlada, Mansa, Punjab – 151502',
     phone: '+91 90564-62817',
-    hours: 'Mon- Sun 9:00 am-6:00 pm',
+    hours: 'Mon–Sun · 9:00 am–6:00 pm',
   },
   {
     city: 'Online',

@@ -62,8 +62,8 @@ export default function AppointmentPage() {
               <div className="card">
                 <h4 style={{ marginBottom: 'var(--space-4)' }}>Clinic Locations</h4>
                 {[
-                  { name: 'Zirakpur Clinic', address: 'Patiala Road, Zirakpur-140603, Punjab', hours: 'Mon–Sat · 9AM–7PM' },
-                  { name: 'Budhlada Clinic', address: 'Main Clinic Road, Budhlada, Punjab', hours: 'Tue, Thu, Sat · By Appointment' },
+                  { name: 'Zirakpur Clinic', address: 'Patiala Road, Above Vintage Properties, Zirakpur, Punjab – 140603', hours: 'Mon–Sun · 9:30 am–6:30 pm' },
+                  { name: 'Budhlada Clinic', address: 'Patel Marg, Near Railway Station, Budhlada, Mansa, Punjab – 151502', hours: 'Mon–Sun · 9:00 am–6:00 pm' },
                 ].map((loc) => (
                   <div key={loc.name} style={{ marginBottom: 'var(--space-4)', paddingBottom: 'var(--space-4)', borderBottom: '1px solid var(--clr-border)' }}>
                     <p style={{ margin: 0, fontWeight: 600, fontSize: 'var(--text-sm)', color: 'var(--clr-forest)', display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>📍 {loc.name}</p>

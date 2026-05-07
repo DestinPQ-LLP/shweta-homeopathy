@@ -58,7 +58,7 @@ export default async function TestimonialsPage() {
             </div>
             <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, fontSize: 'var(--text-lg)' }}>4.9</span>
             <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-sm)' }}>
-              · {testimonials.length}+ verified Google reviews
+              · 200+ verified Google reviews
             </span>
           </div>
         </div>

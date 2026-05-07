@@ -35,7 +35,7 @@ export default function AdsTestimonials({ testimonials }: Props) {
             ))}
           </div>
           <strong className={styles.summaryScore}>5.0</strong>
-          <span className={styles.summaryCount}>Based on 500+ reviews</span>
+          <span className={styles.summaryCount}>Based on 200+ reviews</span>
         </div>
 
         <div className={styles.grid}>

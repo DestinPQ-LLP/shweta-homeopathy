@@ -321,7 +321,7 @@ export default function HomeHero({ stats }: Props) {
             transition={{ duration: 0.7, delay: 1.4, ease: EASE }}
           >
             Expert homeopathic care for chronic & complex conditions —
-            rooted in classical principles, backed by 6+ years of practice and thousands of successful outcomes.
+            rooted in classical principles, backed by 15+ years of practice and thousands of successful outcomes.
           </motion.p>
 
           {/* Pill credentials */}
@@ -485,7 +485,7 @@ export default function HomeHero({ stats }: Props) {
           >
             <HeartPulse size={20} className={styles.panelIcon} />
             <div>
-              <p className={styles.panelBig}>6+ Yrs</p>
+              <p className={styles.panelBig}>15+ Yrs</p>
               <p className={styles.panelSub}>Clinical Practice</p>
             </div>
           </motion.div>
