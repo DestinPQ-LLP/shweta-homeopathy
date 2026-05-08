@@ -36,11 +36,11 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section style={{ background: 'linear-gradient(135deg, var(--clr-forest), var(--clr-sage))', padding: 'calc(var(--header-h) + var(--space-12)) 0 var(--space-16)', marginTop: 'calc(-1 * var(--header-h))' }}>
+      <section style={{ background: 'linear-gradient(160deg, #ffffff 0%, hsl(183, 30%, 97%) 40%, hsl(183, 25%, 94%) 100%)', padding: 'calc(var(--header-h) + var(--space-12)) 0 var(--space-16)', marginTop: 'calc(-1 * var(--header-h))' }}>
         <div className="container" style={{ textAlign: 'center' }}>
-          <span className="section-label" style={{ color: 'rgba(255,255,255,0.85)', background: 'rgba(255,255,255,0.12)' }}>Get In Touch</span>
-          <h1 style={{ color: 'white', marginTop: 'var(--space-3)' }}>Contact Us</h1>
-          <p style={{ color: 'rgba(255,255,255,0.75)', maxWidth: 520, margin: 'var(--space-4) auto 0' }}>
+          <span className="section-label" style={{ color: 'var(--clr-forest)', background: 'rgba(0,0,0,0.05)', borderColor: 'rgba(0,0,0,0.1)' }}>Get In Touch</span>
+          <h1 style={{ color: 'var(--clr-forest)', marginTop: 'var(--space-3)' }}>Contact Us</h1>
+          <p style={{ color: 'var(--clr-text-mid)', maxWidth: 520, margin: 'var(--space-4) auto 0' }}>
             Reach out with any query or to learn more about treatment options.
           </p>
         </div>

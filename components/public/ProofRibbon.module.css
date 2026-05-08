@@ -5,9 +5,9 @@
 
 .ribbon {
   overflow: hidden;
-  background: var(--clr-forest);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--clr-sage-pale);
+  border-top: 1px solid var(--clr-border);
+  border-bottom: 1px solid var(--clr-border);
   padding-block: var(--space-3);
 }
 
@@ -31,7 +31,7 @@
 }
 
 .icon {
-  color: var(--clr-gold);
+  color: var(--clr-sage);
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -40,7 +40,7 @@
 .text {
   font-size: var(--text-sm);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--clr-text-mid);
   letter-spacing: 0.01em;
 }
 
@@ -48,10 +48,10 @@
   display: inline-block;
   width: 4px;
   height: 4px;
-  background: var(--clr-gold);
+  background: var(--clr-sage-lt);
   border-radius: 50%;
   margin-left: var(--space-4);
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 /* On desktop: slow down but keep scrolling; on very large screens centre */

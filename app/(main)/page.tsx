@@ -1,11 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { faqs } from '@/lib/content';
 import { buildDoctorSchema, buildFAQSchema } from '@/lib/seo';
 import { getLatestBlogs } from '@/lib/blog';
 import { getAllConditions } from '@/lib/healing-conditions';
 import { getPublishedTestimonials } from '@/lib/testimonials';
-import { Shield, Target, Microscope, Globe, ClipboardList, Heart, Phone } from 'lucide-react';
+import {
+  Shield, Target, Microscope, Globe, ClipboardList, Heart, Phone,
+  Users, Calendar, CheckCircle, Leaf, Award, Smile
+} from 'lucide-react';
 import BlogCard from '@/components/public/BlogCard';
 import HomeHero from '@/components/public/HomeHero';
 import BentoCredentials from '@/components/public/BentoCredentials';
@@ -34,6 +38,13 @@ const whyChoose = [
   { icon: <Heart size={32} />, title: 'Permanent Cure', desc: 'Focused on eradicating disease at its roots, not managing symptoms indefinitely.' },
 ];
 
+const statsBarData = [
+  { icon: <Users size={22} />, num: '10,000+', label: 'Patients Healed' },
+  { icon: <Calendar size={22} />, num: '15+', label: 'Years Experience' },
+  { icon: <Smile size={22} />, num: '98%', label: 'Patient Satisfaction' },
+  { icon: <Leaf size={22} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
+];
+
 export default async function HomePage() {
   const doctorSchema = buildDoctorSchema();
   const faqSchema = buildFAQSchema(faqs.slice(0, 6));
@@ -54,6 +65,74 @@ export default async function HomePage() {
         { number: '98%', label: 'Patient Satisfaction' },
       ]} />
 
+      {/* ── Stats Bar ── */}
+      <div className={styles.statsBar}>
+        <div className={`container ${styles.statsBarInner}`}>
+          {statsBarData.map((s) => (
+            <div key={s.label} className={styles.statsBarCell}>
+              <div className={styles.statsBarIcon}>{s.icon}</div>
+              <div>
+                <p className={styles.statsBarNum}>{s.num}</p>
+                <p className={styles.statsBarLabel}>{s.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── Credentials & Why Choose Us strip ── */}
+      <div className={styles.credWhyStrip}>
+        <div className="container">
+          <div className={styles.credWhyGrid}>
+            {/* Trusted Credentials */}
+            <div className={styles.credBlock}>
+              <h4>Trusted Credentials</h4>
+              <div className={styles.credBlockItems}>
+                {[
+                  { icon: <Award size={22} />, label: 'BHMS', sub: 'Gold Medalist' },
+                  { icon: <Microscope size={22} />, label: 'MD', sub: '(Homeopathy)' },
+                  { icon: <Globe size={22} />, label: 'PG - IACH', sub: 'Greece' },
+                ].map(c => (
+                  <div key={c.label} className={styles.credBlockItem}>
+                    <div className={styles.credBlockIcon}>{c.icon}</div>
+                    <span className={styles.credBlockLabel}>{c.label}</span>
+                    <span className={styles.credBlockSub}>{c.sub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Why Choose Us */}
+            <div className={styles.whyBlock}>
+              <h4>Why Choose Us?</h4>
+              <div className={styles.whyBlockItems}>
+                {[
+                  'Conveys trust, healing & scientific approach',
+                  'Reflects nature with a clinical, premium feel',
+                  'Creates a calming experience for patients',
+                ].map(w => (
+                  <div key={w} className={styles.whyBlockItem}>
+                    <CheckCircle size={14} className={styles.whyBlockCheck} />
+                    <span>{w}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Botanicals image */}
+            <div className={styles.credWhyBotanical}>
+              <Image
+                src="/images/botanicals_flatlay.png"
+                alt="Homeopathic botanicals"
+                fill
+                style={{ objectFit: 'contain' }}
+                sizes="220px"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── Proof Ribbon (animated marquee) ── */}
       <ProofRibbon />
 
@@ -61,7 +140,6 @@ export default async function HomePage() {
       <BentoCredentials />
 
       {/* ── Meet the Doctor Video ── */}
-      {/* REPLACE: pass videoUrl="https://www.youtube.com/embed/YOUR_VIDEO_ID" when client provides the video link */}
       <VideoSection />
 
       {/* ── Service Filter Grid (Constellation Map) ── */}
@@ -111,7 +189,6 @@ export default async function HomePage() {
             <span className="section-label">Patient Stories</span>
             <h2>What Our Patients Say</h2>
           </div>
-          {/* 2-column: carousel left, rating graph right */}
           <div className={styles.testimonialsInner}>
             <TestimonialCarousel testimonials={liveTestimonials} />
             <SocialProofRating reviewCount={200} rating={4.9} />

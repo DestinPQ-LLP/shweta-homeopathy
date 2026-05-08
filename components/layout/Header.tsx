@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState, useEffect, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { Search, Calendar } from 'lucide-react';
 import Image from 'next/image';
 import styles from './Header.module.css';
 import CommandPalette from '@/components/public/CommandPalette';
@@ -55,15 +55,18 @@ export default function Header() {
           <Image
             src="/images/logo.webp"
             alt="Dr. Shweta's Homoeopathy"
-            width={56}
-            height={56}
+            width={52}
+            height={52}
             priority
             className={styles.logoImg}
           />
-          <span className={styles.logoSub}>BHMS · MD (Hom) · PG IACH Greece</span>
+          <div className={styles.logoText}>
+            <span className={styles.logoName}>Dr. Shweta&apos;s Homoeopathy</span>
+            <span className={styles.logoTagline}>Where Science Meets Nature</span>
+          </div>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav — centered */}
         <nav className={styles.nav} aria-label="Main navigation">
           {NAV_LINKS.map((l) => {
             const isActive = pathname === l.href || (l.href !== '/' && pathname.startsWith(l.href));
@@ -80,21 +83,24 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Search trigger */}
-        <button
-          className={styles.searchBtn}
-          onClick={() => setPaletteOpen(true)}
-          aria-label="Search (⌘K)"
-          title="Search (⌘K)"
-        >
-          <Search size={18} />
-          <span className={styles.searchKbd}>⌘K</span>
-        </button>
+        {/* Right actions */}
+        <div className={styles.actions}>
+          {/* Search trigger */}
+          <button
+            className={styles.searchBtn}
+            onClick={() => setPaletteOpen(true)}
+            aria-label="Search (⌘K)"
+            title="Search (⌘K)"
+          >
+            <Search size={16} />
+          </button>
 
-        {/* CTA */}
-        <Link href="/appointment" className={`btn btn-gold ${styles.ctaBtn}`} id="header-book-btn">
-          Book Appointment
-        </Link>
+          {/* CTA */}
+          <Link href="/appointment" className={styles.ctaBtn} id="header-book-btn">
+            <Calendar size={15} />
+            Book Appointment
+          </Link>
+        </div>
 
         {/* Mobile toggle */}
         <button
@@ -146,10 +152,11 @@ export default function Header() {
             >
               <Link
                 href="/appointment"
-                className="btn btn-gold"
+                className={styles.ctaBtn}
                 style={{ width: '100%', justifyContent: 'center' }}
                 onClick={() => setMenuOpen(false)}
               >
+                <Calendar size={15} />
                 Book Appointment
               </Link>
             </motion.div>

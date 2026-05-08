@@ -162,6 +162,122 @@
   color: var(--clr-text-mid);
 }
 
+/* ─── Stats Bar ─────────────────────────────────────────── */
+.statsBar {
+  padding-block: var(--space-8);
+  background: #ffffff;
+  border-bottom: 1px solid var(--clr-border);
+}
+.statsBarInner {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+.statsBarCell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-right: 1px solid var(--clr-border);
+}
+.statsBarCell:last-child { border-right: none; }
+.statsBarIcon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--clr-sage-pale);
+  color: var(--clr-sage);
+  flex-shrink: 0;
+}
+.statsBarNum {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: var(--clr-forest);
+  line-height: 1;
+}
+.statsBarLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--clr-text-lt);
+  line-height: 1.3;
+}
+
+/* ─── Credentials/Why Strip ─────────────────────────────────── */
+.credWhyStrip {
+  padding-block: var(--space-8);
+  background: hsl(183, 25%, 97%);
+  border-bottom: 1px solid var(--clr-border);
+}
+.credWhyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-8);
+  align-items: start;
+}
+.credBlock h4, .whyBlock h4 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--clr-forest);
+  margin-bottom: var(--space-4);
+}
+.credBlockItems {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.credBlockItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+.credBlockIcon {
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--clr-sage);
+}
+.credBlockLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--clr-text-mid);
+  line-height: 1.3;
+}
+.credBlockSub {
+  font-size: 0.65rem;
+  color: var(--clr-text-lt);
+  line-height: 1.2;
+}
+.whyBlockItems {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.whyBlockItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 0.82rem;
+  color: var(--clr-text-mid);
+}
+.whyBlockCheck {
+  color: var(--clr-sage);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.credWhyBotanical {
+  position: relative;
+  width: 220px;
+  height: 180px;
+  flex-shrink: 0;
+}
+
 /* ─── About Section ───────────────────────────────────────── */
 .aboutSection {}
 
@@ -489,7 +605,7 @@
 /* ─── CTA Section ─────────────────────────────────────────── */
 .ctaSection {
   padding-block: var(--space-20);
-  background: linear-gradient(135deg, var(--clr-forest) 0%, hsl(198, 44%, 22%) 100%);
+  background: linear-gradient(135deg, var(--clr-forest) 0%, hsl(195, 55%, 28%) 100%);
 }
 
 .ctaBox {

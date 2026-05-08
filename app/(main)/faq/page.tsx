@@ -16,11 +16,11 @@ export default function FAQPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <section style={{ background: 'linear-gradient(160deg, hsl(198, 52%, 12%), hsl(198, 44%, 24%))', padding: 'var(--space-16) 0' }}>
+      <section style={{ background: 'linear-gradient(160deg, #ffffff 0%, hsl(183, 30%, 97%) 40%, hsl(183, 25%, 94%) 100%)', padding: 'var(--space-16) 0' }}>
         <div className="container">
-          <span className="section-label" style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.8)' }}>Questions & Answers</span>
-          <h1 style={{ color: 'var(--clr-white)', marginTop: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>Frequently Asked Questions</h1>
-          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 'var(--text-lg)', maxWidth: '550px' }}>Everything you need to know before booking your first consultation.</p>
+          <span className="section-label" style={{ background: 'rgba(0,0,0,0.05)', color: 'var(--clr-forest)' }}>Questions & Answers</span>
+          <h1 style={{ color: 'var(--clr-forest)', marginTop: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>Frequently Asked Questions</h1>
+          <p style={{ color: 'var(--clr-text-mid)', fontSize: 'var(--text-lg)', maxWidth: '550px' }}>Everything you need to know before booking your first consultation.</p>
         </div>
       </section>
 

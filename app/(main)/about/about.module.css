@@ -1,6 +1,6 @@
 /* ─── Hero ──────────────────────────────────────────────────── */
 .hero {
-  background: linear-gradient(160deg, hsl(198, 52%, 12%) 0%, hsl(198, 48%, 18%) 55%, hsl(198, 44%, 22%) 100%);
+  background: linear-gradient(160deg, #ffffff 0%, hsl(183, 30%, 97%) 40%, hsl(183, 25%, 94%) 100%);
   padding-block: var(--space-20);
   overflow: hidden;
   position: relative;
@@ -22,15 +22,15 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.1);
   border-radius: var(--radius-full);
   padding: var(--space-2) var(--space-4);
   font-size: var(--text-xs);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
+  color: var(--clr-forest);
   margin-bottom: var(--space-5);
   width: fit-content;
 }
@@ -38,14 +38,14 @@
 .heroTitle {
   font-size: clamp(var(--text-4xl), 5vw, var(--text-5xl));
   font-weight: 700;
-  color: var(--clr-white);
+  color: var(--clr-forest);
   margin-bottom: var(--space-4);
   line-height: 1.1;
 }
 
 .heroSub {
   font-size: var(--text-base);
-  color: rgba(255,255,255,0.65);
+  color: var(--clr-text-mid);
   line-height: 1.7;
   margin-bottom: var(--space-6);
 }
@@ -57,13 +57,13 @@
 }
 
 .credPill {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.08);
   border-radius: var(--radius-full);
   padding: var(--space-1) var(--space-3);
   font-size: var(--text-xs);
   font-weight: 600;
-  color: rgba(255,255,255,0.8);
+  color: var(--clr-forest);
 }
 
 /* Hero Photo side */

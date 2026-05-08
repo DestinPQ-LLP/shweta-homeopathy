@@ -133,7 +133,7 @@
   inset: 0;
   width: 100%;
   box-sizing: border-box;
-  background: linear-gradient(160deg, hsl(198, 50%, 16%) 0%, hsl(198, 44%, 22%) 100%);
+  background: linear-gradient(160deg, var(--clr-forest) 0%, hsl(195, 55%, 28%) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

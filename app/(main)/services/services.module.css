@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  background: linear-gradient(160deg, hsl(198, 52%, 10%), hsl(198, 48%, 20%));
+  background: linear-gradient(160deg, #ffffff 0%, hsl(183, 30%, 97%) 40%, hsl(183, 25%, 94%) 100%);
   padding-block: var(--space-20, 5rem) var(--space-16);
   overflow: hidden;
 }
@@ -11,7 +11,7 @@
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  background: radial-gradient(circle, hsla(42,68%,52%,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, hsla(42,68%,52%,0.10) 0%, transparent 70%);
   top: -120px;
   right: -80px;
   pointer-events: none;
@@ -22,7 +22,7 @@
   width: 360px;
   height: 360px;
   border-radius: 50%;
-  background: radial-gradient(circle, hsla(150,28%,60%,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, hsla(150,28%,60%,0.08) 0%, transparent 70%);
   bottom: -80px;
   left: 5%;
   pointer-events: none;
@@ -39,9 +39,9 @@
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--clr-gold);
-  background: rgba(212,168,68,0.12);
-  border: 1px solid rgba(212,168,68,0.25);
+  color: var(--clr-forest);
+  background: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.1);
   border-radius: var(--radius-full, 999px);
   padding: 4px 14px;
   margin-bottom: var(--space-4);
@@ -51,14 +51,14 @@
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 5vw, 3.8rem);
   font-weight: 800;
-  color: var(--clr-white);
+  color: var(--clr-forest);
   line-height: 1.08;
   margin: 0 0 var(--space-5);
 }
 
 .heroSub {
   font-size: var(--text-lg);
-  color: rgba(255,255,255,0.72);
+  color: var(--clr-text-mid);
   max-width: 580px;
   line-height: 1.75;
   margin: 0 0 var(--space-10);
@@ -80,13 +80,13 @@
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
   font-weight: 800;
-  color: var(--clr-gold);
+  color: var(--clr-forest);
   line-height: 1;
 }
 
 .heroStatLabel {
   font-size: var(--text-xs);
-  color: rgba(255,255,255,0.55);
+  color: var(--clr-text-lt);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }

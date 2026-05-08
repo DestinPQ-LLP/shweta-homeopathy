@@ -25,9 +25,9 @@ export default async function TestimonialsPage() {
 
   return (
     <>
-      {/* Hero — teal brand gradient */}
+      {/* Hero — light premium gradient */}
       <section style={{
-        background: 'linear-gradient(160deg, hsl(198, 52%, 12%), hsl(198, 44%, 24%))',
+        background: 'linear-gradient(160deg, #ffffff 0%, hsl(183, 30%, 97%) 40%, hsl(183, 25%, 94%) 100%)',
         padding: 'var(--space-16) 0',
         position: 'relative',
         overflow: 'hidden',
@@ -36,17 +36,17 @@ export default async function TestimonialsPage() {
         <div style={{
           position: 'absolute', top: '-80px', right: '-60px',
           width: '400px', height: '400px', borderRadius: '50%',
-          background: 'radial-gradient(circle, hsla(42,68%,52%,0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsla(42,68%,52%,0.10) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} aria-hidden="true" />
         <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <span className="section-label" style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.85)', borderColor: 'rgba(255,255,255,0.15)' }}>
+          <span className="section-label" style={{ background: 'rgba(0,0,0,0.05)', color: 'var(--clr-forest)', borderColor: 'rgba(0,0,0,0.1)' }}>
             Real Stories
           </span>
-          <h1 style={{ color: 'var(--clr-white)', marginTop: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
+          <h1 style={{ color: 'var(--clr-forest)', marginTop: 'var(--space-3)', marginBottom: 'var(--space-4)' }}>
             Patient Testimonials
           </h1>
-          <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 'var(--text-lg)', maxWidth: '550px' }}>
+          <p style={{ color: 'var(--clr-text-mid)', fontSize: 'var(--text-lg)', maxWidth: '550px' }}>
             Genuine stories from patients whose lives have been transformed through Dr. Shweta&apos;s homeopathic treatment.
           </p>
           {/* Rating summary */}
@@ -56,8 +56,8 @@ export default async function TestimonialsPage() {
                 <span key={i} style={{ color: 'hsl(42,88%,58%)', fontSize: '1.25rem' }}>{s}</span>
               ))}
             </div>
-            <span style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, fontSize: 'var(--text-lg)' }}>4.9</span>
-            <span style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'var(--text-sm)' }}>
+            <span style={{ color: 'var(--clr-forest)', fontWeight: 700, fontSize: 'var(--text-lg)' }}>4.9</span>
+            <span style={{ color: 'var(--clr-text-lt)', fontSize: 'var(--text-sm)' }}>
               · 200+ verified Google reviews
             </span>
           </div>
