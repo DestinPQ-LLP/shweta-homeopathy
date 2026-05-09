@@ -36,7 +36,7 @@ export default function VideoSection({
             <ul className={styles.points}>
               <li>
                 <span className={styles.pointIcon}>🌿</span>
-                <span>15+ years of clinical experience in classical homeopathy</span>
+                <span>6+ years of clinical experience in classical homeopathy</span>
               </li>
               <li>
                 <span className={styles.pointIcon}>🎯</span>

@@ -40,7 +40,7 @@ const whyChoose = [
 
 const statsBarData = [
   { icon: <Users size={22} />, num: '10,000+', label: 'Patients Healed' },
-  { icon: <Calendar size={22} />, num: '15+', label: 'Years Experience' },
+  { icon: <Calendar size={22} />, num: '6+', label: 'Years Experience' },
   { icon: <Smile size={22} />, num: '98%', label: 'Patient Satisfaction' },
   { icon: <Leaf size={22} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
 ];
@@ -59,7 +59,7 @@ export default async function HomePage() {
 
       {/* ── Split-screen Hero ── */}
       <HomeHero stats={[
-        { number: '15+', label: 'Years Experience' },
+        { number: '6+', label: 'Years Experience' },
         { number: '15,000+', label: 'Patients Healed' },
         { number: '12+', label: 'Specialities' },
         { number: '98%', label: 'Patient Satisfaction' },

@@ -654,6 +654,14 @@
   }
 }
 
+@media (max-width: 768px) {
+  .hero {
+    min-height: 100vh;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
 @media (max-width: 640px) {
   .heroStats { gap: var(--space-5); }
   .conditionsGrid { grid-template-columns: repeat(2, 1fr); }

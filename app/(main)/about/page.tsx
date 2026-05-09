@@ -11,7 +11,7 @@ import styles from './about.module.css';
 export const metadata: Metadata = buildMetadata({
   title: 'About Dr. Shweta Goyal',
   description:
-    'Learn about Dr. Shweta Goyal — BHMS Gold Medalist, MD (Hom), PG IACH Greece — an expert in classical homeopathy with 15+ years of experience and 15,000+ patients treated for chronic and complex conditions.',
+    'Learn about Dr. Shweta Goyal — BHMS Gold Medalist, MD (Hom), PG IACH Greece — an expert in classical homeopathy with 6+ years of experience and 15,000+ patients treated for chronic and complex conditions.',
   path: '/about',
 });
 
@@ -65,7 +65,7 @@ export default function AboutPage() {
             <div className={styles.heroBadge}><Leaf size={16} style={{ marginRight: '6px' }} /> About the Doctor</div>
             <h1 className={styles.heroTitle}>Dr. Shweta Goyal</h1>
             <p className={styles.heroSub}>
-              Classical Homeopath with 15+ years of practice across Zirakpur, Budhlada, and online — treating patients worldwide.
+              Classical Homeopath with 6+ years of practice across Zirakpur, Budhlada, and online — treating patients worldwide.
             </p>
             <div className={styles.heroCreds}>
               {['BHMS Gold Medalist', 'MD (Hom)', 'PG · IACH Greece', 'DNHE Delhi'].map((c) => (
@@ -135,7 +135,7 @@ export default function AboutPage() {
                   foremost institutions for classical homeopathic training, founded by Dr. George Vithoulkas.
                 </p>
                 <p style={{ marginTop: 'var(--space-4)' }}>
-                  Today, with 15+ years of clinical practice and more than 15,000 patients treated, Dr. Shweta runs
+                  Today, with 6+ years of clinical practice and more than 15,000 patients treated, Dr. Shweta runs
                   clinics in Zirakpur and Budhlada, Punjab, and conducts online consultations for patients across India and internationally.
                 </p>
               </div>

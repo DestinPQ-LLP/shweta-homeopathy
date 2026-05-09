@@ -107,7 +107,7 @@ export default function BentoCredentials() {
           <h2>An Expert in Classical Homeopathy</h2>
           <div className="divider" style={{ marginInline: 'auto' }} />
           <p>
-            Combining academic excellence, international training, and 15+ years of clinical practice
+            Combining academic excellence, international training, and 6+ years of clinical practice
             to deliver deep, lasting healing through classical homeopathy.
           </p>
         </div>
@@ -164,7 +164,7 @@ export default function BentoCredentials() {
             <p className={styles.credSub}>Advanced Specialization in Homoeopathy</p>
           </motion.div>
 
-          {/* Cell 4: 15+ Years counter with progress bar */}
+          {/* Cell 4: 6+ Years counter with progress bar */}
           <motion.div
             className={`${styles.cell} ${styles.cellCounter} ${styles.cellSage}`}
             variants={cellVariants}

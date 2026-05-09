@@ -425,3 +425,9 @@
   .sidebar { position: static; }
   .storyGrid { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 640px) {
+  .sidebar {
+    top: auto;
+  }
+}

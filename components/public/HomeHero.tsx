@@ -80,7 +80,7 @@ export default function HomeHero({ stats }: Props) {
             transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
           >
             Expert homeopathic care for chronic &amp; complex conditions —
-            rooted in classical principles, backed by 15+ years of
+            rooted in classical principles, backed by 6+ years of
             practice and thousands of successful outcomes.
           </motion.p>
 
@@ -127,7 +127,7 @@ export default function HomeHero({ stats }: Props) {
           >
             {[
               { icon: <Users size={20} />, num: '10,000+', label: 'Patients Healed' },
-              { icon: <Calendar size={20} />, num: '15+', label: 'Years Experience' },
+              { icon: <Calendar size={20} />, num: '6+', label: 'Years Experience' },
               { icon: <CheckCircle size={20} />, num: '98%', label: 'Patient Satisfaction' },
               { icon: <Leaf size={20} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
             ].map((s, i) => (
@@ -174,7 +174,7 @@ export default function HomeHero({ stats }: Props) {
               <Clock size={18} />
             </div>
             <div>
-              <p className={styles.floatCardNum}>15+ Years</p>
+              <p className={styles.floatCardNum}>6+ Years</p>
               <p className={styles.floatCardLabel}>Clinical Practice</p>
             </div>
           </motion.div>
