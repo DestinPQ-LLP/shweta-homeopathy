@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { unstable_cache } from 'next/cache';
 import { Playfair_Display, Inter } from 'next/font/google';
 import TrackingScripts from '@/components/public/TrackingScripts';
@@ -29,6 +29,12 @@ const inter = Inter({
   display: 'swap',
   preload: true,
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 5.0,
+};
 
 export const metadata: Metadata = {
   title: {

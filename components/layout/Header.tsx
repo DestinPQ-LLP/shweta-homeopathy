@@ -62,7 +62,6 @@ export default function Header() {
           />
           <div className={styles.logoText}>
             <span className={styles.logoName}>Dr. Shweta&apos;s Homoeopathy</span>
-            <span className={styles.logoTagline}>Where Science Meets Nature</span>
           </div>
         </Link>
 

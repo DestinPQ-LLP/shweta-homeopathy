@@ -39,7 +39,7 @@ const whyChoose = [
 ];
 
 const statsBarData = [
-  { icon: <Users size={22} />, num: '10,000+', label: 'Patients Healed' },
+  { icon: <Users size={22} />, num: '15,000+', label: 'Patients Healed' },
   { icon: <Calendar size={22} />, num: '6+', label: 'Years Experience' },
   { icon: <Smile size={22} />, num: '98%', label: 'Patient Satisfaction' },
   { icon: <Leaf size={22} />, num: 'Holistic', label: 'Natural & Safe Treatment' },

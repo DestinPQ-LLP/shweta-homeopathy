@@ -114,3 +114,39 @@
   .pageTitle { font-size: var(--text-lg); }
   .content { padding: var(--space-4); }
 }
+
+@media (max-width: 480px) {
+  .sidebar {
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+  
+  .nav {
+    width: 100%;
+    gap: 0;
+    padding: var(--space-2) 0;
+  }
+  
+  .navLink {
+    flex: 1;
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-xs);
+    text-align: center;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 60px;
+  }
+  
+  .navIcon { font-size: 1.2rem; }
+  
+  .sidebarBottom {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    justify-content: center;
+  }
+  
+  .pageTitle { font-size: var(--text-base); }
+  .topbar { flex-direction: column; gap: var(--space-2); }
+  .content { padding: var(--space-3); }
+}

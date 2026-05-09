@@ -25,7 +25,7 @@ const timeline = [
   { year: '2021', event: 'Online Consultations' },
   { year: '2023', event: 'MD (Hom) — Materia Medica' },
   { year: '2024', event: 'PG Levels of Health — IACH, Greece' },
-  { year: '2025', event: '20,000+ Patients' },
+  { year: '2025', event: '15,000+ Patients' },
 ];
 
 const philosophy = [

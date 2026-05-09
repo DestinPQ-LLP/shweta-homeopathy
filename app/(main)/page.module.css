@@ -663,6 +663,22 @@
 }
 
 @media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding-block: var(--space-12) var(--space-8);
+  }
+  .heroContent {
+    padding-block: var(--space-8);
+  }
+  .heroTitle {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+  }
+  .heroSubtitle {
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-width: 640px) {
   .heroStats { gap: var(--space-5); }
   .conditionsGrid { grid-template-columns: repeat(2, 1fr); }
   .processGrid { grid-template-columns: 1fr; }

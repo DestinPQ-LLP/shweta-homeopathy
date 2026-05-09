@@ -226,8 +226,8 @@
   .searchBtn { display: none; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .header {
-    display: none;
+    display: none !important;
   }
 }

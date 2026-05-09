@@ -126,7 +126,7 @@ export default function HomeHero({ stats }: Props) {
             transition={{ duration: 0.6, delay: 1.0 }}
           >
             {[
-              { icon: <Users size={20} />, num: '10,000+', label: 'Patients Healed' },
+              { icon: <Users size={20} />, num: '15,000+', label: 'Patients Healed' },
               { icon: <Calendar size={20} />, num: '6+', label: 'Years Experience' },
               { icon: <CheckCircle size={20} />, num: '98%', label: 'Patient Satisfaction' },
               { icon: <Leaf size={20} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
@@ -158,7 +158,7 @@ export default function HomeHero({ stats }: Props) {
               <Users size={18} />
             </div>
             <div>
-              <p className={styles.floatCardNum}>10,000+</p>
+              <p className={styles.floatCardNum}>15,000+</p>
               <p className={styles.floatCardLabel}>Patients Healed</p>
             </div>
           </motion.div>
