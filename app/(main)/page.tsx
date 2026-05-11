@@ -6,6 +6,7 @@ import { buildDoctorSchema, buildFAQSchema } from '@/lib/seo';
 import { getLatestBlogs } from '@/lib/blog';
 import { getAllConditions } from '@/lib/healing-conditions';
 import { getPublishedTestimonials } from '@/lib/testimonials';
+import { fetchAllClinics } from '@/lib/google/places';
 import {
   Shield, Target, Microscope, Globe, ClipboardList, Heart, Phone,
   Users, Calendar, CheckCircle, Leaf, Award, Smile
@@ -51,6 +52,19 @@ export default async function HomePage() {
   const latestPosts = await getLatestBlogs(3).catch(() => []);
   const liveConditions = await getAllConditions(false).catch(() => []);
   const liveTestimonials = await getPublishedTestimonials().catch(() => []);
+
+  // Live Google Reviews aggregate (Zirakpur + Budhlada)
+  const reviewsData = await fetchAllClinics().catch(() => ({ zirakpur: null, budhlada: null, errors: [] as string[] }));
+  const totalReviewCount =
+    (reviewsData.zirakpur?.userRatingCount ?? 0) + (reviewsData.budhlada?.userRatingCount ?? 0);
+  const ratedClinics = [reviewsData.zirakpur, reviewsData.budhlada].filter(
+    (c): c is NonNullable<typeof c> => !!c && c.rating != null && !!c.userRatingCount,
+  );
+  const totalWeight = ratedClinics.reduce((s, c) => s + (c.userRatingCount ?? 0), 0);
+  const averageRating = totalWeight
+    ? ratedClinics.reduce((s, c) => s + (c.rating ?? 0) * (c.userRatingCount ?? 0), 0) / totalWeight
+    : 4.9;
+  const displayReviewCount = totalReviewCount || 200;
 
   return (
     <>
@@ -191,7 +205,7 @@ export default async function HomePage() {
           </div>
           <div className={styles.testimonialsInner}>
             <TestimonialCarousel testimonials={liveTestimonials} />
-            <SocialProofRating reviewCount={200} rating={4.9} />
+            <SocialProofRating reviewCount={displayReviewCount} rating={averageRating} />
           </div>
           <div style={{ textAlign: 'center', marginTop: 'var(--space-6)' }}>
             <Link href="/testimonials" className="btn btn-outline">Read All Patient Stories</Link>
