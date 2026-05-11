@@ -302,44 +302,6 @@ export default function AboutPage() {
               Greece — deepening her expertise in constitutional prescribing and case management.
             </p>
           </div>
-          <div className={styles.recognitionGrid}>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
-                  src="/photos/doctor/shweta-2.jpg"
-                  alt="Dr. Shweta Goyal — IACH Greece PG Programme"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>Advanced PG Programme — IACH, Greece</p>
-            </div>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
-                  src="/photos/doctor/shweta-3.jpg"
-                  alt="Dr. Shweta Goyal — International Classical Homeopathy Training"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>International Classical Homeopathy Certification</p>
-            </div>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
-                  src="/photos/doctor/shweta-4.jpg"
-                  alt="Dr. Shweta Goyal — Levels of Health Methodology"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>Levels of Health — Constitutional Prescribing</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -354,44 +316,6 @@ export default function AboutPage() {
               post-graduate academic distinction that deepened her mastery of homoeopathic medicines, their
               sources, and their clinical applications in complex chronic cases.
             </p>
-          </div>
-          <div className={styles.recognitionGrid}>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
-                  src="/photos/doctor/shweta-5.jpg"
-                  alt="Dr. Shweta Goyal — MD Homoeopathy Materia Medica"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>MD (Hom) — Specialisation in Materia Medica</p>
-            </div>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
-                  src="/photos/doctor/shweta-6.jpg"
-                  alt="Dr. Shweta Goyal — Post-Graduate Homoeopathy"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>Post-Graduate Academic Achievement in Homeopathy</p>
-            </div>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
-                  src="/photos/doctor/shweta-7.jpg"
-                  alt="Dr. Shweta Goyal — Clinical Excellence"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>Clinical Excellence &amp; Advanced Case Management</p>
-            </div>
           </div>
         </div>
       </section>
