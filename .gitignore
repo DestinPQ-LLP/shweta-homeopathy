@@ -63,5 +63,14 @@ next-env.d.ts
 data.sql
 exports.zip
 
+# Service account credentials — NEVER commit
+*-firebase-adminsdk-*.json
+*service-account*.json
+*-service-account-*.json
+data/*.json
+!data/wp-pages-reference.json
+public/*-firebase-adminsdk-*.json
+public/*service-account*.json
+
 # Scratch/migration scripts output
 /tmp/

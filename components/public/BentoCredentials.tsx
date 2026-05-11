@@ -172,10 +172,10 @@ export default function BentoCredentials() {
             whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
           >
             <span className={styles.counterNum}>
-              <AnimatedCounter to={15} suffix="+" />
+              <AnimatedCounter to={6} suffix="+" />
             </span>
             <span className={styles.counterLabel}>Years of Experience</span>
-            <ExperienceBar years={15} />
+            <ExperienceBar years={6} />
           </motion.div>
 
           {/* Cell 5: 15,000+ patients counter with sparkline */}
