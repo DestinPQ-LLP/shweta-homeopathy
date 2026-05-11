@@ -49,8 +49,15 @@ next-env.d.ts
 !/public/photos/17677_aboutdoctor.jpg
 !/public/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg
 !/public/photos/17795_Dr__Shweta_in_Clinic.jpg
+# Award photos used on About → Recognition #2 (Malati Allen Noble Award)
+!/public/photos/18396_award.jpg
+!/public/photos/18397_award-pic1.jpg
+!/public/photos/18427_draward.jpg
 !/public/photos/blog/
 !/public/photos/blog/**
+# Community outreach photos used on About → Recognition #5
+!/public/photos/community/
+!/public/photos/community/**
 
 # Large data files (WordPress dumps, export archives)
 data.sql
