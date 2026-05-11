@@ -41,6 +41,7 @@ export async function GET() {
       hasTestimonialsSheet: !!process.env.GOOGLE_SHEETS_TESTIMONIALS_ID,
     },
     serviceAccountEmail,
+    blogSheetId: process.env.GOOGLE_SHEETS_BLOG_ID || null,
     blogStats,
   });
 }
