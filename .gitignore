@@ -55,6 +55,15 @@ next-env.d.ts
 !/public/photos/18427_draward.jpg
 !/public/photos/blog/
 !/public/photos/blog/**
+# Blog post cover images referenced from Google Sheet (id-prefixed filenames)
+!/public/photos/17821_seasonal-treatment.jpg
+!/public/photos/17824_healthy-baby-with-Homoeopathy.jpg
+!/public/photos/17830_permanent-cure-homoeopathy.jpg
+!/public/photos/17833_healthy-you.jpg
+!/public/photos/17836_for-all-ages-and-sex.jpg
+!/public/photos/17981_covid19-homoeopathy-solution.jpg
+!/public/photos/18296_Handle-your-Emergencie.jpg
+!/public/photos/19013_WhatsApp-Image-2025-10-24-at-3_21_56-PM_.jpeg
 # Community outreach photos used on About → Recognition #5
 !/public/photos/community/
 !/public/photos/community/**
@@ -74,3 +83,4 @@ public/*service-account*.json
 
 # Scratch/migration scripts output
 /tmp/
+.env*.local
