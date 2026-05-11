@@ -103,7 +103,7 @@ export default function AboutPage() {
             <div className={styles.stickyCol}>
               <div className={styles.photoWrap}>
                 <Image
-                  src="/photos/17795_Dr__Shweta_in_Clinic.jpg"
+                  src="/photos/doctor/shweta-1.jpg"
                   alt="Dr. Shweta Goyal at clinic"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -306,7 +306,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  src="/photos/doctor/shweta-2.jpg"
                   alt="Dr. Shweta Goyal — IACH Greece PG Programme"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -318,7 +318,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  src="/photos/doctor/shweta-3.jpg"
                   alt="Dr. Shweta Goyal — International Classical Homeopathy Training"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -330,7 +330,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  src="/photos/doctor/shweta-4.jpg"
                   alt="Dr. Shweta Goyal — Levels of Health Methodology"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -359,7 +359,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  src="/photos/doctor/shweta-5.jpg"
                   alt="Dr. Shweta Goyal — MD Homoeopathy Materia Medica"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -371,7 +371,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  src="/photos/doctor/shweta-6.jpg"
                   alt="Dr. Shweta Goyal — Post-Graduate Homoeopathy"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -383,7 +383,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg"
+                  src="/photos/doctor/shweta-7.jpg"
                   alt="Dr. Shweta Goyal — Clinical Excellence"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
@@ -481,6 +481,182 @@ export default function AboutPage() {
               </div>
               <p className={styles.recognitionCaption}>Veterinary Homoeopathy Outreach</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Recovery Without Surgery ── */}
+      <section className={styles.recognitionSection} style={{ background: 'var(--clr-white)' }}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">Patient Story</span>
+            <h2>Recovery Without Surgery</h2>
+            <p className={styles.recognitionDesc}>
+              A patient diagnosed with an ovarian dermoid cyst was advised surgery by a reputed hospital.
+              After regular homoeopathic treatment with Dr. Shweta, her condition improved successfully —
+              without requiring an operation.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid} style={{ gridTemplateColumns: 'repeat(2, 1fr)', maxWidth: '900px', margin: '0 auto' }}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/gift-patient-1.jpg"
+                  alt="Patient and her husband gifting a plant to Dr. Shweta as a token of gratitude"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>A Plant of Gratitude — From Patient &amp; Family</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/gift-patient-2.jpg"
+                  alt="Patient expressing happiness and appreciation after recovery without surgery"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Healed &amp; Grateful — Surgery Avoided</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── A Full Circle Moment — School Guest ── */}
+      <section className={styles.recognitionSection}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">A Full Circle Moment</span>
+            <h2>Returning as Chief Guest to Her Own School</h2>
+            <p className={styles.recognitionDesc}>
+              Dr. Shweta was invited as the Chief Guest at the annual function of the very school where
+              she once studied as a student — honoured by the Principal, trustees, and a new generation
+              of learners.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/school-guest-1.jpg"
+                  alt="Dr. Shweta with the school Principal and Vice Principal"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>With the Principal &amp; Vice Principal</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/school-guest-2.jpg"
+                  alt="Dr. Shweta receiving an honour award from the school committee and trustees"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Receiving the Honour from the School Trustees</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/school-guest-3.jpg"
+                  alt="Dr. Shweta distributing certificates to students at the annual function"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Distributing Certificates to Students</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Continuing Medical Learning ── */}
+      <section className={styles.recognitionSection} style={{ background: 'var(--clr-white)' }}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">Continuing Medical Learning</span>
+            <h2>National Conferences &amp; Ongoing Study</h2>
+            <p className={styles.recognitionDesc}>
+              Dr. Shweta regularly attends national homoeopathic conferences to stay updated with the
+              latest research and advancements in the field — including the World Homoeopathy Day
+              Conferences in 2022 and 2025.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/world-homeopathy-day-1.jpg"
+                  alt="Dr. Shweta at the World Homoeopathy Day Conference, Delhi 2025"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>World Homoeopathy Day Conference — Delhi, 2025</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/world-homeopathy-day-2.jpg"
+                  alt="Dr. Shweta at the conference exhibition area"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>At the Conference Exhibition Area</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/world-homeopathy-day-3.jpg"
+                  alt="Dr. Shweta at the World Homoeopathy Day Conference, 2022"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>World Homoeopathy Day Conference — 2022</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Photo Gallery — Dr. Shweta in Practice ── */}
+      <section className={styles.recognitionSection}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">Photo Gallery</span>
+            <h2>Dr. Shweta in Practice</h2>
+            <p className={styles.recognitionDesc}>
+              Moments from the clinic, community camps, and consultations — a glimpse into Dr. Shweta&apos;s
+              everyday work as a classical homoeopath.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+              <div key={n} className={styles.recognitionCard}>
+                <div className={styles.recognitionImgWrap}>
+                  <Image
+                    src={`/photos/doctor/shweta-${n}.jpg`}
+                    alt={`Dr. Shweta Goyal — Photo ${n}`}
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                    sizes="(max-width: 640px) 100vw, 25vw"
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
