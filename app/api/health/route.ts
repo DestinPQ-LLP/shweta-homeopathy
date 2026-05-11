@@ -17,6 +17,17 @@ export async function GET() {
     blogStats = { ok: false, error: err instanceof Error ? err.message : String(err) };
   }
 
+  let serviceAccountEmail: string | null = null;
+  try {
+    const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY || '';
+    if (raw) {
+      const parsed = JSON.parse(raw) as { client_email?: string };
+      serviceAccountEmail = parsed.client_email ?? null;
+    }
+  } catch {
+    serviceAccountEmail = 'PARSE_ERROR';
+  }
+
   return NextResponse.json({
     status: 'ok',
     version: '1.0.0',
@@ -29,6 +40,7 @@ export async function GET() {
       hasBlogSheet: !!process.env.GOOGLE_SHEETS_BLOG_ID,
       hasTestimonialsSheet: !!process.env.GOOGLE_SHEETS_TESTIMONIALS_ID,
     },
+    serviceAccountEmail,
     blogStats,
   });
 }
