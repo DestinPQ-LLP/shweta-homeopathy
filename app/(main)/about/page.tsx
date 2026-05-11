@@ -396,6 +396,95 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ── Recognition 5: Community Outreach ── */}
+      <section className={styles.recognitionSection}>
+        <div className="container">
+          <div className={styles.recognitionHeader}>
+            <span className="section-label">Community &amp; Service</span>
+            <h2>Community Outreach &amp; Public Health</h2>
+            <p className={styles.recognitionDesc}>
+              Beyond the clinic, Dr. Shweta has consistently extended homoeopathic care to the wider community —
+              running pandemic relief camps, treating cattle during the Lumpy Skin Disease outbreak, mentoring
+              schoolchildren, and celebrating World Homoeopathy Day with awareness drives.
+            </p>
+          </div>
+          <div className={styles.recognitionGrid}>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/covid-camp-1.jpg"
+                  alt="Dr. Shweta Goyal running a free Covid-19 homoeopathic prophylaxis camp"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Covid-19 Free Prophylaxis Camp</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/lumpy-skin-cows-1.jpg"
+                  alt="Dr. Shweta Goyal treating cattle during the Lumpy Skin Disease outbreak"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Lumpy Skin Disease Relief — Cattle Care</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/world-homeopathy-day-1.jpg"
+                  alt="Dr. Shweta Goyal at a World Homoeopathy Day 2025 awareness event"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>World Homoeopathy Day 2025</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/school-guest-1.jpg"
+                  alt="Dr. Shweta Goyal as a guest speaker at a local school"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Guest Speaker — School Health Awareness</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/covid-camp-2.jpg"
+                  alt="Patients receiving free homoeopathic medicines at a Covid-19 community camp"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Free Medicines for the Community</p>
+            </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/photos/community/lumpy-skin-cows-3.jpg"
+                  alt="Veterinary homoeopathy outreach during Lumpy Skin Disease outbreak"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>Veterinary Homoeopathy Outreach</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className={styles.ctaStrip}>
         <div className="container">
