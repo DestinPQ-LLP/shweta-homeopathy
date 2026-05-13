@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   experimental: {
     cpus: 2, // limit parallel static-page workers to avoid Google Sheets quota exhaustion
+    inlineCss: true, // inline critical CSS instead of preloading separate chunks (silences "preloaded but not used" warnings)
   },
   images: {
     remotePatterns: [

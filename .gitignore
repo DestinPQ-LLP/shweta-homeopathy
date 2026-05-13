@@ -45,6 +45,10 @@ next-env.d.ts
 
 # WordPress-dumped media (large raw assets, not needed — only key photos kept)
 /public/photos/*
+!/public/photos/doctor/
+!/public/photos/doctor/**
+!/public/photos/community/
+!/public/photos/community/**
 !/public/photos/17650_drshweta.jpg
 !/public/photos/17677_aboutdoctor.jpg
 !/public/photos/17686_Dr__Shweta_Goyal_In_clinic.jpg
