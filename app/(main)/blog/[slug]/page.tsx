@@ -10,6 +10,51 @@ import styles from './slug.module.css';
 
 export const revalidate = 60;
 
+/**
+ * Format raw blog content from Google Sheets into readable HTML.
+ *  - Converts literal "\t" (backslash + t) sequences used as bullet markers into <ul><li>…</li></ul>
+ *  - Converts real tab characters the same way
+ *  - Splits on blank lines / sentence boundaries to create paragraphs
+ *  - Preserves any HTML already present in the source
+ */
+function formatBlogContent(raw: string): string {
+  if (!raw) return '';
+  // If the content already looks like HTML (has block tags), leave it alone but still clean stray "\t".
+  const looksLikeHtml = /<(p|h[1-6]|ul|ol|li|div|section|article|br)[\s>]/i.test(raw);
+  if (looksLikeHtml) {
+    return raw.replace(/\\t/g, '<br>• ').replace(/\t/g, '<br>• ');
+  }
+
+  // Normalize: convert escaped \t and real tabs into a single sentinel
+  const TOKEN = '\u0001BULLET\u0001';
+  const text = raw.replace(/\\t|\t/g, TOKEN).trim();
+
+  // Split into paragraph-like blocks on blank lines
+  const blocks = text.split(/\n\s*\n+/).map((b) => b.trim()).filter(Boolean);
+
+  const escape = (s: string) =>
+    s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+  const renderBlock = (block: string): string => {
+    // If a block contains the bullet sentinel, split it into intro + list
+    if (block.includes(TOKEN)) {
+      const [intro, ...items] = block.split(TOKEN).map((s) => s.trim()).filter(Boolean);
+      const introHtml = intro ? `<p>${escape(intro)}</p>` : '';
+      const listHtml = items.length
+        ? `<ul>${items.map((it) => `<li>${escape(it)}</li>`).join('')}</ul>`
+        : '';
+      return introHtml + listHtml;
+    }
+    // Plain paragraph — preserve single newlines as <br>
+    return `<p>${escape(block).replace(/\n/g, '<br>')}</p>`;
+  };
+
+  return blocks.map(renderBlock).join('\n');
+}
+
 export async function generateStaticParams() {
   const posts = await getAllBlogs().catch(() => []);
   return posts.filter((p) => p.status === 'published').map((p) => ({ slug: p.slug }));
@@ -45,6 +90,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const bodyMatch = docHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
     bodyHtml = bodyMatch ? bodyMatch[1] : docHtml;
   }
+  // Normalize sheet-formatted text (literal "\t" bullets, blank-line paragraphs) into proper HTML
+  bodyHtml = formatBlogContent(bodyHtml);
 
   const formattedDate = post.publishedDate
     ? new Date(post.publishedDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
