@@ -277,7 +277,7 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/18427_draward.jpg"
+                  src="/About Section- Grihshoba like segments/Malati Allen Nobel Award/18395_award2.jpg"
                   alt="Dr. Shweta Goyal with senior homoeopaths at the Dr. Malati Allen Charitable Trust event"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
