@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllConditions, getConditionBySlug } from '@/lib/healing-conditions';
 import { STATIC_CONDITIONS } from '@/lib/static-conditions';
 import { buildMetadata, buildConditionSchema } from '@/lib/seo';
@@ -9,7 +10,25 @@ import {
   CalendarClock, PackageCheck, ArrowLeft,
 } from 'lucide-react';
 import StickyConditionNav from '@/components/public/StickyConditionNav';
+import { SOCIAL_PROOF } from '@/lib/social-proof';
 import styles from './condition.module.css';
+
+const CONDITION_IMAGES: Record<string, string> = {
+  'joint-problems-arthritis':    '/images/condition-joint-problems-arthritis.png',
+  'respiratory-diseases':        '/images/condition-respiratory-diseases.png',
+  'alopecia-hair-loss':          '/images/condition-alopecia-hair-loss.png',
+  'cancer-supportive-care':      '/images/condition-cancer-supportive-care.png',
+  'diabetes-mellitus':           '/images/condition-diabetes-mellitus.png',
+  'autoimmune-disorders':        '/images/condition-autoimmune-disorders.png',
+  'womens-health':               '/images/condition-womens-health.png',
+  'pediatric-diseases':          '/images/condition-pediatric-diseases.png',
+  'depression-anxiety':          '/images/condition-depression-anxiety.png',
+  'thyroid-disorders':           '/images/condition-thyroid-disorders.png',
+  'gastrointestinal-disorders':  '/images/condition-gastrointestinal-disorders.png',
+  'geriatric-disorders':         '/images/condition-geriatric-disorders.png',
+  'skin-diseases':               '/images/condition-skin-diseases.png',
+  'migraine':                    '/images/condition-migraine.png',
+};
 
 export async function generateStaticParams() {
   const sheetConditions = await getAllConditions(false).catch(() => []);
@@ -107,17 +126,31 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
       <section className={styles.hero}>
         <div className={styles.heroGlow} aria-hidden />
         <div className={`container ${styles.heroInner}`}>
-          <Link href="/services" className={styles.backLink}>
-            <ArrowLeft size={14} /> All Conditions
-          </Link>
-          <div className={styles.heroMeta}>
-            <span className={styles.heroIcon}><Activity size={40} /></span>
-            <h1 className={styles.heroTitle}>{condition.name}</h1>
+          <div className={styles.heroText}>
+            <Link href="/services" className={styles.backLink}>
+              <ArrowLeft size={14} /> All Conditions
+            </Link>
+            <div className={styles.heroMeta}>
+              <span className={styles.heroIcon}><Activity size={40} /></span>
+              <h1 className={styles.heroTitle}>{condition.name}</h1>
+            </div>
+            <p className={styles.heroSub}>{condition.shortDesc}</p>
+            <Link href="/appointment" className={`btn btn-gold ${styles.heroCta}`}>
+              Book Consultation →
+            </Link>
           </div>
-          <p className={styles.heroSub}>{condition.shortDesc}</p>
-          <Link href="/appointment" className={`btn btn-gold ${styles.heroCta}`}>
-            Book Consultation →
-          </Link>
+          {CONDITION_IMAGES[slug] && (
+            <div className={styles.heroImageWrap}>
+              <Image
+                src={CONDITION_IMAGES[slug]}
+                alt={`${condition.name} — Managed With Homoeopathy`}
+                width={580}
+                height={387}
+                className={styles.heroImage}
+                priority
+              />
+            </div>
+          )}
         </div>
       </section>
 
@@ -219,6 +252,52 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
               ))}
             </div>
           </section>
+
+          {/* Social Proof — Instagram & Google Reviews */}
+          {SOCIAL_PROOF[slug] && (
+            <section className={styles.section}>
+              <h2 className={styles.sectionHeading}>Real Patient Results</h2>
+              <p style={{ color: 'var(--clr-text-mid)', marginBottom: 'var(--space-6)', fontSize: 'var(--text-sm)' }}>
+                See verified patient experiences shared on Instagram and Google Reviews.
+              </p>
+              <div className={styles.socialProofGrid}>
+                {SOCIAL_PROOF[slug].instagramLinks.length > 0 && (
+                  <div className={styles.socialProofGroup}>
+                    <h4 className={styles.socialProofLabel}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#E1306C', flexShrink: 0 }} aria-hidden="true">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                      </svg>
+                      Instagram Reels &amp; Posts
+                    </h4>
+                    <div className={styles.socialProofLinks}>
+                      {SOCIAL_PROOF[slug].instagramLinks.map((url, i) => (
+                        <a key={url} href={url} target="_blank" rel="noopener noreferrer" className={styles.socialProofLink}>
+                          Watch patient story {i + 1} →
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {SOCIAL_PROOF[slug].reviewLinks.length > 0 && (
+                  <div className={styles.socialProofGroup}>
+                    <h4 className={styles.socialProofLabel}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#4285F4', flexShrink: 0 }} aria-hidden="true">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                      </svg>
+                      Google Reviews
+                    </h4>
+                    <div className={styles.socialProofLinks}>
+                      {SOCIAL_PROOF[slug].reviewLinks.map((url, i) => (
+                        <a key={url} href={url} target="_blank" rel="noopener noreferrer" className={styles.socialProofLink}>
+                          Read review {i + 1} on Google →
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </section>
+          )}
         </main>
 
         {/* ── Sidebar ─────────────────────────────────── */}

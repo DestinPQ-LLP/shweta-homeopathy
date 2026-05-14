@@ -34,6 +34,8 @@ export default function OcrReviewForm() {
   const [error,   setError]   = useState('');
   const [success, setSuccess] = useState('');
 
+  const isPdf = file ? file.type === 'application/pdf' : false;
+
   useEffect(() => {
     fetch('/api/admin/clients')
       .then(r => r.json())
@@ -59,22 +61,37 @@ export default function OcrReviewForm() {
   }
 
   async function runOcr() {
-    if (!file) { setError('Please select an image first.'); return; }
+    if (!file) { setError('Please select a file first.'); return; }
     setLoading(true); setError('');
     try {
       const fd = new FormData();
       fd.append('file', file);
-      const res = await fetch('/api/admin/ocr', { method: 'POST', body: fd });
-      if (!res.ok) {
-        const j = await res.json().catch(() => ({}));
-        throw new Error(j.error || `OCR failed (${res.status})`);
+
+      if (isPdf) {
+        // PDFs: upload to Drive directly, skip OCR
+        const res = await fetch('/api/admin/ocr', { method: 'POST', body: fd });
+        if (!res.ok) {
+          const j = await res.json().catch(() => ({}));
+          throw new Error(j.error || `Upload failed (${res.status})`);
+        }
+        const result = await res.json();
+        setOcrResult({ rawTranscription: '', cleanedNote: '', uncertainItems: [], driveFileId: result.driveFileId, driveFileName: result.driveFileName });
+        setEditedNote('');
+        setStep(2);
+      } else {
+        // Images: run OCR
+        const res = await fetch('/api/admin/ocr', { method: 'POST', body: fd });
+        if (!res.ok) {
+          const j = await res.json().catch(() => ({}));
+          throw new Error(j.error || `OCR failed (${res.status})`);
+        }
+        const result: OcrResult = await res.json();
+        setOcrResult(result);
+        setEditedNote(result.cleanedNote);
+        setStep(2);
       }
-      const result: OcrResult = await res.json();
-      setOcrResult(result);
-      setEditedNote(result.cleanedNote);
-      setStep(2);
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'OCR failed');
+      setError(err instanceof Error ? err.message : 'Processing failed');
     } finally {
       setLoading(false);
     }
@@ -127,16 +144,28 @@ export default function OcrReviewForm() {
       {step === 1 && (
         <>
           <label className={s.uploadBox} onClick={() => fileInputRef.current?.click()}>
-            <div className={s.uploadIcon}>📄</div>
+            <div className={s.uploadIcon}>{isPdf ? '📑' : '📄'}</div>
             <p className={s.uploadLabel}>
-              {file ? file.name : <><strong>Click to choose</strong> or drag &amp; drop an image</>}
+              {file
+                ? file.name
+                : <><strong>Click to choose</strong> or drag &amp; drop — image or PDF</>}
             </p>
-            <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} />
+            <p style={{ fontSize: '0.8em', color: 'var(--clr-text-lt)', margin: '4px 0 0' }}>
+              Supported: JPEG, PNG, WebP · PDF (Samsung Notes export, prescriptions)
+            </p>
+            <input ref={fileInputRef} type="file" accept="image/*,application/pdf,.pdf" onChange={handleFileChange} />
           </label>
-          {previewUrl && <img src={previewUrl} alt="Preview" className={s.preview} />}
+          {previewUrl && !isPdf && <img src={previewUrl} alt="Preview" className={s.preview} />}
+          {isPdf && file && (
+            <p style={{ fontSize: 'var(--text-sm)', color: 'var(--clr-sage)', margin: '8px 0', fontWeight: 600 }}>
+              📑 PDF selected — it will be uploaded to Google Drive. You can type or paste the note text manually on the next step.
+            </p>
+          )}
           <div className={s.actions}>
             <button className="btn btn-primary" disabled={!file || loading} onClick={runOcr}>
-              {loading ? <span className={s.spinner} /> : 'Extract Text'}
+              {loading
+                ? <span className={s.spinner} />
+                : isPdf ? 'Upload PDF →' : 'Extract Text'}
             </button>
           </div>
         </>
@@ -156,8 +185,13 @@ export default function OcrReviewForm() {
           )}
 
           <div className={s.field}>
-            <label className={s.label}>Extracted &amp; Cleaned Note</label>
-            <textarea className={s.textarea} value={editedNote} onChange={e => setEditedNote(e.target.value)} />
+            <label className={s.label}>
+              {ocrResult?.rawTranscription
+                ? 'Extracted & Cleaned Note'
+                : 'Case Note (type or paste content from the PDF)'}
+            </label>
+            <textarea className={s.textarea} value={editedNote} onChange={e => setEditedNote(e.target.value)}
+              placeholder={ocrResult?.rawTranscription ? '' : 'Type or paste the case note content here…'} />
           </div>
 
           <div className={s.field}>

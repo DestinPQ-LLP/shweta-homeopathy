@@ -6,7 +6,7 @@ const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 
 export async function GET() {
   try {
-    const files = await listDriveFiles(process.env.GOOGLE_DRIVE_MEDIA_FOLDER_ID);
+    const files = await listDriveFiles(process.env.GOOGLE_DRIVE_FOLDER_ID);
     return NextResponse.json({ files });
   } catch (err) {
     console.error('[media GET]', err);
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   const buffer   = Buffer.from(arrayBuffer);
   const filename = (file as File).name || `upload-${Date.now()}`;
-  const mediaFolderId = process.env.GOOGLE_DRIVE_MEDIA_FOLDER_ID;
+  const mediaFolderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
 
   try {
     const { id, webViewLink } = await uploadFileToDrive({ filename, mimeType: file.type, buffer, folderId: mediaFolderId });

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { extractTextFromImage } from '@/lib/ocr';
 import { uploadFileToDrive } from '@/lib/google/drive';
 
-const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+const ALLOWED_MIME = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'application/pdf'];
 const MAX_BYTES = 10 * 1024 * 1024; // 10 MB
 
 export async function POST(req: NextRequest) {
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
   const mimeType = file.type;
   if (!ALLOWED_MIME.includes(mimeType)) {
-    return NextResponse.json({ error: 'Only JPEG, PNG, WebP, GIF images are accepted' }, { status: 400 });
+    return NextResponse.json({ error: 'Only JPEG, PNG, WebP, GIF images and PDF files are accepted' }, { status: 400 });
   }
 
   const arrayBuffer = await file.arrayBuffer();
@@ -28,21 +28,33 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'File exceeds 10 MB limit' }, { status: 400 });
   }
 
-  const buffer     = Buffer.from(arrayBuffer);
-  const imageBase64 = buffer.toString('base64');
-  const filename   = (file as File).name || `note-${Date.now()}.jpg`;
+  const buffer   = Buffer.from(arrayBuffer);
+  const filename = (file as File).name || `note-${Date.now()}${mimeType === 'application/pdf' ? '.pdf' : '.jpg'}`;
 
   // Upload to Drive for archival
   let driveFileId = '';
-  let driveFileName = filename;
+  const driveFileName = filename;
   try {
     const uploaded = await uploadFileToDrive({ filename, mimeType, buffer });
-    driveFileId   = uploaded.id;
+    driveFileId = uploaded.id;
   } catch (e) {
     console.error('[ocr] drive upload failed', e);
-    // non-fatal — continue with OCR
+    // non-fatal — continue
   }
 
+  // PDFs: skip OCR, return empty transcript — user fills in text manually
+  if (mimeType === 'application/pdf') {
+    return NextResponse.json({
+      rawTranscription: '',
+      cleanedNote: '',
+      uncertainItems: [],
+      driveFileId,
+      driveFileName,
+    });
+  }
+
+  // Images: run OCR
+  const imageBase64 = buffer.toString('base64');
   try {
     const result = await extractTextFromImage(imageBase64, mimeType);
     return NextResponse.json({ ...result, driveFileId, driveFileName });

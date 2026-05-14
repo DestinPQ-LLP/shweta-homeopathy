@@ -2,9 +2,10 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllConditions } from '@/lib/healing-conditions';
 import { buildMetadata } from '@/lib/seo';
-import { Shield, Target, Leaf } from 'lucide-react';
+import { Shield, Target, Leaf, Star, PlayCircle } from 'lucide-react';
 import ServiceFilterGrid from '@/components/public/ServiceFilterGrid';
 import ConsultationPathway from '@/components/public/ConsultationPathway';
+import { SOCIAL_PROOF } from '@/lib/social-proof';
 import styles from './services.module.css';
 
 export const metadata: Metadata = buildMetadata({
@@ -18,6 +19,16 @@ export const revalidate = 3600;
 
 export default async function ServicesPage() {
   const liveConditions = await getAllConditions(false).catch(() => []);
+
+  // Build slug -> name map for social-proof rendering (fallback to slug-derived title)
+  const slugToName = new Map<string, string>(liveConditions.map((c) => [c.slug, c.name]));
+  const titleCase = (slug: string) =>
+    slug.split('-').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  const socialProofEntries = Object.entries(SOCIAL_PROOF).map(([slug, entry]) => ({
+    slug,
+    name: slugToName.get(slug) ?? titleCase(slug),
+    ...entry,
+  }));
 
   return (
     <>
@@ -56,6 +67,42 @@ export default async function ServicesPage() {
             <h2 style={{ marginTop: 'var(--space-3)' }}>Find Your Condition</h2>
           </div>
           <ServiceFilterGrid conditions={liveConditions} />
+        </div>
+      </section>
+
+      {/* Real Patient Results — Instagram reels & Google reviews */}
+      <section className={`section ${styles.proofSection}`}>
+        <div className="container">
+          <div style={{ textAlign: 'center', marginBottom: 'var(--space-10)' }}>
+            <span className="section-label">Real Patient Results</span>
+            <h2 style={{ marginTop: 'var(--space-3)' }}>See &amp; Read Patient Stories</h2>
+            <p style={{ maxWidth: '620px', marginInline: 'auto', marginTop: 'var(--space-4)', color: 'var(--clr-text-mid)' }}>
+              Watch transformation reels on Instagram and read verified Google reviews from patients we&apos;ve treated.
+            </p>
+          </div>
+
+          <div className={styles.proofGrid}>
+            {socialProofEntries.map((p) => (
+              <Link key={p.slug} href={`/conditions/${p.slug}`} className={styles.proofCard}>
+                <div className={styles.proofCardHead}>
+                  <h3 className={styles.proofCardTitle}>{p.name}</h3>
+                  <span className={styles.proofCardArrow} aria-hidden>→</span>
+                </div>
+                <div className={styles.proofMeta}>
+                  {p.instagramLinks.length > 0 && (
+                    <span className={styles.proofMetaItem}>
+                      <PlayCircle size={14} /> {p.instagramLinks.length} reel{p.instagramLinks.length > 1 ? 's' : ''}
+                    </span>
+                  )}
+                  {p.reviewLinks.length > 0 && (
+                    <span className={styles.proofMetaItem}>
+                      <Star size={14} /> {p.reviewLinks.length} review{p.reviewLinks.length > 1 ? 's' : ''}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

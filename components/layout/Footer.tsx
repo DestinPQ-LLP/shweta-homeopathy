@@ -14,7 +14,7 @@ const services = [
 const quickLinks = [
   { label: 'About Doctor', href: '/about' },
   { label: 'All Services', href: '/services' },
-  { label: 'Blog', href: '/blog' },
+  { label: 'Blogs', href: '/blog' },
   { label: 'Contact', href: '/contact' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'FAQ', href: '/faq' },
@@ -36,7 +36,7 @@ export default function Footer() {
               <span className={styles.dockSub}>+91 62844 11753</span>
             </a>
             <a
-              href="https://wa.me/916284411753"
+              href="https://wa.me/916284411753?text=Hey%2C%20I%20need%20a%20consultation%20from%20Dr%20Shweta"
               target="_blank"
               rel="noopener noreferrer"
               className={`${styles.dockTile} glass-dark`}

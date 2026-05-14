@@ -98,6 +98,115 @@
   font-size: 0.9em;
 }
 
+/* ── Change Password form ─────────────────────────────────────────────────── */
+.pwForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 420px;
+}
+.pwField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.pwLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--clr-text);
+}
+.pwInput {
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--clr-text);
+  background: var(--clr-white);
+  transition: border-color var(--transition-fast);
+  width: 100%;
+}
+.pwInput:focus {
+  outline: none;
+  border-color: var(--clr-sage);
+  box-shadow: 0 0 0 3px rgba(74, 124, 95, 0.12);
+}
+.pwError {
+  font-size: var(--text-sm);
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+.pwSuccess {
+  font-size: var(--text-sm);
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* ── Info boxes (Sender Gmail / Service Account) ──────────────────────────── */
+.infoBox {
+  background: var(--clr-cream);
+  border: 1px solid var(--clr-border);
+  border-left: 4px solid var(--clr-sage-lt);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.infoText {
+  font-size: var(--text-sm);
+  color: var(--clr-text-mid);
+  line-height: 1.7;
+  margin: 0;
+}
+.infoText code {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88em;
+  color: var(--clr-sage);
+}
+.numberedList {
+  margin: 0;
+  padding-left: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--clr-text-mid);
+  line-height: 1.7;
+}
+.numberedList code {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88em;
+  color: var(--clr-sage);
+}
+.subList {
+  margin-top: var(--space-2);
+  padding-left: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: disc;
+}
+.subList code {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88em;
+  color: var(--clr-sage);
+}
+
 @media (max-width: 640px) {
   .colLabel { width: auto; white-space: normal; }
   .colLink { display: none; }

@@ -94,3 +94,85 @@
 @media (max-width: 640px) {
   .heroStats { gap: var(--space-6); }
 }
+
+/* ── Real Patient Results (Social Proof) ──────────────── */
+.proofSection {
+  background: var(--clr-sage-pale, #f4f8f5);
+}
+
+.proofGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+.proofCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border, rgba(0,0,0,0.08));
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.proofCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-color: var(--clr-gold);
+}
+
+.proofCardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.proofCardTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--clr-forest);
+  margin: 0;
+  line-height: 1.25;
+}
+
+.proofCardArrow {
+  color: var(--clr-gold);
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-base);
+}
+
+.proofCard:hover .proofCardArrow {
+  transform: translateX(3px);
+}
+
+.proofMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.proofMetaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  color: var(--clr-text-mid);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .proofGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .proofGrid { grid-template-columns: 1fr; }
+}

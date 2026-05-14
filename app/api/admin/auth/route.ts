@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SignJWT } from 'jose';
 import { timingSafeEqual } from 'crypto';
+import { getStoredPasswordHash, verifyPassword } from '@/lib/google/admin-config';
 
 const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET || 'fallback-secret');
 const COOKIE_NAME = 'admin_token';
@@ -10,15 +11,23 @@ export async function POST(req: NextRequest) {
   try {
     const { password } = await req.json();
 
-    const adminPassword = process.env.ADMIN_PASSWORD || '';
-    if (!adminPassword) {
-      return NextResponse.json({ error: 'Admin not configured' }, { status: 503 });
-    }
+    // Check for a runtime-updated password in Google Sheets (set via Change Password UI).
+    // Falls back to the ADMIN_PASSWORD env var if no sheets override exists.
+    const sheetsHash = await getStoredPasswordHash();
 
-    // Timing-safe comparison to prevent timing attacks
-    const a = Buffer.from(password ?? '');
-    const b = Buffer.from(adminPassword);
-    const match = a.length === b.length && timingSafeEqual(a, b);
+    let match: boolean;
+    if (sheetsHash) {
+      match = verifyPassword(password ?? '', sheetsHash);
+    } else {
+      const adminPassword = process.env.ADMIN_PASSWORD || '';
+      if (!adminPassword) {
+        return NextResponse.json({ error: 'Admin not configured' }, { status: 503 });
+      }
+      // Timing-safe comparison to prevent timing attacks
+      const a = Buffer.from(password ?? '');
+      const b = Buffer.from(adminPassword);
+      match = a.length === b.length && timingSafeEqual(a, b);
+    }
 
     if (!match) {
       return NextResponse.json({ error: 'Invalid password' }, { status: 401 });

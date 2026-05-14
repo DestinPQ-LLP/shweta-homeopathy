@@ -1,4 +1,5 @@
 import AdminLayout from '@/components/admin/AdminLayout';
+import ChangePasswordForm from './ChangePasswordForm';
 import styles from './settings.module.css';
 
 function mask(value: string | undefined, show = 4): string {
@@ -91,6 +92,72 @@ export default function SettingsPage() {
             <li><code>OPENAI_API_KEY</code> — Used by the OCR / session-notes feature</li>
             <li><code>NEXT_PUBLIC_TINY_MCE_API_KEY</code> — TinyMCE editor key (public)</li>
           </ul>
+        </section>
+
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Change Password</h2>
+          <p className={styles.infoText}>
+            Update the admin panel login password below. The new password takes effect
+            immediately — no redeployment needed. The initial password is still stored in
+            your Vercel environment variables as a fallback if this is reset.
+          </p>
+          <ChangePasswordForm />
+        </section>
+
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>About: Sender Gmail</h2>
+          <div className={styles.infoBox}>
+            <p className={styles.infoText}>
+              The <strong>Sender Gmail</strong> (<code>GOOGLE_GMAIL_FROM</code>) is the email
+              address that appears in the &quot;From&quot; field of all automated emails sent by the website
+              (appointment confirmations, contact replies, etc.).
+            </p>
+            <p className={styles.infoText}>
+              This <strong>does not</strong> need to be the same Gmail account used for Google
+              Drive / Sheets / the service account. It can be any Gmail you control — for example,{' '}
+              <code>drshwetahmc@gmail.com</code>.
+            </p>
+            <p className={styles.infoText}>
+              <strong>To switch the sender Gmail to a different address:</strong>
+            </p>
+            <ol className={styles.numberedList}>
+              <li>Enable <strong>2-Step Verification</strong> on the target Gmail account (Google Account → Security).</li>
+              <li>Generate an <strong>App Password</strong>: Google Account → Security → App passwords → choose &quot;Mail&quot; + &quot;Other (website)&quot; → Generate.</li>
+              <li>In Vercel → Project Settings → Environment Variables, update:
+                <ul className={styles.subList}>
+                  <li><code>GOOGLE_GMAIL_FROM</code> → the new Gmail address (e.g. <code>drshwetahmc@gmail.com</code>)</li>
+                  <li><code>SMTP_USER</code> → same new Gmail address</li>
+                  <li><code>SMTP_PASS</code> → the 16-character App Password generated above</li>
+                </ul>
+              </li>
+              <li>Redeploy the website for the change to take effect.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>About: Service Account Email</h2>
+          <div className={styles.infoBox}>
+            <p className={styles.infoText}>
+              The <strong>Service Account Email</strong> (<code>GOOGLE_SERVICE_ACCOUNT_EMAIL</code>) is
+              a special <em>robot/bot</em> email created inside Google Cloud Console. It is <strong>not</strong>
+              {' '}a regular Gmail inbox — it cannot send or receive emails directly.
+            </p>
+            <p className={styles.infoText}>
+              It looks like: <code>some-name@project-id.iam.gserviceaccount.com</code>
+            </p>
+            <p className={styles.infoText}>
+              The website uses this account to <strong>read and write Google Sheets</strong> (appointments,
+              blog data, leads) and to <strong>upload files to Google Drive</strong> (media library, OCR docs).
+              For this to work, each Google Sheet and Drive folder must be <strong>shared</strong> with this
+              service account email (with Editor access), just like sharing with a regular person.
+            </p>
+            <p className={styles.infoText}>
+              <strong>You never need to log in</strong> to a service account — it operates entirely
+              via a private JSON key (<code>GOOGLE_SERVICE_ACCOUNT_KEY</code>) stored securely in
+              Vercel&apos;s environment variables.
+            </p>
+          </div>
         </section>
       </div>
     </AdminLayout>

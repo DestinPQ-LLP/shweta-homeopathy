@@ -6,19 +6,25 @@ import Link from 'next/link';
 export const dynamic = 'force-dynamic';
 
 async function getStats() {
+  const bookingsId = process.env.GOOGLE_SHEETS_BOOKINGS_ID || '';
+  const sheetsConfigured = !!bookingsId;
+
   const [posts, leads, contacts] = await Promise.allSettled([
     getAllBlogs(),
-    readSheet(process.env.GOOGLE_SHEETS_BOOKINGS_ID || '', 'Leads!A:A'),
-    readSheet(process.env.GOOGLE_SHEETS_BOOKINGS_ID || '', 'Contacts!A:A'),
+    bookingsId ? readSheet(bookingsId, 'Leads!A:A') : Promise.resolve([]),
+    bookingsId ? readSheet(bookingsId, 'Contacts!A:A') : Promise.resolve([]),
   ]);
   const postList = posts.status === 'fulfilled' ? posts.value : [];
   const leadRows = leads.status === 'fulfilled' ? leads.value : [];
   const contactRows = contacts.status === 'fulfilled' ? contacts.value : [];
+  const leadsError = leads.status === 'rejected' ? (leads.reason as Error).message : null;
   return {
     totalPosts: postList.length,
     publishedPosts: postList.filter((p) => p.status === 'published').length,
     totalLeads: Math.max(0, leadRows.length - 1),
     totalContacts: Math.max(0, contactRows.length - 1),
+    sheetsConfigured,
+    leadsError,
   };
 }
 
@@ -34,6 +40,17 @@ export default async function DashboardPage() {
 
   return (
     <AdminLayout title="Dashboard">
+      {/* ── Config warnings ── */}
+      {!stats.sheetsConfigured && (
+        <div style={{ background: '#fff3cd', border: '1px solid #ffc107', borderRadius: 'var(--radius-md)', padding: 'var(--space-4) var(--space-5)', marginBottom: 'var(--space-6)', fontSize: 'var(--text-sm)', color: '#856404' }}>
+          ⚠️ <strong>GOOGLE_SHEETS_BOOKINGS_ID is not set.</strong> Appointment form submissions will not be saved to Google Sheets. Go to Vercel → Project Settings → Environment Variables and add <code>GOOGLE_SHEETS_BOOKINGS_ID</code> with your Bookings spreadsheet ID.
+        </div>
+      )}
+      {stats.leadsError && (
+        <div style={{ background: '#fff5f5', border: '1px solid #fed7d7', borderRadius: 'var(--radius-md)', padding: 'var(--space-4) var(--space-5)', marginBottom: 'var(--space-6)', fontSize: 'var(--text-sm)', color: '#c53030' }}>
+          ❌ <strong>Could not read leads from Google Sheets:</strong> {stats.leadsError}. Check that the service account has Editor access to the Bookings sheet.
+        </div>
+      )}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 'var(--space-6)', marginBottom: 'var(--space-10)' }}>
         {cards.map((c) => (
           <div key={c.label} style={{ background: 'white', borderRadius: 'var(--radius-lg)', padding: 'var(--space-6)', boxShadow: 'var(--shadow-sm)', borderTop: '3px solid var(--clr-sage)' }}>

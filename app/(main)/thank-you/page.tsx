@@ -19,7 +19,7 @@ export default function ThankYouPage() {
         </div>
         <div style={{ display: 'flex', gap: 'var(--space-4)', justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link href="/" className="btn btn-primary">Back to Home</Link>
-          <Link href="/blog" className="btn btn-outline">Read Our Blog</Link>
+          <Link href="/blog" className="btn btn-outline">Read Our Blogs</Link>
         </div>
       </div>
     </section>

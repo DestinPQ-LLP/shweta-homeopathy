@@ -2,6 +2,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ScrollProgressRail from '@/components/public/ScrollProgressRail';
 import ContextualStickyBar from '@/components/public/ContextualStickyBar';
+import WhatsAppFloat from '@/components/public/WhatsAppFloat';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,6 +14,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </main>
       <Footer />
       <ContextualStickyBar />
+      <WhatsAppFloat />
     </>
   );
 }

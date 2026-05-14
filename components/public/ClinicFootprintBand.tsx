@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { MapPin, Phone, Clock } from 'lucide-react';
 import styles from './ClinicFootprintBand.module.css';
 
@@ -10,6 +11,7 @@ const locations = [
     address: 'Patiala Road, Above Vintage Properties, Zirakpur, Punjab -140603',
     phone: '+91 62844-11753',
     hours: 'Mon–Sun · 9:30 am–6:30 pm',
+    photo: '/images/clinic-zirakpur.jpg',
   },
   {
     city: 'Budhlada',
@@ -17,6 +19,7 @@ const locations = [
     address: 'Patel Marg, Near Railway Station, Budhlada, Mansa, Punjab – 151502',
     phone: '+91 90564-62817',
     hours: 'Mon–Sun · 9:00 am–6:00 pm',
+    photo: '/images/clinic-budhlada.jpg',
   },
   {
     city: 'Online',
@@ -24,6 +27,7 @@ const locations = [
     address: 'Video Consultations via WhatsApp, Zoom or Google Meet',
     phone: '+91 62844-11753',
     hours: 'Flexible Scheduling',
+    photo: '/images/clinic-online.jpg',
   },
 ];
 
@@ -36,6 +40,15 @@ export default function ClinicFootprintBand() {
         <div className={styles.grid}>
           {locations.map((loc, i) => (
             <div key={loc.city} className={`${styles.card} ${i === 2 ? styles.cardOnline : ''}`}>
+              <div className={styles.cardPhoto}>
+                <Image
+                  src={loc.photo}
+                  alt={`${loc.city} clinic`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
               <div className={styles.cardTop}>
                 <span className={styles.dot} />
                 <div>

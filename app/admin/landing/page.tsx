@@ -111,6 +111,20 @@ export default function LandingAdminPage() {
           Google Sheet (<code>GOOGLE_SHEETS_LANDING_ID</code>).
         </p>
 
+        <div className={styles.adsLinkBanner}>
+          <span>🔗 Live landing page URL: </span>
+          <a
+            href={`${process.env.NEXT_PUBLIC_BASE_URL || ''}/ads`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {process.env.NEXT_PUBLIC_BASE_URL || ''}/ads
+          </a>
+          <span style={{ marginLeft: '8px', fontSize: '0.8em', color: 'var(--clr-text-lt)' }}>
+            — share this link in your ad campaigns
+          </span>
+        </div>
+
         {status && (
           <div className={`${styles.alert} ${status.type === 'success' ? styles.alertSuccess : styles.alertError}`}>
             {status.msg}

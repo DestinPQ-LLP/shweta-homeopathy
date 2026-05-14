@@ -49,15 +49,39 @@
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-lg);
-  padding: var(--space-7);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: 0;
+  overflow: hidden;
   transition: background var(--transition-base), transform var(--transition-base);
 }
 .card:hover {
   background: rgba(255,255,255,0.1);
   transform: translateY(-3px);
+}
+
+.cardPhoto {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  flex-shrink: 0;
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-7) 0;
+}
+
+.details {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4) var(--space-7) var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
 }
 
 .cardOnline {
@@ -99,15 +123,6 @@
   margin: 2px 0 0;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-}
-
-.details {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
 }
 
 .details li {

@@ -6,7 +6,7 @@ const BOOKINGS_ID = () => process.env.GOOGLE_SHEETS_BOOKINGS_ID || '';
 export async function GET() {
   try {
     const [apptRows, contactRows] = await Promise.all([
-      readSheet(BOOKINGS_ID(), 'Leads!A:I').catch(() => []),
+      readSheet(BOOKINGS_ID(), 'Leads!A:J').catch(() => []),
       readSheet(BOOKINGS_ID(), 'Contacts!A:F').catch(() => []),
     ]);
 
