@@ -77,7 +77,7 @@ export default function AboutPage() {
             {/* REPLACE with candid warm-lit photo when client provides */}
             <div className={styles.heroPhotoFrame}>
               <Image
-                src="/photos/17677_aboutdoctor.jpg"
+                src="/photos/doctor/shweta-3.jpg"
                 alt="Dr. Shweta Goyal"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
