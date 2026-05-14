@@ -79,20 +79,7 @@ export default async function HomePage() {
         { number: '98%', label: 'Patient Satisfaction' },
       ]} />
 
-      {/* ── Stats Bar ── */}
-      <div className={styles.statsBar}>
-        <div className={`container ${styles.statsBarInner}`}>
-          {statsBarData.map((s) => (
-            <div key={s.label} className={styles.statsBarCell}>
-              <div className={styles.statsBarIcon}>{s.icon}</div>
-              <div>
-                <p className={styles.statsBarNum}>{s.num}</p>
-                <p className={styles.statsBarLabel}>{s.label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ── Stats Bar (removed) ── */}
 
       {/* ── Credentials & Why Choose Us strip ── */}
       <div className={styles.credWhyStrip}>

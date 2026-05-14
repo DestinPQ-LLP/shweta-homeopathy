@@ -568,7 +568,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className={styles.recognitionGrid}>
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+            {[4, 5].map((n) => (
               <div key={n} className={styles.recognitionCard}>
                 <div className={styles.recognitionImgWrap}>
                   <Image
@@ -576,7 +576,7 @@ export default function AboutPage() {
                     alt={`Dr. Shweta Goyal — Photo ${n}`}
                     fill
                     style={{ objectFit: 'cover', objectPosition: 'center top' }}
-                    sizes="(max-width: 640px) 100vw, 25vw"
+                    sizes="(max-width: 640px) 100vw, 50vw"
                   />
                 </div>
               </div>
