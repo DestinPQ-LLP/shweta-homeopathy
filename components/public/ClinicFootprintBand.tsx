@@ -21,14 +21,6 @@ const locations = [
     hours: 'Mon–Sun · 9:00 am–6:00 pm',
     photo: '/images/clinic-budhlada.jpg',
   },
-  {
-    city: 'Online',
-    subtitle: 'Anywhere in the World',
-    address: 'Video Consultations via WhatsApp, Zoom or Google Meet',
-    phone: '+91 62844-11753',
-    hours: 'Flexible Scheduling',
-    photo: '/images/clinic-online.jpg',
-  },
 ];
 
 export default function ClinicFootprintBand() {

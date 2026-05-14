@@ -361,6 +361,39 @@
   margin: 0;
 }
 
+/* Instagram embed inside teal story card */
+.embedFrame {
+  position: relative;
+  width: 100%;
+  background: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  max-height: 640px;
+}
+
+.embedIframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* Google review variant */
+.reviewBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.reviewStars {
+  color: #FBBC05;
+  font-size: var(--text-lg);
+  letter-spacing: 2px;
+}
+
 /* ── Sidebar ───────────────────────────────────────────── */
 .bookCard {
   border-top: 4px solid var(--clr-sage);
