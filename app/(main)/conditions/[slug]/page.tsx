@@ -179,12 +179,16 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
 
           {/* 1. Overview */}
           <section id="overview" className={styles.section}>
+            <p className={styles.sectionEyebrow}>Overview</p>
             <h2 className={styles.sectionHeading}>Overview</h2>
-            <p className={styles.introText}>{condition.intro}</p>
+            {condition.intro.split(/\n{2,}/).map((para, idx) => (
+              <p key={idx} className={styles.introText}>{para.trim()}</p>
+            ))}
           </section>
 
           {/* 2. Symptom Cluster Chips */}
           <section id="symptoms" className={styles.section}>
+            <p className={styles.sectionEyebrow}>Common Symptoms</p>
             <h2 className={styles.sectionHeading}>Common Symptoms</h2>
             <div className={styles.chipGrid}>
               {condition.symptoms.map((s) => (
@@ -198,15 +202,21 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
 
           {/* 3. How Homeopathy Helps */}
           <section id="treatment" className={styles.section}>
+            <p className={styles.sectionEyebrow}>How Homeopathy Helps</p>
             <h2 className={styles.sectionHeading}>How Homeopathy Helps</h2>
             <div className={styles.treatmentPanel}>
               <Stethoscope size={20} className={styles.panelIcon} />
-              <p className={styles.panelText}>{condition.howHomeopathyHelps}</p>
+              <div>
+                {condition.howHomeopathyHelps.split(/\n{2,}/).map((para, idx) => (
+                  <p key={idx} className={styles.panelText}>{para.trim()}</p>
+                ))}
+              </div>
             </div>
           </section>
 
           {/* 4. Expectation Setting Panel */}
           <section id="expectations" className={styles.section}>
+            <p className={styles.sectionEyebrow}>What to Expect</p>
             <h2 className={styles.sectionHeading}>What to Expect</h2>
             <div className={styles.timeline}>
               {getExpectations(slug).map((e, i, arr) => (
@@ -227,6 +237,7 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
 
           {/* 5. What To Bring Capsule */}
           <section id="prepare" className={styles.section}>
+            <p className={styles.sectionEyebrow}>Prepare for Your Visit</p>
             <h2 className={styles.sectionHeading}>Prepare for Your Visit</h2>
             <div className={styles.bringCapsule}>
               <div className={styles.bringHeader}>
@@ -249,6 +260,7 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
           {/* Patient Stories — Instagram reels + Google reviews */}
           {SOCIAL_PROOF[slug] && (SOCIAL_PROOF[slug].instagramLinks.length > 0 || SOCIAL_PROOF[slug].reviewLinks.length > 0) && (
             <section className={styles.section}>
+              <p className={styles.sectionEyebrow}>Patient Stories</p>
               <h2 className={styles.sectionHeading}>Patient Stories</h2>
               <p style={{ color: 'var(--clr-text-mid)', marginBottom: 'var(--space-6)', fontSize: 'var(--text-sm)' }}>
                 Verified patient experiences from Instagram and Google Reviews.

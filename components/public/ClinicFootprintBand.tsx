@@ -21,6 +21,14 @@ const locations = [
     hours: 'Mon–Sun · 9:00 am–6:00 pm',
     photo: '/images/clinic-budhlada.jpg',
   },
+  {
+    city: 'Online',
+    subtitle: 'Worldwide Consultations',
+    address: 'Video consultations for patients across India, US, Canada, UK, UAE & beyond',
+    phone: '+91 62844-11753',
+    hours: 'Mon–Sun · By appointment',
+    photo: '/images/clinic-online.jpg',
+  },
 ];
 
 export default function ClinicFootprintBand() {

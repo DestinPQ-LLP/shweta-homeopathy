@@ -8,6 +8,17 @@ const RANGE    = `${TAB}!A:I`;
 // Columns: slug | name | shortDesc | intro | symptoms | howHomeopathyHelps | icon | status | category
 const HEADERS  = ['slug','name','shortDesc','intro','symptoms','howHomeopathyHelps','icon','status','category'];
 
+export interface ExpectationStage {
+  phase: string;
+  title: string;
+  body: string;
+}
+
+export interface ConditionFaq {
+  q: string;
+  a: string;
+}
+
 export interface HealingCondition {
   slug: string;
   name: string;
@@ -18,6 +29,9 @@ export interface HealingCondition {
   icon: string;
   status: 'published' | 'draft';
   category?: ConditionCategory;
+  /** Optional rich content (only on STATIC_CONDITIONS, not stored in sheet) */
+  expectations?: ExpectationStage[];
+  faqs?: ConditionFaq[];
 }
 
 function clean(s: string): string {
