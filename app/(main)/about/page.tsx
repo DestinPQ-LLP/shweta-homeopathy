@@ -265,26 +265,14 @@ export default function AboutPage() {
             <div className={styles.recognitionCard}>
               <div className={styles.recognitionImgWrap}>
                 <Image
-                  src="/photos/18396_award.jpg"
-                  alt="Dr. Shweta Goyal as Awardee at the Dr. Malati Allen Noble Award Ceremony 2019"
-                  fill
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                />
-              </div>
-              <p className={styles.recognitionCaption}>Felicitated as Awardee by the Organising Committee</p>
-            </div>
-            <div className={styles.recognitionCard}>
-              <div className={styles.recognitionImgWrap}>
-                <Image
                   src="/About Section- Grihshoba like segments/Malati Allen Nobel Award/18395_award2.jpg"
-                  alt="Dr. Shweta Goyal with senior homoeopaths at the Dr. Malati Allen Charitable Trust event"
+                  alt="Dr. Shweta Goyal felicitated as Awardee with senior homoeopaths at the Dr. Malati Allen Charitable Trust event"
                   fill
                   style={{ objectFit: 'cover', objectPosition: 'center top' }}
                   sizes="(max-width: 640px) 100vw, 33vw"
                 />
               </div>
-              <p className={styles.recognitionCaption}>With Senior Homoeopaths — Dr. Malati Allen Charitable Trust</p>
+              <p className={styles.recognitionCaption}>Felicitated as Awardee with Senior Homoeopaths — Dr. Malati Allen Charitable Trust</p>
             </div>
           </div>
         </div>
