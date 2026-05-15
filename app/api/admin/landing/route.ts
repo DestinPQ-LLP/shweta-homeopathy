@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { verifyAdminToken, getTokenFromRequest } from '@/lib/auth';
 import {
   getLandingConfig,
@@ -6,6 +7,10 @@ import {
   getTrackingConfig,
   setTrackingConfig,
 } from '@/lib/landing';
+
+// Always read fresh from the sheet — never serve a Next.js fetch-cached copy.
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET(req: NextRequest) {
   const token = getTokenFromRequest(req);
@@ -50,6 +55,12 @@ export async function PUT(req: NextRequest) {
   if (errors.length > 0) {
     return NextResponse.json({ error: errors.join('; ') }, { status: 500 });
   }
+
+  // Bust ISR caches so /ads and globally-injected tracking pixels reflect
+  // the new values on the very next request instead of waiting up to 60s.
+  revalidatePath('/ads');
+  revalidatePath('/admin/landing');
+  revalidatePath('/', 'layout'); // tracking pixels are injected in the root layout
 
   return NextResponse.json({ ok: true });
 }
