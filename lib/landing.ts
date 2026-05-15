@@ -28,7 +28,7 @@ export interface TrackingConfig {
 export const LANDING_DEFAULTS: LandingConfig = {
   headline: 'Get Lasting Relief from Chronic Conditions — Naturally',
   subheadline:
-    'Personalised classical homeopathic treatment by Dr. Shweta Goyal. Safe for all ages, no side effects.',
+    'Personalised classical homeopathic treatment by Dr. Shweta Goyal — BHMS Gold Medalist, MD (Hom). Safe for all ages, no side effects, root-cause healing.',
   video_url: '',
   whatsapp_number: '916284411753',
   whatsapp_message: "Hi Dr. Shweta, I'd like to book a consultation",

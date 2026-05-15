@@ -164,14 +164,42 @@ export default function BlogEditorForm({ post }: Props) {
               height: 520,
               menubar: true,
               plugins: [
-                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                'insertdatetime', 'table', 'help', 'wordcount',
+                // Core editing features
+                'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link',
+                'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+                // Premium trial features (active until May 29, 2026)
+                'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed',
+                'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste',
+                'advtable', 'advcode', 'advtemplate', 'tinymceai', 'uploadcare',
+                'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags',
+                'autocorrect', 'typography', 'inlinecss', 'markdown',
+                'importword', 'exportword', 'exportpdf',
               ],
               toolbar:
-                'undo redo | blocks | bold italic underline | forecolor backcolor | ' +
-                'alignleft aligncenter alignright alignjustify | ' +
-                'bullist numlist outdent indent | link image table | code fullscreen | help',
+                'undo redo | tinymceai-chat tinymceai-quickactions tinymceai-review | ' +
+                'blocks fontfamily fontsize | bold italic underline strikethrough | ' +
+                'link media table mergetags | addcomment showcomments | ' +
+                'spellcheckdialog a11ycheck typography uploadcare | align lineheight | ' +
+                'checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+              tinycomments_mode: 'embedded',
+              tinycomments_author: 'Dr. Shweta Goyal',
+              mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+              ],
+              tinymceai_token_provider: async () => {
+                const apiKey = process.env.NEXT_PUBLIC_TINY_MCE_API_KEY;
+                await fetch(`https://demo.api.tiny.cloud/1/${apiKey}/auth/random`, {
+                  method: 'POST',
+                  credentials: 'include',
+                });
+                const token = await fetch(
+                  `https://demo.api.tiny.cloud/1/${apiKey}/jwt/tinymceai`,
+                  { credentials: 'include' },
+                ).then((r) => r.text());
+                return { token };
+              },
+              uploadcare_public_key: 'a1cc3956b730fb8443b1',
               content_style:
                 "body { font-family: Inter, sans-serif; font-size: 16px; color: #1a2e1c; line-height: 1.8; }",
               branding: false,
