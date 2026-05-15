@@ -124,7 +124,15 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
       ]
         .filter(r => r.text && r.rating >= 4)
         .sort((a, b) => (b.publishTime || '').localeCompare(a.publishTime || ''));
-      liveReviews = merged.slice(0, social.reviewLinks.length);
+      // Deterministic per-slug rotation so each condition page shows a
+      // different set of reviews instead of repeating the newest one.
+      if (merged.length > 0) {
+        let h = 0;
+        for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+        const offset = h % merged.length;
+        const rotated = [...merged.slice(offset), ...merged.slice(0, offset)];
+        liveReviews = rotated.slice(0, social.reviewLinks.length);
+      }
     } catch (e) {
       console.warn('[conditions/[slug]] Google reviews fetch failed:', (e as Error).message);
     }
