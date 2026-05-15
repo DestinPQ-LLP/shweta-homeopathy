@@ -7,13 +7,67 @@ import type { GoogleAuth } from 'googleapis-common';
 
 let _auth: GoogleAuth | null = null;
 
+/**
+ * Parse the service-account credentials from env. Accepts either:
+ *   1. Raw JSON pasted directly into the env var, or
+ *   2. Base64-encoded JSON (recommended for Vercel — avoids newline / quoting issues
+ *      that frequently corrupt the `private_key` field when pasted into the UI).
+ *
+ * Set `GOOGLE_SERVICE_ACCOUNT_KEY_B64` to the base64-encoded JSON to use option 2.
+ */
+function parseCredentials(): Record<string, unknown> {
+  const b64 = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64;
+  if (b64) {
+    try {
+      const decoded = Buffer.from(b64, 'base64').toString('utf8');
+      return JSON.parse(decoded);
+    } catch (e) {
+      throw new SheetsError(
+        `Failed to decode GOOGLE_SERVICE_ACCOUNT_KEY_B64: ${(e as Error).message}`,
+        'config',
+      );
+    }
+  }
+
+  const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+  if (!raw) {
+    throw new SheetsError(
+      'Neither GOOGLE_SERVICE_ACCOUNT_KEY nor GOOGLE_SERVICE_ACCOUNT_KEY_B64 is set',
+      'config',
+    );
+  }
+  try {
+    return JSON.parse(raw);
+  } catch (e1) {
+    // Common Vercel pitfall: JSON pasted into the UI gets real newlines inside
+    // the `private_key` string, which makes JSON.parse fail. As a last-ditch
+    // attempt, escape any unescaped newlines and try again.
+    try {
+      const fixed = raw.replace(/\r/g, '').replace(/\n/g, '\\n');
+      return JSON.parse(fixed);
+    } catch {
+      throw new SheetsError(
+        `GOOGLE_SERVICE_ACCOUNT_KEY is not valid JSON (${(e1 as Error).message}). ` +
+        `Tip: set GOOGLE_SERVICE_ACCOUNT_KEY_B64 to the base64-encoded JSON instead.`,
+        'config',
+      );
+    }
+  }
+}
+
 function getAuth(): GoogleAuth {
   if (_auth) return _auth;
-  const raw = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-  if (!raw) throw new SheetsError('GOOGLE_SERVICE_ACCOUNT_KEY is not set', 'config');
-  const credentials = JSON.parse(raw);
-  if (credentials.private_key)
+  const credentials = parseCredentials() as { private_key?: string; client_email?: string };
+  if (typeof credentials.private_key === 'string') {
+    // Normalize escaped newlines that survive Vercel's env-var encoding.
     credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+  }
+  if (!credentials.private_key || !credentials.client_email) {
+    throw new SheetsError(
+      'Service account credentials are missing private_key or client_email',
+      'config',
+    );
+  }
   _auth = new google.auth.GoogleAuth({
     credentials,
     scopes: [

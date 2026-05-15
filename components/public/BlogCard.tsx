@@ -32,7 +32,7 @@ export default function BlogCard({ post }: { post: BlogPost }) {
             src={initialUrl}
             alt={post.title}
             fill
-            style={{ objectFit: 'cover' }}
+            style={{ objectFit: 'contain' }}
             unoptimized
             onError={() => setImgFailed(true)}
           />
