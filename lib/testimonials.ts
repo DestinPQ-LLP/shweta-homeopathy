@@ -23,15 +23,24 @@ export interface Testimonial {
 }
 
 function rowToTestimonial(row: string[]): Testimonial {
-  // Detect layout: Google reviews have text in col[2], old layout has location in col[2]
-  // Google layout: id|name|text|rating|condition|location|imageUrl|source|clinic|status
-  // Old layout:    id|name|location|condition|rating|text|status|createdAt|imageUrl
-  const isGoogleLayout = row[7] === 'Google' || row[7] === 'WordPress' && row[3] && !isNaN(Number(row[3]));
-  // Actually detect by checking if col[3] is numeric (rating in Google layout)
-  const looksLikeGoogleLayout = !isNaN(Number(row[3])) && row.length >= 9;
+  // Two historical layouts coexist in the same sheet:
+  //   Old layout:    id | name | location | condition | rating  | text   | status | createdAt | imageUrl
+  //                  [0]  [1]    [2]        [3]         [4]       [5]      [6]      [7]         [8]
+  //   Google layout: id | name | text     | rating    | condition | location | imageUrl | source | clinic | status
+  //                  [0]  [1]    [2]        [3]         [4]         [5]        [6]        [7]      [8]      [9]
+  //
+  // Disambiguate using the *content* of the columns that differ structurally:
+  //   - Old layout: row[6] is one of 'published'/'draft' (status) and row[7] is an ISO date.
+  //   - Google layout: row[7] is the source name ('Google' / 'WordPress' / etc.).
+  // The previous "row[3] is numeric" heuristic was wrong because the old
+  // layout's row[4] (rating) is also numeric — that mis-identification caused
+  // the rating value (e.g. "5") to be displayed as the condition.
+  const col6 = (row[6] ?? '').toLowerCase();
+  const col7 = row[7] ?? '';
+  const isOldLayout = col6 === 'published' || col6 === 'draft';
+  const isGoogleLayout = !isOldLayout && (col7 === 'Google' || col7 === 'WordPress' || row.length >= 10);
 
-  if (looksLikeGoogleLayout) {
-    // Google layout: id|name|text|rating|condition|location|imageUrl|source|clinic|status
+  if (isGoogleLayout) {
     return {
       id:        row[0] ?? '',
       name:      row[1] ?? '',
@@ -46,7 +55,7 @@ function rowToTestimonial(row: string[]): Testimonial {
       createdAt: '',
     };
   }
-  // Old layout: id|name|location|condition|rating|text|status|createdAt|imageUrl
+  // Old layout
   return {
     id:        row[0] ?? '',
     name:      row[1] ?? '',

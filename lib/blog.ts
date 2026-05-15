@@ -69,16 +69,16 @@ function rowToPost(row: string[]): BlogPost {
   };
 }
 
-let _blogsCache: { data: BlogPost[]; ts: number } | null = null;
-const BLOGS_TTL = 5 * 60 * 1000; // 5 min
-
+// NOTE: We intentionally do NOT cache in module memory.
+//   - Public pages use Next.js ISR (`export const revalidate = 60`) which is
+//     enough to keep Google Sheets API quota happy.
+//   - Admin pages use `force-dynamic` and must always see the latest data.
+//   - A module-level cache would also be stale across serverless instances,
+//     causing direct Google-Sheets edits to look “stuck” for minutes.
 export async function getAllBlogs(): Promise<BlogPost[]> {
-  if (_blogsCache && Date.now() - _blogsCache.ts < BLOGS_TTL) return _blogsCache.data;
   const rows = await readSheet(SHEET_ID(), RANGE_POSTS);
   if (!rows || rows.length < 2) return [];
-  const data = rows.slice(1).map(rowToPost).filter((p) => p.id);
-  _blogsCache = { data, ts: Date.now() };
-  return data;
+  return rows.slice(1).map(rowToPost).filter((p) => p.id);
 }
 
 export async function getLatestBlogs(n: number): Promise<BlogPost[]> {
@@ -125,7 +125,6 @@ export async function createBlog(data: {
     post.tags, post.author, post.publishedDate, post.updatedDate, post.status,
     post.metaDescription, post.docId, post.docUrl, post.content,
   ]]);
-  _blogsCache = null;
   return post;
 }
 
@@ -150,7 +149,6 @@ export async function updateBlog(id: string, data: Partial<BlogPost & { htmlCont
     updated.category, updated.tags, updated.author, updated.publishedDate, updated.updatedDate,
     updated.status, updated.metaDescription, updated.docId, updated.docUrl, updated.content,
   ]]);
-  _blogsCache = null;
   return updated;
 }
 
@@ -163,7 +161,6 @@ export async function deleteBlog(id: string): Promise<boolean> {
   const existing = rowToPost(rows[rowIndex]);
   const range = `Blogs!K${rowIndex + 1}`;
   await updateSheetRow(SHEET_ID(), range, [['deleted']]);
-  _blogsCache = null;
   return !!existing.id;
 }
 

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getAllBlogs, createBlog } from '@/lib/blog';
 
 export async function GET() {
@@ -29,6 +30,10 @@ export async function POST(req: NextRequest) {
       status: status || 'draft', metaDescription: metaDescription || '',
       htmlContent,
     });
+
+    revalidatePath('/blog');
+    revalidatePath(`/blog/${post.slug}`);
+    revalidatePath('/admin/blog');
 
     return NextResponse.json({ post }, { status: 201 });
   } catch (err) {

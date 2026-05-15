@@ -2,6 +2,7 @@ import Link from 'next/link';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { getAllBlogs } from '@/lib/blog';
 import type { BlogPost } from '@/lib/blog';
+import RefreshBlogsButton from './RefreshBlogsButton';
 import styles from './blog.module.css';
 
 export const dynamic = 'force-dynamic';
@@ -19,7 +20,10 @@ export default async function AdminBlogPage() {
     <AdminLayout>
       <div className={styles.header}>
         <h1 className={styles.title}>Blog Posts</h1>
-        <Link href="/admin/blog/new" className="btn btn-primary">+ New Post</Link>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <RefreshBlogsButton />
+          <Link href="/admin/blog/new" className="btn btn-primary">+ New Post</Link>
+        </div>
       </div>
 
       {fetchError && <p className={styles.error}>{fetchError}</p>}

@@ -113,6 +113,20 @@ export async function getBlogDocHtml(docId: string): Promise<string> {
   return res.data as string;
 }
 
+/**
+ * Export a Google Doc as plain text — used in admin previews where we don't
+ * want to render arbitrary HTML.
+ */
+export async function getDocPlainText(docId: string): Promise<string> {
+  const auth = getAuth();
+  const drive = google.drive({ version: 'v3', auth });
+  const res = await drive.files.export(
+    { fileId: docId, mimeType: 'text/plain' },
+    { responseType: 'text' },
+  );
+  return (res.data as string) || '';
+}
+
 // ─── Client notes Doc functions ───────────────────────────────────────────────
 
 /**
