@@ -7,12 +7,27 @@ import { STATIC_CONDITIONS } from '@/lib/static-conditions';
 import { buildMetadata, buildConditionSchema } from '@/lib/seo';
 import {
   Activity, Phone, CheckCircle2, Stethoscope,
-  CalendarClock, PackageCheck, ArrowLeft,
+  CalendarClock, PackageCheck, ArrowLeft, HelpCircle,
 } from 'lucide-react';
 import StickyConditionNav from '@/components/public/StickyConditionNav';
 import { SOCIAL_PROOF } from '@/lib/social-proof';
-import { getPublishedTestimonials, type Testimonial } from '@/lib/testimonials';
+import curatedReviewsRaw from '@/data/curated-reviews.json';
 import styles from './condition.module.css';
+
+interface CuratedReview {
+  url: string;
+  finalUrl?: string;
+  author: string;
+  relativeTime?: string;
+  rating: number;
+  text: string;
+  authorPhotoUrl?: string;
+  clinic?: string;
+  source?: string;
+  error?: string;
+}
+
+const CURATED_REVIEWS = curatedReviewsRaw as Record<string, CuratedReview>;
 
 const CONDITION_IMAGES: Record<string, string> = {
   'joint-problems-arthritis':    '/images/condition-joint-problems-arthritis.png',
@@ -48,9 +63,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const data = await getConditionBySlug(slug).catch(() => null);
   if (!data) return {};
   const { condition } = data;
+  const title =
+    condition.metaTitle?.trim() ||
+    `${condition.name} — Homeopathic Treatment | Dr. Shweta Goyal`;
+  const description =
+    condition.metaDescription?.trim() ||
+    `${condition.shortDesc} ${condition.intro.slice(0, 120)}...`;
   return buildMetadata({
-    title: `${condition.name} — Homeopathic Treatment`,
-    description: `${condition.shortDesc} ${condition.intro.slice(0, 120)}...`,
+    title,
+    description,
     path: `/conditions/${condition.slug}`,
   });
 }
@@ -84,8 +105,9 @@ const WOMENS_HEALTH_SLUGS = new Set([
   'infertility',
 ]);
 
-function getExpectations(slug: string) {
-  return WOMENS_HEALTH_SLUGS.has(slug) ? WOMENS_HEALTH_EXPECTATIONS : DEFAULT_EXPECTATIONS;
+function getExpectations(condition: { slug: string; expectations?: { phase: string; title: string; body: string }[] }) {
+  if (condition.expectations && condition.expectations.length > 0) return condition.expectations;
+  return WOMENS_HEALTH_SLUGS.has(condition.slug) ? WOMENS_HEALTH_EXPECTATIONS : DEFAULT_EXPECTATIONS;
 }
 
 /* ── What to bring ────────────────────────────────────── */
@@ -110,64 +132,7 @@ function toInstagramEmbedUrl(parsed: { type: 'reel' | 'post' | 'tv'; shortcode: 
   return `https://www.instagram.com/${path}/${parsed.shortcode}/embed/?cr=1&v=14&wp=540&rd=`;
 }
 
-/* ── Testimonial → condition matching ─────────────────── */
-/** Tokenize a string into lowercase alphanumeric words (length >= 3). */
-function tokens(s: string): string[] {
-  return (s || '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, ' ')
-    .split(/\s+/)
-    .filter((w) => w.length >= 3);
-}
-
-/** Hand-curated keyword aliases per condition slug to widen matching beyond
- *  the literal condition name (e.g. "alopecia" should also match "hair fall",
- *  "hairfall", "hair loss"). Keep keys lowercase. */
-const CONDITION_KEYWORDS: Record<string, string[]> = {
-  'alopecia-hair-loss':         ['alopecia', 'hair', 'hairfall', 'hair fall', 'hair loss', 'baldness'],
-  'respiratory-diseases':       ['respiratory', 'asthma', 'sinus', 'sinusitis', 'rhinitis', 'allergic', 'cough', 'bronch', 'breath'],
-  'diabetes-mellitus':          ['diabetes', 'diabetic', 't2dm', 'sugar', 'blood sugar'],
-  'womens-health':              ['women', 'pcos', 'pcod', 'menstrual', 'period', 'fibroid', 'fertility', 'menopause'],
-  'depression-anxiety':         ['depression', 'anxiety', 'stress', 'panic', 'mood', 'mental'],
-  'gastrointestinal-disorders': ['gastric', 'gastritis', 'acidity', 'ibs', 'colitis', 'stomach', 'digest', 'reflux', 'gerd'],
-  'skin-diseases':              ['skin', 'eczema', 'psoriasis', 'acne', 'dermat', 'urticaria', 'rash', 'vitiligo'],
-  'migraine':                   ['migraine', 'headache', 'head ache'],
-  'thyroid-disorders':          ['thyroid', 'hypothyroid', 'hyperthyroid'],
-  'joint-problems-arthritis':   ['joint', 'arthritis', 'arthralgia', 'rheumat', 'knee pain', 'back pain'],
-  'autoimmune-disorders':       ['autoimmune', 'lupus', 'rheumatoid', 'psoriatic'],
-  'cancer-supportive-care':     ['cancer', 'chemo', 'tumor', 'tumour', 'oncology'],
-  'pediatric-diseases':         ['child', 'children', 'pediatric', 'paediatric', 'kid', 'baby', 'infant'],
-  'geriatric-disorders':        ['geriatric', 'elderly', 'senior'],
-};
-
-/** Return testimonials whose `condition` field matches the given condition slug + name. */
-function matchTestimonialsForCondition(
-  all: Testimonial[],
-  slug: string,
-  conditionName: string,
-): Testimonial[] {
-  const keywords = new Set<string>([
-    ...tokens(conditionName),
-    ...(CONDITION_KEYWORDS[slug] ?? []).flatMap(tokens),
-  ]);
-  if (keywords.size === 0) return [];
-  return all.filter((t) => {
-    const tConditionTokens = tokens(t.condition);
-    if (tConditionTokens.length === 0) return false;
-    // Match if any token of the testimonial's condition string overlaps with
-    // the condition's keyword set, OR if any keyword appears as a substring of
-    // the testimonial's raw condition text (handles compound words like
-    // "hairfall").
-    if (tConditionTokens.some((tok) => keywords.has(tok))) return true;
-    const rawCondition = (t.condition || '').toLowerCase();
-    for (const k of keywords) {
-      if (k.length >= 4 && rawCondition.includes(k)) return true;
-    }
-    return false;
-  });
-}
-
-/** Build a placeholder avatar (initials) background colour from a name. */
+/** Build a placeholder avatar (initials) from a name. */
 function initialsOf(name: string): string {
   return name
     .split(/\s+/)
@@ -185,8 +150,15 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
 
   const schema = buildConditionSchema(condition.name, condition.intro);
   const allConditions = await getAllConditions(false).catch(() => []);
-  const allTestimonials = await getPublishedTestimonials().catch(() => [] as Testimonial[]);
-  const matchedTestimonials = matchTestimonialsForCondition(allTestimonials, slug, condition.name).slice(0, 6);
+
+  // Look up the canonical Google-review data for each curated reviewLink so
+  // each card shows the actual author/text/rating of the review it links to.
+  const curatedForSlug: { url: string; review: CuratedReview }[] =
+    (SOCIAL_PROOF[slug]?.reviewLinks ?? [])
+      .map((url) => ({ url, review: CURATED_REVIEWS[url] }))
+      .filter((x): x is { url: string; review: CuratedReview } =>
+        Boolean(x.review && x.review.author && !x.review.error),
+      );
 
   return (
     <>
@@ -277,7 +249,7 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
             <p className={styles.sectionEyebrow}>What to Expect</p>
             <h2 className={styles.sectionHeading}>What to Expect</h2>
             <div className={styles.timeline}>
-              {getExpectations(slug).map((e, i, arr) => (
+              {getExpectations(condition).map((e, i, arr) => (
                 <div key={e.phase} className={styles.timelineItem}>
                   <div className={styles.timelineMarker}>
                     <span className={styles.timelineNum}>{i + 1}</span>
@@ -315,16 +287,16 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
 
           {/* 6. (Removed: Safety First red drawer) */}
 
-          {/* Patient Stories — Instagram reels + real Google/WordPress testimonials */}
+          {/* Patient Stories — Instagram reels + the exact Google reviews each curated link opens */}
           {(
             (SOCIAL_PROOF[slug] && SOCIAL_PROOF[slug].instagramLinks.length > 0) ||
-            matchedTestimonials.length > 0
+            curatedForSlug.length > 0
           ) && (
             <section className={styles.section}>
               <p className={styles.sectionEyebrow}>Patient Stories</p>
               <h2 className={styles.sectionHeading}>Patient Stories</h2>
               <p style={{ color: 'var(--clr-text-mid)', marginBottom: 'var(--space-6)', fontSize: 'var(--text-sm)' }}>
-                Verified patient experiences from Instagram and Google Reviews.
+                Verified patient experiences from Instagram and Google Reviews — click any card to read it on Google.
               </p>
               <div className={styles.storyGrid}>
                 {SOCIAL_PROOF[slug]?.instagramLinks.map((url) => {
@@ -364,19 +336,36 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
                     </a>
                   );
                 })}
-                {matchedTestimonials.map((t) => {
-                  const isGoogle = (t.source || '').toLowerCase() === 'google';
-                  return (
-                    <article key={t.id} className={styles.storyCard}>
-                      <div className={styles.reviewBody}>
-                        <div className={styles.reviewStars} aria-label={`${t.rating} star review`}>
-                          {'★'.repeat(Math.max(1, Math.min(5, t.rating)))}
-                        </div>
-                        <p className={styles.storyText} style={{ whiteSpace: 'pre-line' }}>
-                          {t.text}
-                        </p>
+                {curatedForSlug.map(({ url, review }) => (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.storyCard}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <div className={styles.reviewBody}>
+                      <div className={styles.reviewStars} aria-label={`${review.rating} star Google review`}>
+                        {'★'.repeat(Math.max(1, Math.min(5, review.rating)))}
                       </div>
-                      <footer className={styles.storyFooter}>
+                      <p className={styles.storyText} style={{ whiteSpace: 'pre-line' }}>
+                        {review.text}
+                      </p>
+                    </div>
+                    <footer className={styles.storyFooter}>
+                      {review.authorPhotoUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={review.authorPhotoUrl}
+                          alt={`${review.author} — Google profile photo`}
+                          width={36}
+                          height={36}
+                          className={styles.storyAvatar}
+                          style={{ borderRadius: '50%', objectFit: 'cover' }}
+                          referrerPolicy="no-referrer"
+                        />
+                      ) : (
                         <span
                           className={styles.storyAvatar}
                           aria-hidden="true"
@@ -390,41 +379,38 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
                             fontSize: 12,
                           }}
                         >
-                          {initialsOf(t.name)}
+                          {initialsOf(review.author)}
                         </span>
-                        <div>
-                          <p className={styles.storyInitials}>
-                            {t.name}
-                            {t.location ? ` · ${t.location}` : ''}
-                          </p>
-                          <span className={styles.storyAge}>
-                            {isGoogle ? 'Verified Google Review' : 'Verified Patient Testimonial'}
-                          </span>
-                        </div>
-                      </footer>
-                    </article>
-                  );
-                })}
-              </div>
-              {SOCIAL_PROOF[slug] && SOCIAL_PROOF[slug].reviewLinks.length > 0 && (
-                <div style={{ marginTop: 'var(--space-6)', textAlign: 'center' }}>
-                  <a
-                    href={SOCIAL_PROOF[slug].reviewLinks[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-outline"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                    Read all Google reviews
+                      )}
+                      <div>
+                        <p className={styles.storyInitials}>{review.author}</p>
+                        <span className={styles.storyAge}>
+                          {review.relativeTime ? `${review.relativeTime} · ` : ''}Read on Google ↗
+                        </span>
+                      </div>
+                    </footer>
                   </a>
-                </div>
-              )}
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* FAQ ── Frequently Asked Questions */}
+          {condition.faqs && condition.faqs.length > 0 && (
+            <section id="faq" className={styles.section}>
+              <p className={styles.sectionEyebrow}>Frequently Asked Questions</p>
+              <h2 className={styles.sectionHeading}>Questions Patients Often Ask</h2>
+              <div className={styles.faqList}>
+                {condition.faqs.map((faq, i) => (
+                  <details key={i} className={styles.faqItem} open={i === 0}>
+                    <summary className={styles.faqQuestion}>
+                      <HelpCircle size={16} className={styles.faqIcon} />
+                      <span>{faq.q}</span>
+                    </summary>
+                    <p className={styles.faqAnswer}>{faq.a}</p>
+                  </details>
+                ))}
+              </div>
             </section>
           )}
         </main>

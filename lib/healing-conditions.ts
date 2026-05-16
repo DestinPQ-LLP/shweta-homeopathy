@@ -32,6 +32,8 @@ export interface HealingCondition {
   /** Optional rich content (only on STATIC_CONDITIONS, not stored in sheet) */
   expectations?: ExpectationStage[];
   faqs?: ConditionFaq[];
+  metaTitle?: string;
+  metaDescription?: string;
 }
 
 function clean(s: string): string {
@@ -80,10 +82,22 @@ async function getConditionRows(): Promise<string[][]> {
   }
 }
 
+function mergeStatic(c: HealingCondition): HealingCondition {
+  const s = STATIC_CONDITIONS.find((x) => x.slug === c.slug);
+  if (!s) return c;
+  return {
+    ...c,
+    expectations: c.expectations ?? s.expectations,
+    faqs: c.faqs ?? s.faqs,
+    metaTitle: c.metaTitle ?? s.metaTitle,
+    metaDescription: c.metaDescription ?? s.metaDescription,
+  };
+}
+
 export async function getAllConditions(includeDraft = false): Promise<HealingCondition[]> {
   const rows = await getConditionRows();
   if (!rows || rows.length <= 1) return STATIC_CONDITIONS.filter(c => includeDraft || c.status === 'published');
-  const all = rows.slice(1).filter(r => r[0]).map(rowToCondition);
+  const all = rows.slice(1).filter(r => r[0]).map(rowToCondition).map(mergeStatic);
   return includeDraft ? all : all.filter(c => c.status === 'published');
 }
 
@@ -94,7 +108,7 @@ export async function getConditionBySlug(slug: string): Promise<{ condition: Hea
     return staticMatch ? { condition: staticMatch, rowIndex: -1 } : null;
   }
   for (let i = 1; i < rows.length; i++) {
-    if (rows[i][0] === slug) return { condition: rowToCondition(rows[i]), rowIndex: i };
+    if (rows[i][0] === slug) return { condition: mergeStatic(rowToCondition(rows[i])), rowIndex: i };
   }
   // Also check static conditions if not found in sheet
   const staticMatch = STATIC_CONDITIONS.find(c => c.slug === slug);

@@ -10,7 +10,12 @@ export async function GET(_: NextRequest, { params }: { params: Promise<{ id: st
     if (!post) return NextResponse.json({ error: 'Not found' }, { status: 404 });
 
     let htmlContent = '';
-    if (post.docId) htmlContent = await getBlogDocHtml(post.docId).catch(() => '');
+    if (post.docId) {
+      const docHtml = await getBlogDocHtml(post.docId).catch(() => '');
+      const bodyMatch = docHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+      htmlContent = bodyMatch ? bodyMatch[1] : docHtml;
+    }
+    if (!htmlContent.trim()) htmlContent = post.content || '';
 
     return NextResponse.json({ post, htmlContent });
   } catch (err) {

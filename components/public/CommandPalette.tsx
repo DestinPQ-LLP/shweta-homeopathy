@@ -28,6 +28,8 @@ const CONDITIONS = [
   { label: 'Skin Diseases', href: '/conditions/skin-diseases' },
   { label: 'Respiratory Diseases', href: '/conditions/respiratory-diseases' },
   { label: 'Thyroid Disorders', href: '/conditions/thyroid-disorders' },
+  { label: 'Autoimmune Disorders', href: '/conditions/autoimmune-disorders' },
+  { label: 'Migraine', href: '/conditions/migraine' },
 ];
 
 interface Props {

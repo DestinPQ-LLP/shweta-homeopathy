@@ -21,7 +21,19 @@ export default async function EditBlogPage({ params }: Props) {
 
   let htmlContent = '';
   if (post.docId) {
-    try { htmlContent = await getBlogDocHtml(post.docId); } catch { /* leave empty */ }
+    try {
+      const docHtml = await getBlogDocHtml(post.docId);
+      // Strip the wrapping <html>/<body> so TinyMCE shows just the body content.
+      const bodyMatch = docHtml.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+      htmlContent = bodyMatch ? bodyMatch[1] : docHtml;
+    } catch {
+      /* leave empty — falls back to sheet content below */
+    }
+  }
+  // Fallback: most imported posts have inline content in Sheet column O and no docId.
+  // Without this fallback the editor used to open EMPTY and any save wiped the post.
+  if (!htmlContent.trim()) {
+    htmlContent = post.content || '';
   }
 
   return (
