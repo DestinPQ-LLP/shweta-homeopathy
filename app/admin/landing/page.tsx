@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
+import { upload } from '@vercel/blob/client';
 import styles from './landing.module.css';
 
 interface LandingConfig {
@@ -81,18 +82,13 @@ export default function LandingAdminPage() {
     if (!file) return;
     setUploading(true);
     setStatus(null);
-    const fd = new FormData();
-    fd.append('file', file);
-    const token = getToken();
     try {
-      const res = await fetch('/api/admin/media', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        body: fd,
+      const newBlob = await upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/admin/media',
+        contentType: file.type || undefined,
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? 'Upload failed');
-      setLanding(prev => ({ ...prev, video_url: data.publicUrl }));
+      setLanding(prev => ({ ...prev, video_url: newBlob.url }));
       setStatus({ type: 'success', msg: `Video uploaded. URL filled in below.` });
     } catch (err) {
       setStatus({ type: 'error', msg: (err as Error).message });

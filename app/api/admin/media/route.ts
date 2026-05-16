@@ -30,8 +30,11 @@ const ALLOWED_MIME = [
   'image/gif',
   'image/svg+xml',
   'application/pdf',
+  'video/mp4',
+  'video/webm',
+  'video/quicktime',
 ];
-const MAX_BYTES = 25 * 1024 * 1024; // 25 MB — client uploads stream straight to Blob
+const MAX_BYTES = 200 * 1024 * 1024; // 200 MB — client uploads stream straight to Blob
 
 function errMessage(err: unknown): string {
   if (!err) return 'Unknown error';
@@ -54,6 +57,9 @@ function guessMime(pathname: string) {
       gif: 'image/gif',
       svg: 'image/svg+xml',
       pdf: 'application/pdf',
+      mp4: 'video/mp4',
+      webm: 'video/webm',
+      mov: 'video/quicktime',
     } as Record<string, string>
   )[ext] || 'application/octet-stream';
 }

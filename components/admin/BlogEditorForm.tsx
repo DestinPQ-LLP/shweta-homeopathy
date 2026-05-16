@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import type { BlogPost } from '@/lib/blog';
+import { upload } from '@vercel/blob/client';
 import s from './BlogEditorForm.module.css';
 
 // TinyMCE must only render in the browser
@@ -45,12 +46,12 @@ export default function BlogEditorForm({ post }: Props) {
     setCoverUploading(true);
     setError('');
     try {
-      const fd = new FormData();
-      fd.append('file', file);
-      const res = await fetch('/api/admin/media', { method: 'POST', body: fd });
-      if (!res.ok) { const j = await res.json().catch(() => ({})); throw new Error(j.error || 'Upload failed'); }
-      const data = await res.json();
-      setCoverUrl(data.publicUrl);
+      const newBlob = await upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/admin/media',
+        contentType: file.type || undefined,
+      });
+      setCoverUrl(newBlob.url);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Cover image upload failed');
     } finally {
