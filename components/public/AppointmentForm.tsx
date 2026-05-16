@@ -248,10 +248,10 @@ export default function AppointmentForm() {
               Confirm Consultation
             </h3>
             <p className={styles.modalFee}>
-              Consultation charges are <strong>{pricing.fee}</strong>
+              45-minute consultation fee: <strong>{pricing.fee}</strong>
             </p>
             <p className={styles.modalSub}>
-              {pricing.duration} session &middot; pricing for {pricing.country}
+              You may first choose a free 15-minute intro call. Payment is collected only after you select and book your consultation slot with us.
             </p>
             <div className={styles.modalActions}>
               <button
