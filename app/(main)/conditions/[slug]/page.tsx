@@ -103,6 +103,12 @@ function parseInstagramUrl(url: string): { type: 'reel' | 'post' | 'tv'; shortco
   return { type, shortcode: m[2] };
 }
 
+/** Build Instagram's official embed iframe URL for a given post/reel/tv URL. */
+function toInstagramEmbedUrl(parsed: { type: 'reel' | 'post' | 'tv'; shortcode: string }): string {
+  const path = parsed.type === 'post' ? 'p' : parsed.type;
+  return `https://www.instagram.com/${path}/${parsed.shortcode}/embed/?cr=1&v=14&wp=540&rd=`;
+}
+
 export default async function ConditionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const data = await getConditionBySlug(slug).catch(() => null);
@@ -251,10 +257,7 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
                 {SOCIAL_PROOF[slug].instagramLinks.map((url) => {
                   const parsed = parseInstagramUrl(url);
                   if (!parsed) return null;
-                  const label =
-                    parsed.type === 'reel' ? 'Patient Reel' :
-                    parsed.type === 'tv'   ? 'Patient Video' :
-                                             'Patient Story';
+                  const embedUrl = toInstagramEmbedUrl(parsed);
                   return (
                     <a
                       key={url}
@@ -264,20 +267,16 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
                       className={styles.storyCard}
                       style={{ textDecoration: 'none' }}
                     >
-                      <div className={styles.igPoster} aria-hidden="true">
-                        <svg
-                          className={styles.igGlyph}
-                          width="64" height="64" viewBox="0 0 24 24"
-                          fill="none" stroke="currentColor" strokeWidth="1.6"
-                          strokeLinecap="round" strokeLinejoin="round"
-                        >
-                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                        </svg>
-                        <span className={styles.igPlay} aria-hidden="true">▶</span>
-                        <span className={styles.igLabel}>{label}</span>
-                      </div>
+                      <iframe
+                        src={embedUrl}
+                        title="Instagram patient story"
+                        loading="lazy"
+                        allow="encrypted-media"
+                        allowFullScreen
+                        scrolling="no"
+                        className={styles.igPoster}
+                        style={{ border: 0, display: 'block' }}
+                      />
                       <footer className={styles.storyFooter}>
                         <span className={styles.storyAvatar} aria-hidden="true">
                           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
