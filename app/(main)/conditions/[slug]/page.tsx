@@ -96,11 +96,12 @@ const BRING_ITEMS = [
   'A note on when symptoms began and what triggers them',
 ];
 
-/* ── Instagram reel embed helper ──────────────────────── */
-function toInstagramEmbed(url: string): string | null {
+/* ── Instagram link helpers ───────────────────────────── */
+function parseInstagramUrl(url: string): { type: 'reel' | 'post' | 'tv'; shortcode: string } | null {
   const m = url.match(/instagram\.com\/(reel|p|tv)\/([A-Za-z0-9_-]+)/);
   if (!m) return null;
-  return `https://www.instagram.com/${m[1]}/${m[2]}/embed/?cr=1&v=14&wp=540&rd=`;
+  const type = m[1] === 'p' ? 'post' : (m[1] as 'reel' | 'tv');
+  return { type, shortcode: m[2] };
 }
 
 export default async function ConditionPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -275,20 +276,34 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
               </p>
               <div className={styles.storyGrid}>
                 {SOCIAL_PROOF[slug].instagramLinks.map((url) => {
-                  const embed = toInstagramEmbed(url);
-                  if (!embed) return null;
+                  const parsed = parseInstagramUrl(url);
+                  if (!parsed) return null;
+                  const label =
+                    parsed.type === 'reel' ? 'Patient Reel' :
+                    parsed.type === 'tv'   ? 'Patient Video' :
+                                             'Patient Story';
                   return (
-                    <div key={url} className={styles.storyCard}>
-                      <div className={styles.embedFrame}>
-                        <iframe
-                          src={embed}
-                          loading="lazy"
-                          allowFullScreen
-                          scrolling="no"
-                          allow="encrypted-media"
-                          title="Instagram patient story"
-                          className={styles.embedIframe}
-                        />
+                    <a
+                      key={url}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.storyCard}
+                      style={{ textDecoration: 'none' }}
+                    >
+                      <div className={styles.igPoster} aria-hidden="true">
+                        <svg
+                          className={styles.igGlyph}
+                          width="64" height="64" viewBox="0 0 24 24"
+                          fill="none" stroke="currentColor" strokeWidth="1.6"
+                          strokeLinecap="round" strokeLinejoin="round"
+                        >
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                        </svg>
+                        <span className={styles.igPlay} aria-hidden="true">▶</span>
+                        <span className={styles.igLabel}>{label}</span>
                       </div>
                       <footer className={styles.storyFooter}>
                         <span className={styles.storyAvatar} aria-hidden="true">
@@ -297,11 +312,11 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
                           </svg>
                         </span>
                         <div>
-                          <p className={styles.storyInitials}>Instagram</p>
-                          <a href={url} target="_blank" rel="noopener noreferrer" className={styles.storyAge}>Open on Instagram ↗</a>
+                          <p className={styles.storyInitials}>Instagram · @drshwetashomoeopathy</p>
+                          <span className={styles.storyAge}>Watch on Instagram ↗</span>
                         </div>
                       </footer>
-                    </div>
+                    </a>
                   );
                 })}
                 {SOCIAL_PROOF[slug].reviewLinks.map((url, i) => {
