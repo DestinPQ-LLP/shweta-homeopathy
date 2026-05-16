@@ -227,7 +227,7 @@
 }
 
 @media (max-width: 640px) {
-  .header {
-    display: none !important;
+  .logoName {
+    display: none;
   }
 }
