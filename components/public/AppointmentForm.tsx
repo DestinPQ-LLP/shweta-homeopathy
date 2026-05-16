@@ -1,5 +1,6 @@
 'use client';
 import { useState, useTransition, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from './AppointmentForm.module.css';
@@ -45,6 +46,17 @@ export default function AppointmentForm() {
   const errorRef = useRef<HTMLDivElement>(null);
   const [pricing, setPricing] = useState<PriceEntry>(DEFAULT_PRICING);
   const [showPricing, setShowPricing] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
+
+  // Lock body scroll while modal is open to prevent layout shift / flicker.
+  useEffect(() => {
+    if (!showPricing) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, [showPricing]);
 
   useEffect(() => {
     if (submitError) errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -223,7 +235,7 @@ export default function AppointmentForm() {
         We will contact you within 24 hours to confirm your slot. Your information is kept confidential.
       </p>
 
-      {showPricing && (
+      {showPricing && mounted && createPortal(
         <div
           className={styles.modalOverlay}
           role="dialog"
@@ -258,7 +270,8 @@ export default function AppointmentForm() {
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </form>
   );
