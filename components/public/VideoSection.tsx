@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function VideoSection({
-  videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ', // ← REPLACE with real URL
+  videoUrl = 'https://www.youtube.com/embed/o0eDGGu9OXE?si=-jKYTlElBxciycBq&rel=0&modestbranding=1',
   posterSrc = '/images/clinic_ai_interior.png',
 }: Props) {
   const [playing, setPlaying] = useState(false);
