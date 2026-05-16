@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import AppointmentForm from '@/components/public/AppointmentForm';
 import { buildMetadata } from '@/lib/seo';
+import s from './appointment.module.css';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Book an Appointment',
@@ -31,16 +32,16 @@ export default function AppointmentPage() {
 
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 'var(--space-12)', alignItems: 'start' }}>
+          <div className={s.layout}>
             {/* Form */}
-            <div>
+            <div className={s.formCol}>
               <div className="card" style={{ borderTop: '4px solid var(--clr-sage)' }}>
                 <AppointmentForm />
               </div>
             </div>
 
             {/* Info sidebar */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', position: 'sticky', top: 'calc(var(--header-h) + 2rem)' }}>
+            <div className={s.sidebar}>
               <div className="card">
                 <h4 style={{ marginBottom: 'var(--space-4)' }}>Contact Us Directly</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-3)' }}>

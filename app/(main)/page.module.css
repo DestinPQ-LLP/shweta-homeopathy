@@ -278,6 +278,25 @@
   flex-shrink: 0;
 }
 
+/* ─── credWhyStrip responsive ─────────────────────────────── */
+@media (max-width: 900px) {
+  .credWhyGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+  .credWhyBotanical { display: none; }
+}
+@media (max-width: 600px) {
+  .credWhyGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .credBlockItems {
+    gap: var(--space-4);
+    justify-content: space-between;
+  }
+}
+
 /* ─── About Section ───────────────────────────────────────── */
 .aboutSection {}
 

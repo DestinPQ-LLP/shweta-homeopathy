@@ -1,0 +1,30 @@
+/* Two-column layout: form left, info sidebar right. Collapses on tablet/mobile. */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--space-12);
+  align-items: start;
+}
+
+.formCol {
+  min-width: 0; /* prevents grid blowout from long form inputs */
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  .sidebar {
+    position: static;
+    top: auto;
+  }
+}
