@@ -82,6 +82,8 @@ exports.zip
 *-service-account-*.json
 data/*.json
 !data/wp-pages-reference.json
+!data/services-content.json
+!data/curated-reviews.json
 public/*-firebase-adminsdk-*.json
 public/*service-account*.json
 
