@@ -534,6 +534,20 @@ tbody tr:hover {
   box-shadow: var(--shadow-lg);
 }
 
+/* ─── Contact page grid ───────────────────────────────────── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: var(--space-12);
+  align-items: flex-start;
+}
+@media (max-width: 860px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
+
 /* ─── Motion gentle accessibility ────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

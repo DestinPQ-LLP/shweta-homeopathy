@@ -48,7 +48,7 @@ export default function ContactPage() {
 
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,420px)', gap: 'var(--space-12)', alignItems: 'flex-start' }}>
+          <div className="contact-grid">
             {/* Form */}
             <div>
               <span className="section-label">Send a Message</span>
