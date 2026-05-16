@@ -70,9 +70,6 @@ export default function HomeHero({ stats }: Props) {
               transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
             >
               Meets Nature.
-              <span className={styles.logoIcon} aria-hidden="true">
-                <LogoIcon size={36} />
-              </span>
             </motion.span>
           </h1>
 
