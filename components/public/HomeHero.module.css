@@ -158,12 +158,15 @@
   align-items: center;
   gap: var(--space-2);
 }
-.leafIcon {
+.logoIcon {
   display: inline-flex;
-  color: hsl(130, 45%, 42%);
-  transform: rotate(-15deg);
+  align-items: center;
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: 6px;
+}
+.logoIcon img {
+  display: block;
+  object-fit: contain;
 }
 
 /* Accent line */

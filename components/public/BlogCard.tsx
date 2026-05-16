@@ -37,7 +37,9 @@ export default function BlogCard({ post }: { post: BlogPost }) {
             onError={() => setImgFailed(true)}
           />
         ) : (
-          <div className={styles.coverPlaceholder}>🌿</div>
+          <div className={styles.coverPlaceholder}>
+            <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={120} height={120} style={{ objectFit: 'contain', opacity: 0.85 }} />
+          </div>
         )}
       </div>
 

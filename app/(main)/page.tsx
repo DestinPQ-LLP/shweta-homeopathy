@@ -9,7 +9,7 @@ import { getPublishedTestimonials } from '@/lib/testimonials';
 import { fetchAllClinics } from '@/lib/google/places';
 import {
   Shield, Target, Microscope, Globe, ClipboardList, Heart, Phone,
-  Users, Calendar, CheckCircle, Leaf, Award, Smile
+  Users, Calendar, CheckCircle, Award, Smile
 } from 'lucide-react';
 import BlogCard from '@/components/public/BlogCard';
 import HomeHero from '@/components/public/HomeHero';
@@ -43,7 +43,7 @@ const statsBarData = [
   { icon: <Users size={22} />, num: '15,000+', label: 'Patients Healed' },
   { icon: <Calendar size={22} />, num: '6+', label: 'Years Experience' },
   { icon: <Smile size={22} />, num: '98%', label: 'Patient Satisfaction' },
-  { icon: <Leaf size={22} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
+  { icon: <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={22} height={22} style={{ objectFit: 'contain' }} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
 ];
 
 export default async function HomePage() {
@@ -154,7 +154,7 @@ export default async function HomePage() {
           <ServiceFilterGrid conditions={liveConditions.map(c => ({
             ...c,
             category: (c as any).category || 'Chronic Care',
-            icon: c.icon || '🌿'
+            icon: c.icon || 'Logo'
           })) as any} />
         </div>
       </section>

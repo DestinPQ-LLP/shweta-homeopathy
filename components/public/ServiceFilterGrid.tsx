@@ -2,16 +2,29 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Activity, Leaf, Heart, Baby, Brain, Stethoscope, Flower, Bone,
+  Activity, Heart, Baby, Brain, Stethoscope, Flower, Bone,
   Droplets, Sparkles, Sprout, TreePine,
 } from 'lucide-react';
 import type { ConditionCategory } from '@/lib/conditions';
 import styles from './ServiceFilterGrid.module.css';
 
+function LogoIcon({ size = 28 }: { size?: number }) {
+  return (
+    <Image
+      src="/images/logo.webp"
+      alt="Dr. Shweta's Homoeopathy"
+      width={size}
+      height={size}
+      style={{ objectFit: 'contain' }}
+    />
+  );
+}
+
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
-  Activity, Leaf, Heart, Baby, Brain, Stethoscope, Flower, Bone,
+  Activity, Leaf: LogoIcon, Logo: LogoIcon, Heart, Baby, Brain, Stethoscope, Flower, Bone,
   Droplets, Sparkles, Sprout, TreePine,
 };
 

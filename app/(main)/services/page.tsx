@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllConditions } from '@/lib/healing-conditions';
 import { buildMetadata } from '@/lib/seo';
-import { Shield, Target, Leaf, Star, PlayCircle } from 'lucide-react';
+import Image from 'next/image';
+import { Shield, Target, Star, PlayCircle } from 'lucide-react';
 import ServiceFilterGrid from '@/components/public/ServiceFilterGrid';
 import ConsultationPathway from '@/components/public/ConsultationPathway';
 import { SOCIAL_PROOF } from '@/lib/social-proof';
@@ -118,13 +119,17 @@ export default async function ServicesPage() {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 'var(--space-6)' }}>
             {[
-              { Icon: Shield, title: 'Zero Side Effects', desc: 'Safe for children, pregnant women, nursing mothers, and the elderly.' },
-              { Icon: Target, title: 'Permanent Cure', desc: 'Removes the root cause of disease rather than managing symptoms indefinitely.' },
-              { Icon: Leaf, title: 'Natural Healing', desc: "Highly diluted natural remedies that stimulate the body's own healing intelligence." },
-            ].map(({ Icon, title, desc }) => (
+              { Icon: Shield, title: 'Zero Side Effects', desc: 'Safe for children, pregnant women, nursing mothers, and the elderly.', useLogo: false },
+              { Icon: Target, title: 'Permanent Cure', desc: 'Removes the root cause of disease rather than managing symptoms indefinitely.', useLogo: false },
+              { Icon: Shield, title: 'Natural Healing', desc: "Highly diluted natural remedies that stimulate the body's own healing intelligence.", useLogo: true },
+            ].map(({ Icon, title, desc, useLogo }) => (
               <div key={title} className="card" style={{ textAlign: 'center' }}>
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-4)', color: 'var(--clr-forest)' }}>
-                  <Icon size={40} />
+                  {useLogo ? (
+                    <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={48} height={48} style={{ objectFit: 'contain' }} />
+                  ) : (
+                    <Icon size={40} />
+                  )}
                 </div>
                 <h4 style={{ marginBottom: 'var(--space-2)' }}>{title}</h4>
                 <p style={{ fontSize: 'var(--text-sm)' }}>{desc}</p>

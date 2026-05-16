@@ -5,9 +5,21 @@ import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import {
   Calendar, ArrowRight, Star, Award, Users, Clock,
-  CheckCircle, Leaf
+  CheckCircle
 } from 'lucide-react';
 import styles from './HomeHero.module.css';
+
+function LogoIcon({ size = 24 }: { size?: number }) {
+  return (
+    <Image
+      src="/images/logo.webp"
+      alt="Dr. Shweta's Homoeopathy"
+      width={size}
+      height={size}
+      style={{ display: 'inline-block', objectFit: 'contain' }}
+    />
+  );
+}
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -58,8 +70,8 @@ export default function HomeHero({ stats }: Props) {
               transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
             >
               Meets Nature.
-              <span className={styles.leafIcon} aria-hidden="true">
-                <Leaf size={28} />
+              <span className={styles.logoIcon} aria-hidden="true">
+                <LogoIcon size={36} />
               </span>
             </motion.span>
           </h1>
@@ -129,7 +141,7 @@ export default function HomeHero({ stats }: Props) {
               { icon: <Users size={20} />, num: '15,000+', label: 'Patients Healed' },
               { icon: <Calendar size={20} />, num: '6+', label: 'Years Experience' },
               { icon: <CheckCircle size={20} />, num: '98%', label: 'Patient Satisfaction' },
-              { icon: <Leaf size={20} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
+              { icon: <LogoIcon size={22} />, num: 'Holistic', label: 'Natural & Safe Treatment' },
             ].map((s, i) => (
               <div key={s.label} className={styles.statCell}>
                 <span className={styles.statIcon}>{s.icon}</span>

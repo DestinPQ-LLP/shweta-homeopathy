@@ -33,7 +33,7 @@ const CONTENT = SERVICES_CONTENT as Record<string, ServiceContent>;
 
 /** Per-slug presentation metadata: category + display icon. */
 const META: Record<string, { category: ConditionCategory; icon: string }> = {
-  'alopecia-hair-loss':         { category: 'Lifestyle',       icon: '🌿' },
+  'alopecia-hair-loss':         { category: 'Lifestyle',       icon: '✨' },
   'cancer-supportive-care':     { category: 'Supportive Care', icon: '🕊️' },
   'joint-problems-arthritis':   { category: 'Chronic Care',    icon: '🦴' },
   'womens-health':              { category: "Women's Health",  icon: '🌸' },

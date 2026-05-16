@@ -28,7 +28,7 @@ export const conditions: Condition[] = [
     intro: 'Hair loss can affect confidence and quality of life deeply. Homeopathy addresses the root constitutional cause — stress, hormonal imbalance, nutritional deficiency, or hereditary factors — rather than just the symptom.',
     symptoms: ['Patchy hair loss','Receding hairline','Thinning across scalp','Hair loss with dandruff','Hair loss during hormonal changes'],
     howHomeopathyHelps: 'Remedies like Phosphorus, Lycopodium, and Silicea are selected individually based on the patient\'s constitution, strengthening hair follicles and addressing underlying causes.',
-    icon: 'Leaf',
+    icon: 'Logo',
   },
   {
     slug: 'cancer-supportive-care',

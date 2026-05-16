@@ -128,7 +128,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {post.coverImageUrl ? (
               <Image src={post.coverImageUrl} alt={post.title} fill style={{ objectFit: 'contain' }} unoptimized />
             ) : (
-              <div className={styles.coverPlaceholder}>🌿</div>
+              <div className={styles.coverPlaceholder}>
+                <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={160} height={160} style={{ objectFit: 'contain', opacity: 0.85 }} />
+              </div>
             )}
           </div>
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { buildMetadata } from '@/lib/seo';
-import { Leaf, Dna, Handshake, Book, BookOpen } from 'lucide-react';
+import { Dna, Handshake, Book, BookOpen } from 'lucide-react';
 import BentoCredentials from '@/components/public/BentoCredentials';
 import ClinicFootprintBand from '@/components/public/ClinicFootprintBand';
 import ConsultationReel from '@/components/public/ConsultationReel';
@@ -38,7 +38,7 @@ const philosophy = [
   {
     number: '02',
     title: 'Root Cause Healing',
-    icon: <Leaf size={22} />,
+    icon: <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={22} height={22} style={{ objectFit: 'contain' }} />,
     body: 'Homeopathy aims to remove the root cause of suffering, not suppress symptoms. When the root is addressed, the expression at every level dissolves.',
   },
   {
@@ -62,7 +62,7 @@ export default function AboutPage() {
       <section className={styles.hero}>
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroText}>
-            <div className={styles.heroBadge}><Leaf size={16} style={{ marginRight: '6px' }} /> About the Doctor</div>
+            <div className={styles.heroBadge}><Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={16} height={16} style={{ marginRight: '6px', objectFit: 'contain' }} /> About the Doctor</div>
             <h1 className={styles.heroTitle}>Dr. Shweta Goyal</h1>
             <p className={styles.heroSub}>
               Classical Homeopath with 6+ years of practice across Zirakpur, Budhlada, and online — treating patients worldwide.

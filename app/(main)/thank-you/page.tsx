@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = { title: 'Thank You | Appointment Request Received' };
 
@@ -7,7 +8,9 @@ export default function ThankYouPage() {
   return (
     <section style={{ padding: 'var(--space-32) 0', minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
       <div className="container" style={{ textAlign: 'center', maxWidth: '560px', marginInline: 'auto' }}>
-        <div style={{ fontSize: '64px', marginBottom: 'var(--space-6)' }}>🌿</div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-6)' }}>
+          <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={96} height={96} style={{ objectFit: 'contain' }} priority />
+        </div>
         <h1 style={{ marginBottom: 'var(--space-4)', color: 'var(--clr-forest)' }}>Appointment Request Received!</h1>
         <p style={{ fontSize: 'var(--text-lg)', color: 'var(--clr-text-mid)', lineHeight: 1.8, marginBottom: 'var(--space-8)' }}>
           Thank you for reaching out to Dr. Shweta&apos;s Homoeopathy. Our team will contact you within <strong>24 hours</strong> to confirm your consultation time and answer any questions you may have.

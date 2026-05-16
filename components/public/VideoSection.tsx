@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Image from 'next/image';
 import { Video } from 'lucide-react';
 import styles from './VideoSection.module.css';
 
@@ -50,7 +51,9 @@ export default function VideoSection({
             </p>
             <ul className={styles.points}>
               <li>
-                <span className={styles.pointIcon}>🌿</span>
+                <span className={styles.pointIcon}>
+                  <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={20} height={20} style={{ objectFit: 'contain' }} />
+                </span>
                 <span>6+ years of clinical experience in classical homeopathy</span>
               </li>
               <li>

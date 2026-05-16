@@ -65,7 +65,7 @@ export default function NewConditionClient() {
             </div>
             <div className={s.formGroup}>
               <label className={s.label}>Icon (emoji)</label>
-              <input className={s.input} value={form.icon} onChange={e => update('icon', e.target.value)} placeholder="e.g. 🌿" />
+              <input className={s.input} value={form.icon} onChange={e => update('icon', e.target.value)} placeholder="e.g. ✨" />
             </div>
             <div className={s.formGroup}>
               <label className={s.label}>Status</label>
