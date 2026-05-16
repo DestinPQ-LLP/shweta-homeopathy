@@ -266,7 +266,7 @@ export default function AppointmentForm() {
                 className={`btn btn-primary ${styles.modalBtn}`}
                 onClick={handleConfirmPricing}
               >
-                Agree &amp; Continue
+                Continue to Booking
               </button>
             </div>
           </div>
