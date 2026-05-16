@@ -274,6 +274,18 @@ export default function AboutPage() {
               </div>
               <p className={styles.recognitionCaption}>Felicitated as Awardee with Senior Homoeopaths — Dr. Malati Allen Charitable Trust</p>
             </div>
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/About Section- Grihshoba like segments/Malati Allen Nobel Award/18396_award.jpg"
+                  alt="Dr. Shweta Goyal at the Dr. Malati Allen Noble Award 2019 ceremony"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+              <p className={styles.recognitionCaption}>At the 8th Dr. Malati Allen Noble Award Ceremony 2019</p>
+            </div>
           </div>
         </div>
       </section>
