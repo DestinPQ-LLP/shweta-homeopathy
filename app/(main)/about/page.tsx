@@ -568,7 +568,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className={styles.recognitionGrid}>
-            {[4, 5, 6].map((n) => (
+            {[4, 5].map((n) => (
               <div key={n} className={styles.recognitionCard}>
                 <div className={styles.recognitionImgWrap}>
                   <Image
@@ -581,6 +581,17 @@ export default function AboutPage() {
                 </div>
               </div>
             ))}
+            <div className={styles.recognitionCard}>
+              <div className={styles.recognitionImgWrap}>
+                <Image
+                  src="/Doctor Pictures/20250704_140728 (1).jpg"
+                  alt="Dr. Shweta Goyal in clinic — July 2025"
+                  fill
+                  style={{ objectFit: 'cover', objectPosition: 'center top' }}
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
