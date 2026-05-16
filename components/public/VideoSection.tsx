@@ -14,11 +14,26 @@ interface Props {
   posterSrc?: string;
 }
 
+/** Extract the YouTube video ID from any embed/watch URL. */
+function getYouTubeId(url: string): string | null {
+  const m = url.match(/(?:youtube\.com\/(?:embed\/|watch\?v=)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : null;
+}
+
 export default function VideoSection({
   videoUrl = 'https://www.youtube.com/embed/o0eDGGu9OXE?si=-jKYTlElBxciycBq&rel=0&modestbranding=1',
-  posterSrc = '/images/clinic_ai_interior.png',
+  posterSrc,
 }: Props) {
   const [playing, setPlaying] = useState(false);
+  const ytId = getYouTubeId(videoUrl);
+  const [posterErrored, setPosterErrored] = useState(false);
+  const resolvedPoster =
+    posterSrc ||
+    (ytId
+      ? posterErrored
+        ? `https://i.ytimg.com/vi/${ytId}/hqdefault.jpg`
+        : `https://i.ytimg.com/vi/${ytId}/maxresdefault.jpg`
+      : '/images/clinic_ai_interior.png');
 
   return (
     <section className={styles.section}>
@@ -54,7 +69,12 @@ export default function VideoSection({
               {!playing ? (
                 <div className={styles.poster}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={posterSrc} alt="Meet Dr. Shweta Goyal video" className={styles.posterImg} />
+                  <img
+                    src={resolvedPoster}
+                    alt="Meet Dr. Shweta Goyal video"
+                    className={styles.posterImg}
+                    onError={() => setPosterErrored(true)}
+                  />
                   <div className={styles.posterOverlay} />
                   <button
                     className={styles.playBtn}
