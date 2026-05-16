@@ -8,6 +8,25 @@ const TAB = 'Testimonials';
 const RANGE = `${TAB}!A:J`;
 const HEADERS = ['id', 'name', 'location', 'condition', 'rating', 'text', 'status', 'createdAt', 'imageUrl', 'source'];
 
+/**
+ * Decode literal escape sequences that ended up stored verbatim in the sheet
+ * (e.g. "\n", "\t", "\u2026") so the rendered text shows real characters
+ * instead of backslash-prefixed escapes. Importers wrote JSON-stringified
+ * text into the sheet without unescaping; we fix it on read.
+ */
+function decodeStoredEscapes(s: string): string {
+  if (!s) return s;
+  // Fast path: nothing to do
+  if (!s.includes('\\')) return s;
+  return s
+    .replace(/\\u([0-9a-fA-F]{4})/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '\r')
+    .replace(/\\t/g, '\t')
+    .replace(/\\"/g, '"')
+    .replace(/\\\\/g, '\\');
+}
+
 export interface Testimonial {
   id: string;
   name: string;
@@ -43,11 +62,11 @@ function rowToTestimonial(row: string[]): Testimonial {
   if (isGoogleLayout) {
     return {
       id:        row[0] ?? '',
-      name:      row[1] ?? '',
-      text:      row[2] ?? '',
+      name:      decodeStoredEscapes(row[1] ?? ''),
+      text:      decodeStoredEscapes(row[2] ?? ''),
       rating:    parseInt(row[3] ?? '5', 10) || 5,
-      condition: row[4] ?? '',
-      location:  row[5] ?? '',
+      condition: decodeStoredEscapes(row[4] ?? ''),
+      location:  decodeStoredEscapes(row[5] ?? ''),
       imageUrl:  row[6] ?? '',
       source:    row[7] ?? '',
       clinic:    row[8] ?? '',
@@ -58,11 +77,11 @@ function rowToTestimonial(row: string[]): Testimonial {
   // Old layout
   return {
     id:        row[0] ?? '',
-    name:      row[1] ?? '',
-    location:  row[2] ?? '',
-    condition: row[3] ?? '',
+    name:      decodeStoredEscapes(row[1] ?? ''),
+    location:  decodeStoredEscapes(row[2] ?? ''),
+    condition: decodeStoredEscapes(row[3] ?? ''),
     rating:    parseInt(row[4] ?? '5', 10) || 5,
-    text:      row[5] ?? '',
+    text:      decodeStoredEscapes(row[5] ?? ''),
     status:    (row[6] === 'published' ? 'published' : 'draft'),
     createdAt: row[7] ?? '',
     imageUrl:  row[8] ?? '',
