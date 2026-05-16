@@ -10,7 +10,7 @@ export default function MediaPage() {
       <div className={styles.header}>
         <h1 className={styles.title}>Media Library</h1>
         <p style={{ margin: 0, fontSize: 'var(--text-sm)', color: 'var(--clr-text-lt)' }}>
-          All files are stored in Google Drive. Click a file to copy its public URL.
+          All files are stored on Vercel Blob storage. Click a file to copy its public URL.
         </p>
       </div>
       <MediaClient />

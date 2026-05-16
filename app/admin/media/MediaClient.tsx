@@ -1,5 +1,6 @@
 'use client';
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { upload } from '@vercel/blob/client';
 import s from './media.module.css';
 
 interface DriveFile { id: string; name: string; mimeType: string; webViewLink: string; thumbnailLink: string; createdTime: string; size: string; }
@@ -34,13 +35,16 @@ export default function MediaClient() {
 
   useEffect(() => { loadFiles(); }, [loadFiles]);
 
-  async function upload(file: File) {
+  async function uploadFile(file: File) {
     setUploading(true); setError('');
     try {
-      const fd = new FormData();
-      fd.append('file', file);
-      const res = await fetch('/api/admin/media', { method: 'POST', body: fd });
-      if (!res.ok) { const j = await res.json().catch(() => ({})); throw new Error(j.error || 'Upload failed'); }
+      // Direct browser → Vercel Blob upload (bypasses Vercel's 4.5 MB serverless body limit).
+      // The server endpoint at /api/admin/media just issues a short-lived signed token.
+      await upload(file.name, file, {
+        access: 'public',
+        handleUploadUrl: '/api/admin/media',
+        contentType: file.type || undefined,
+      });
       await loadFiles();
     } catch (err: unknown) { setError(err instanceof Error ? err.message : 'Upload failed'); }
     finally { setUploading(false); }
@@ -48,13 +52,13 @@ export default function MediaClient() {
 
   function handleFileInput(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
-    if (f) upload(f);
+    if (f) uploadFile(f);
   }
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault(); setDragging(false);
     const f = e.dataTransfer.files?.[0];
-    if (f) upload(f);
+    if (f) uploadFile(f);
   }
 
   function copyUrl(url: string) {
@@ -62,7 +66,8 @@ export default function MediaClient() {
   }
 
   const selectedFile = files.find(f => f.id === selected);
-  const selectedUrl  = selectedFile ? `https://drive.google.com/uc?id=${selectedFile.id}` : '';
+  // Vercel Blob: the blob's public URL is already the file id.
+  const selectedUrl  = selectedFile?.webViewLink || '';
 
   return (
     <>
@@ -77,12 +82,12 @@ export default function MediaClient() {
       >
         <div className={s.uploadIcon}>☁️</div>
         <p className={s.uploadText}><strong>Click to upload</strong> or drag &amp; drop</p>
-        <p className={s.uploadText}>Images, PDFs — max 10 MB</p>
+        <p className={s.uploadText}>Images, PDFs — max 25 MB</p>
         <input ref={fileRef} type="file" accept="image/*,.pdf" onChange={handleFileInput} />
       </label>
 
       {uploading && (
-        <div className={s.progress}><span className={s.spinner} /> Uploading to Google Drive…</div>
+        <div className={s.progress}><span className={s.spinner} /> Uploading…</div>
       )}
 
       {selected && selectedUrl && (
