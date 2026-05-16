@@ -1,4 +1,5 @@
 import { MessageCircle, Phone, MapPin } from 'lucide-react';
+import Image from 'next/image';
 import type { LandingConfig } from '@/lib/landing';
 import styles from './AdsFooter.module.css';
 
@@ -14,7 +15,9 @@ export default function AdsFooter({ config }: Props) {
       <div className={styles.container}>
         {/* Final CTA */}
         <div className={styles.ctaBlock}>
-          <span className={styles.logoMark}>𓆸</span>
+          <span className={styles.logoMark}>
+            <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={48} height={48} />
+          </span>
           <h3 className={styles.ctaTitle}>Ready to Start Your Healing Journey?</h3>
           <p className={styles.ctaSub}>
             Speak directly with Dr. Shweta — no waiting rooms, no rushed appointments.

@@ -3,6 +3,7 @@ import { useState, useTransition, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import styles from './AppointmentForm.module.css';
+import { DEFAULT_PRICING, getPricingByCountry, type PriceEntry } from '@/lib/pricing';
 
 const TIME_SLOTS = [
   '9:00 AM – 11:00 AM',
@@ -42,10 +43,24 @@ export default function AppointmentForm() {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const errorRef = useRef<HTMLDivElement>(null);
+  const [pricing, setPricing] = useState<PriceEntry>(DEFAULT_PRICING);
+  const [showPricing, setShowPricing] = useState(false);
 
   useEffect(() => {
     if (submitError) errorRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }, [submitError]);
+
+  // Detect visitor country once to pick the right consultation fee.
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/geo')
+      .then((r) => r.json())
+      .then((d: { country?: string }) => {
+        if (!cancelled) setPricing(getPricingByCountry(d?.country));
+      })
+      .catch(() => { /* keep DEFAULT_PRICING */ });
+    return () => { cancelled = true; };
+  }, []);
 
   function validate(): boolean {
     const e: Partial<FormData> = {};
@@ -69,12 +84,28 @@ export default function AppointmentForm() {
     e.preventDefault();
     if (!validate()) return;
     setSubmitError(null);
+    // Show pricing modal — only submit after the user confirms.
+    setShowPricing(true);
+  }
+
+  function handleDeclinePricing() {
+    // No POST, no email. Just close the modal.
+    setShowPricing(false);
+  }
+
+  function handleConfirmPricing() {
+    setShowPricing(false);
     startTransition(async () => {
       try {
         const res = await fetch('/api/appointment', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
+          body: JSON.stringify({
+            ...form,
+            consultationFee: pricing.fee,
+            consultationCountry: pricing.country,
+            consultationCountryCode: pricing.countryCode,
+          }),
         });
         if (!res.ok) {
           const body = await res.json().catch(() => null);
@@ -191,6 +222,44 @@ export default function AppointmentForm() {
       <p style={{ textAlign: 'center', fontSize: 'var(--text-xs)', color: 'var(--clr-text-lt)', marginTop: 'var(--space-3)' }}>
         We will contact you within 24 hours to confirm your slot. Your information is kept confidential.
       </p>
+
+      {showPricing && (
+        <div
+          className={styles.modalOverlay}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="pricing-modal-title"
+          onClick={handleDeclinePricing}
+        >
+          <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
+            <h3 id="pricing-modal-title" className={styles.modalTitle}>
+              Confirm Consultation
+            </h3>
+            <p className={styles.modalFee}>
+              Consultation charges are <strong>{pricing.fee}</strong>
+            </p>
+            <p className={styles.modalSub}>
+              {pricing.duration} session &middot; pricing for {pricing.country}
+            </p>
+            <div className={styles.modalActions}>
+              <button
+                type="button"
+                className={`btn btn-secondary ${styles.modalBtn}`}
+                onClick={handleDeclinePricing}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className={`btn btn-primary ${styles.modalBtn}`}
+                onClick={handleConfirmPricing}
+              >
+                Agree &amp; Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </form>
   );
 }

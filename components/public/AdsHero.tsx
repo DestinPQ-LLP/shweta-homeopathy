@@ -1,6 +1,7 @@
 'use client';
 import { MessageCircle } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
 import type { LandingConfig } from '@/lib/landing';
 import styles from './AdsHero.module.css';
 
@@ -69,7 +70,9 @@ export default function AdsHero({ config }: Props) {
       <div className={styles.container}>
         {/* Logo / Brand mark */}
         <div className={styles.brand}>
-          <span className={styles.logoMark}>𓆸</span>
+          <span className={styles.logoMark}>
+            <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={48} height={48} />
+          </span>
           <span className={styles.brandName}>Dr. Shweta Goyal</span>
           <span className={styles.brandCreds}>BHMS · MD (Hom) · PG IACH Greece</span>
         </div>

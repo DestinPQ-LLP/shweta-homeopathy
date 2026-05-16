@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import styles from './login.module.css';
 
 export default function AdminLoginPage() {
@@ -35,7 +36,9 @@ export default function AdminLoginPage() {
     <div className={styles.page}>
       <div className={styles.card}>
         <div className={styles.logo}>
-          <div className={styles.logoMark}>𓆸</div>
+          <div className={styles.logoMark}>
+            <Image src="/images/logo.webp" alt="Dr. Shweta's Homoeopathy" width={48} height={48} />
+          </div>
           <div className={styles.logoText}>
             <h2>Dr. Shweta&apos;s</h2>
             <p>ADMIN PANEL</p>

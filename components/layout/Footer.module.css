@@ -104,17 +104,23 @@
 .brand {}
 
 .logoMark {
-  font-size: 28px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-4);
-  backdrop-filter: blur(8px);
+  padding: 6px;
+  overflow: hidden;
+}
+
+.logoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .brandName {
@@ -236,15 +242,16 @@
 .brand {}
 
 .logoMark {
-  font-size: 28px;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-4);
+  padding: 6px;
+  overflow: hidden;
 }
 
 .brandName {

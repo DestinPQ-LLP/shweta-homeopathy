@@ -8,7 +8,10 @@ const ADMIN_EMAIL = process.env.GOOGLE_GMAIL_FROM || '';
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, age, concern, preferredTime, consultationType, message } = body;
+    const {
+      name, email, phone, age, concern, preferredTime, consultationType, message,
+      consultationFee, consultationCountry,
+    } = body;
 
     // Basic validation
     if (!name || !email || !phone || !concern) {
@@ -24,10 +27,12 @@ export async function POST(req: NextRequest) {
         await ensureSheetTab(SHEET_ID, 'Leads', [
           'Timestamp', 'Name', 'Email', 'Phone', 'Age',
           'Concern', 'PreferredTime', 'ConsultationType', 'Status', 'Message',
+          'ConsultationFee', 'Country',
         ]);
-        await appendToSheet(SHEET_ID, 'Leads!A:J', [[
+        await appendToSheet(SHEET_ID, 'Leads!A:L', [[
           timestamp, name, email, phone, age || '',
           concern, preferredTime || '', consultationType, 'New', message || '',
+          consultationFee || '', consultationCountry || '',
         ]]);
       } catch (sheetErr) {
         console.error('[appointment API] Sheets write failed (appointment still processed):', (sheetErr as Error).message);
@@ -40,7 +45,14 @@ export async function POST(req: NextRequest) {
         await sendEmail({
           to: ADMIN_EMAIL,
           subject: `New Appointment Request — ${name} (${concern})`,
-          html: adminNotificationEmail({ Name: name, Email: email, Phone: phone, Age: age || 'N/A', Concern: concern, 'Preferred Time': preferredTime || 'Any', 'Consultation Type': consultationType, Message: message || 'N/A', Timestamp: timestamp }),
+          html: adminNotificationEmail({
+            Name: name, Email: email, Phone: phone, Age: age || 'N/A',
+            Concern: concern, 'Preferred Time': preferredTime || 'Any',
+            'Consultation Type': consultationType,
+            'Consultation Fee': consultationFee || 'N/A',
+            Country: consultationCountry || 'N/A',
+            Message: message || 'N/A', Timestamp: timestamp,
+          }),
         });
         await sendEmail({
           to: email,

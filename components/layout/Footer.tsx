@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Phone, MessageCircle, CalendarCheck, MapPin } from 'lucide-react';
 import styles from './Footer.module.css';
 
@@ -67,7 +68,15 @@ export default function Footer() {
         <div className={styles.grid}>
           {/* Brand */}
           <div className={styles.brand}>
-            <div className={styles.logoMark}>𓆸</div>
+            <div className={styles.logoMark}>
+            <Image
+              src="/images/logo.webp"
+              alt="Dr. Shweta's Homoeopathy"
+              width={48}
+              height={48}
+              className={styles.logoImg}
+            />
+          </div>
             <h3 className={styles.brandName}>Dr. Shweta Goyal</h3>
             <p className={styles.brandCreds}>BHMS (Gold Medalist) · MD (Hom) · PG IACH Greece · DNHE Delhi</p>
             <p className={styles.brandDesc}>
