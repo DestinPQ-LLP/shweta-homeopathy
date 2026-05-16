@@ -539,10 +539,13 @@
 /* 2-column layout: carousel left, rating card right */
 .testimonialsInner {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: minmax(0, 1fr) 360px;
   gap: var(--space-10);
   align-items: start;
+  width: 100%;
+  min-width: 0;
 }
+.testimonialsInner > * { min-width: 0; }
 
 .reviewWidgetWrap {
   display: flex;
@@ -669,7 +672,7 @@
   .aboutGrid { grid-template-columns: 1fr; }
   .aboutImg { max-width: 400px; margin-inline: auto; }
   .testimonialsInner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

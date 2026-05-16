@@ -1,6 +1,8 @@
 .wrap {
   position: relative;
+  width: 100%;
   max-width: 780px;
+  min-width: 0;
   margin-inline: auto;
   display: flex;
   flex-direction: column;
@@ -30,12 +32,17 @@
   padding: var(--space-12) var(--space-10);
   box-shadow: var(--shadow-lg);
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
   text-align: center;
   position: relative;
   z-index: 1;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .stars {
@@ -119,10 +126,18 @@
 
 /* ─── Responsive ───────────────────────────────────────────── */
 @media (max-width: 640px) {
+  .wrap { gap: var(--space-5); padding-top: var(--space-4); }
   .card {
-    padding: var(--space-8) var(--space-6);
+    padding: var(--space-6) var(--space-4);
+    border-radius: var(--radius-lg);
+    gap: var(--space-4);
   }
   .quote {
-    font-size: var(--text-lg);
+    font-size: var(--text-base);
+    line-height: 1.55;
   }
+  .quoteDecor { font-size: 80px; top: -8px; }
+  .author { gap: var(--space-2); }
+  .authorName { font-size: var(--text-sm); }
+  .authorMeta { font-size: var(--text-xs); }
 }
