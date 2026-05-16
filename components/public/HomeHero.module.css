@@ -10,7 +10,7 @@
   overflow: hidden;
   background:
     linear-gradient(rgba(255,255,255,0.78), rgba(255,255,255,0.78)),
-    url('/IMG_0768.PNG') center center / cover no-repeat;
+    url('/IMG_0768.png') center center / cover no-repeat;
   display: flex;
   flex-direction: column;
   margin-top: calc(-1 * var(--header-h));

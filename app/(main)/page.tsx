@@ -123,7 +123,7 @@ export default async function HomePage() {
             {/* Botanicals image */}
             <div className={styles.credWhyBotanical}>
               <Image
-                src="/IMG_0768.PNG"
+                src="/IMG_0768.png"
                 alt="Homeopathic botanicals"
                 fill
                 style={{ objectFit: 'contain' }}
