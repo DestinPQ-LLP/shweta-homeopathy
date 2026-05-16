@@ -158,7 +158,7 @@ export default function BlogEditorForm({ post }: Props) {
         <div className={s.editorWrap}>
           <Editor
             apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
-            value={htmlContent}
+            initialValue={post?.htmlContent ?? ''}
             onEditorChange={(content: string) => setHtmlContent(content)}
             init={{
               height: 520,
