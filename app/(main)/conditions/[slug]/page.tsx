@@ -115,13 +115,18 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
 
   // Live Google reviews — best-effort, never block render
   const social = SOCIAL_PROOF[slug];
-  let liveReviews: PlaceReview[] = [];
+  type LiveReview = PlaceReview & { reviewUrl: string };
+  let liveReviews: LiveReview[] = [];
   if (social && social.reviewLinks.length > 0) {
     try {
       const clinics = await fetchAllClinics();
+      const reviewsUrlFor = (placeId: string) =>
+        `https://search.google.com/local/reviews?placeid=${encodeURIComponent(placeId)}`;
+      const tag = (rs: PlaceReview[] | undefined, placeId: string | undefined): LiveReview[] =>
+        (rs ?? []).map(r => ({ ...r, reviewUrl: placeId ? reviewsUrlFor(placeId) : '' }));
       const merged = [
-        ...(clinics.zirakpur?.reviews ?? []),
-        ...(clinics.budhlada?.reviews ?? []),
+        ...tag(clinics.zirakpur?.reviews, clinics.zirakpur?.placeId),
+        ...tag(clinics.budhlada?.reviews, clinics.budhlada?.placeId),
       ]
         .filter(r => r.text && r.rating >= 4)
         .sort((a, b) => (b.publishTime || '').localeCompare(a.publishTime || ''));
@@ -322,8 +327,12 @@ export default async function ConditionPage({ params }: { params: Promise<{ slug
                 {SOCIAL_PROOF[slug].reviewLinks.map((url, i) => {
                   const r = liveReviews[i];
                   const initial = (r?.authorName || 'G').trim().charAt(0).toUpperCase();
+                  // Prefer the live review's own clinic Google-reviews URL so the
+                  // displayed reviewer matches what opens on click. Falls back to
+                  // the curated short link only when no live review is loaded.
+                  const href = r?.reviewUrl || url;
                   return (
-                    <a key={url} href={url} target="_blank" rel="noopener noreferrer" className={styles.storyCard} style={{ textDecoration: 'none' }}>
+                    <a key={`${url}-${i}`} href={href} target="_blank" rel="noopener noreferrer" className={styles.storyCard} style={{ textDecoration: 'none' }}>
                       <div className={styles.reviewBody}>
                         <div className={styles.reviewStars} aria-label={`${r?.rating ?? 5} star Google review`}>
                           {'★'.repeat(Math.round(r?.rating ?? 5))}{'☆'.repeat(5 - Math.round(r?.rating ?? 5))}
