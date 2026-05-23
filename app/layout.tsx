@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   },
   description:
     "Expert homeopathic care by Dr. Shweta Goyal — BHMS Gold Medalist, MD (Hom), PG IACH Greece. Treating chronic illness, women's health, skin, joint, respiratory & pediatric conditions in Zirakpur, Punjab.",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://drshwetahomoeopathy.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://www.drshwetahomoeopathy.com'),
   icons: {
     icon: '/icon.png',
     apple: '/logo.png',

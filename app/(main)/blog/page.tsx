@@ -33,7 +33,7 @@ export default async function BlogPage({ searchParams }: Props) {
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: "Dr. Shweta's Homoeopathy — Blog",
-    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://drshwetahomoeopathy.com'}/blog`,
+    url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://www.drshwetahomoeopathy.com'}/blog`,
     author: { '@type': 'Person', name: 'Dr. Shweta Goyal' },
   };
 
