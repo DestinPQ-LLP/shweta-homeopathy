@@ -62,7 +62,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" data-scroll-behavior="smooth" className={`${playfair.variable} ${inter.variable}`} suppressHydrationWarning>
       <body>
         <TrackingScripts
-          metaPixelId={tracking.meta_pixel_id}
+          metaPixelId={tracking.meta_pixel_id || process.env.NEXT_PUBLIC_META_PIXEL_ID || ''}
           googleAdsId={tracking.google_ads_id}
           googleAdsLabel={tracking.google_ads_label}
         />
